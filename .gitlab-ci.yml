@@ -18,4 +18,3 @@ slack-sender:
     - /^(master.*)$/
   tags:
     - tekton-utils
-

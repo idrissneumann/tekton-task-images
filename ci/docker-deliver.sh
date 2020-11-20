@@ -9,8 +9,8 @@ VERSION="${3}"
 [[ $ARCH ]] || ARCH="x86"
 
 tag_and_push() {
-  docker tag "comworkio/${2}:latest" "comworkio/${2}:${1}"
-  docker push "comworkio/${2}:${1}"
+  docker tag "comworkio/tekton-utils/${2}:latest" "comworkio/${2}:${1}"
+  docker push "comworkio/tekton-utils/${2}:${1}"
 }
 
 cd "${REPO_PATH}" && git pull origin master || : 
