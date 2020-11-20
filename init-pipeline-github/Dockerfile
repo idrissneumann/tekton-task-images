@@ -15,6 +15,7 @@ RUN chmod +x /search.sh && \
     chmod +x /init-pipeline.sh && \
     apk add --no-cache jq && \
     apk add --no-cache curl && \
+    apk add --no-cache git && \
     pip install requests && \
     pip install git+git://github.com/broadinstitute/cromwell-tools.git@v0.3.1
 
