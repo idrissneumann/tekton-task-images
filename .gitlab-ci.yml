@@ -1,8 +1,9 @@
 stages:
+  - mirror
   - publish
 
 github-mirror:
-  stage: publish
+  stage: mirror
   script:
     - setsid ./ci/github-mirror.sh
   only:
@@ -43,5 +44,17 @@ github-set-status:
       - /^(master.*)$/
     changes:
       - github-set-status/*
+  tags:
+    - tekton-utils
+
+git-fetch-sources:
+  stage: publish
+  script:
+    - setsid ./ci/docker-deliver.sh "git-fetch-sources" "1.0"
+  only:
+    refs:
+      - /^(master.*)$/
+    changes:
+      - git-fetch-sources/*
   tags:
     - tekton-utils

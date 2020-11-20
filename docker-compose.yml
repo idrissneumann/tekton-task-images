@@ -1,6 +1,11 @@
 version: "3.3"
 
 services:
+  git-fetch-sources:
+    image: comworkio/tekton-utils-git-fetch-sources
+    build:
+      context: git-fetch-sources
+      dockerfile: Dockerfile
   github-search-pr:
     image: comworkio/tekton-utils-github-search-pr
     build:
