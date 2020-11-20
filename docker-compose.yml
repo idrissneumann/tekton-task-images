@@ -1,6 +1,11 @@
 version: "3.3"
 
 services:
+  github-search-pr:
+    image: comworkio/tekton-utils-github-search-pr
+    build:
+      context: github-search-pr
+      dockerfile: Dockerfile
   slack-sender:
     image: comworkio/tekton-utils-slack-sender
     build:
