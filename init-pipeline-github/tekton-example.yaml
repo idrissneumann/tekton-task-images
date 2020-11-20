@@ -41,7 +41,7 @@ spec:
         - name: SLACK_CHANNEL
           value: $(params.slackChannel)
         - name: PIPELINE_URL
-          value: $(params.PIPELINE_URL)
+          value: $(params.pipelineUrl)
         - name: GIT_BRANCH
           value: $(params.gitBranchName)
         - name: REPO_NAME
