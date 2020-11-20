@@ -36,3 +36,8 @@ services:
     build:
       context: state-success
       dockerfile: Dockerfile
+  init-pipeline-github:
+    image: comworkio/tekton-utils-init-pipeline-github
+    build:
+      context: .
+      dockerfile: init-pipeline-github/Dockerfile
