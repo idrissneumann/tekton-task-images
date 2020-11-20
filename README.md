@@ -12,6 +12,16 @@ Some of the tasks are picked from the [tekton catalog](https://github.com/tekton
 * Main repo: https://gitlab.comwork.io/oss/tekton-task-images
 * Github backup mirror: https://github.com/idrissneumann/tekton-task-images
 
+## Docker registry
+
+The tasks are available on docker hub, you just have to pull it like that:
+
+```shell
+$ docker pull comworkio/tekton-utils-{task name}
+# for example:
+$ docker pull comworkio/tekton-utils-slack-sender
+```
+
 ## How to use it
 
 For each task, you'll find a README file that will enumerate all the environment variables you need.
