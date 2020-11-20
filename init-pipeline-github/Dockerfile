@@ -1,6 +1,4 @@
-FROM broadinstitute/python-requests:3
-
-ENV JQ_VERSION 1.6
+FROM python:3-alpine
 
 COPY init-pipeline-github/init-pipeline.sh /
 COPY github-search-pr/search.sh /
@@ -15,10 +13,9 @@ RUN chmod +x /search.sh && \
     chmod +x /slack-sender.py && \
     chmod +x /set-status.py && \
     chmod +x /init-pipeline.sh && \
-    apt-get update && apt-get install -y curl wget build-essential && \
-    wget https://github.com/stedolan/jq/releases/download/jq-$JQ_VERSION/jq-$JQ_VERSION.tar.gz && \
-    tar -zxf jq-$JQ_VERSION.tar.gz && \
-    cd jq-$JQ_VERSION && \
-    ./configure && make && sudo make install
+    apk add --no-cache jq && \
+    apk add --no-cache curl && \
+    pip install requests && \
+    pip install git+git://github.com/broadinstitute/cromwell-tools.git@v0.3.1
 
 CMD ["/bin/sh", "/init-pipeline.sh"]
