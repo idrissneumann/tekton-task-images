@@ -1,6 +1,7 @@
 # State success
 
 Use this image as an end step of your tasks in order to set the final state to `success`.
+
 (Usefull when you use the [`github-set-status`](./github-set-status) or the [`slack-result-sender`](./slack-result-sender) tasks).
 
 ## Environment variables to set

@@ -31,8 +31,8 @@ services:
     build:
       context: slack-result-sender
       dockerfile: Dockerfile
-  set-state:
-    image: comworkio/tekton-utils-set-state
+  state-success:
+    image: comworkio/tekton-utils-state-success
     build:
-      context: set-state
+      context: state-success
       dockerfile: Dockerfile
