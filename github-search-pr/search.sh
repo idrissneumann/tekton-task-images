@@ -1,8 +1,5 @@
 #!/bin/sh
 
-apk add --no-cache jq
-apk add --no-cache curl
-
 # Constants
 API_VERSION="v3"
 GITHUB_HOST_URL="api.github.com"

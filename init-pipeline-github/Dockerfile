@@ -12,6 +12,7 @@ RUN chmod +x /search.sh && \
     chmod +x /add-comment.py && \
     chmod +x /slack-sender.py && \
     chmod +x /set-status.py && \
-    chmod +x /init-pipeline.sh
+    chmod +x /init-pipeline.sh && \
+    apt-get update && apt-get install -y jq curl
 
 CMD ["/bin/sh", "/init-pipeline.sh"]
