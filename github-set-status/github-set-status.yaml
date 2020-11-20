@@ -1,0 +1,88 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: github-set-status
+  namespace: tekton-pipelines
+  labels:
+    app.kubernetes.io/version: "0.1"
+  annotations:
+    tekton.dev/pipelines.minVersion: "0.12.1"
+    tekton.dev/tags: github
+    tekton.dev/displayName: "set github status"
+spec:
+  description: >-
+    This task will set a status on a github commit
+  workspaces:
+    - name: git-environment
+  params:
+    - name: REPO_ORG
+      description: |
+        The GitHub organization
+      type: string
+
+    - name: REPO_NAME
+      description: |
+        The GitHub repository name
+      type: string
+
+    - name: TARGET_URL
+      description: |
+        The target URL to associate with this status. This URL will be linked
+        from the GitHub UI to allow users to easily see the source of the
+        status.
+      type: string
+
+    - name: DESCRIPTION
+      description: |
+        A short description of the status.
+      default: "build in progress"
+      type: string
+
+    - name: CONTEXT
+      description: |
+        The GitHub context, A string label to differentiate this status from
+        the status of other systems. ie: "continuous-integration/tekton"
+      default: "continuous-integration/tekton"
+      type: string
+
+    - name: STATE
+      description: |
+        The state of the status. Can be one of the following `error`,
+        `failure`, `pending`, `toguess` or `success`.
+      default: "pending"
+      type: string
+
+    - name: LOG_LEVEL
+      description: the level of log (debug or info)
+      default: info
+      type: string
+  steps:
+    - name: set-status
+      env:
+        - name: LOG_LEVEL
+          value: $(params.LOG_LEVEL)
+        - name: DEFAULT_PIPELINE_STATE
+          value: $(params.STATE)
+        - name: REPO_ORG
+          value: $(params.REPO_ORG)
+        - name: REPO_NAME
+          value: $(params.REPO_NAME)
+        - name: PIPELINE_TARGET_URL
+          value: $(params.TARGET_URL)
+        - name: STATUS_CONTEXT
+          value: $(params.CONTEXT)
+        - name: STATUS_DESCRIPTION
+          value: $(params.DESCRIPTION)
+        - name: TEKTON_WORKSPACE_PATH
+          value: $(workspaces.git-environment.path)
+        - name: GITHUBTOKEN
+          valueFrom:
+            secretKeyRef:
+              name: github-access
+              key: password
+
+      image: python:3
+      image: comworkio/tekton-utils-github-set-status:1.0
+      workingDir: /workspace/git-input
+      command: ["/set-status.py"]

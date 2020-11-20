@@ -22,4 +22,4 @@ Composite task that will use:
 
 ## Tekton example
 
-See the [tekton-example.yaml](./tekton-example.yaml)
+See the [example](./init-pipeline-github.yaml)
