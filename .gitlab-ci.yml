@@ -99,7 +99,7 @@ state-success:
 init-pipeline-github:
   stage: publish-composite
   script:
-    - setsid ./ci/docker-deliver.sh "init-pipeline-github" "1.0"
+    - setsid ./ci/docker-deliver.sh "init-pipeline-github" "1.1"
   only:
     refs:
       - /^(master.*)$/
