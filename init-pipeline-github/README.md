@@ -16,3 +16,9 @@ Composite task that will use:
 * `REPO_ORG`: github repo org
 * `REPO_NAME`: github repo name
 * `GIT_BRANCH`: git branch name
+* `GITHUBTOKEN`: github token (from a secret)
+* `SLACK_TOKEN`: slack token (from a secret)
+* `SLACK_CHANNEL`: slack channel
+## Tekton example
+
+See the [tekton-example.yaml](./tekton-example.yaml)
