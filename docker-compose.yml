@@ -2,7 +2,7 @@ version: "3.3"
 
 services:
   slack-sender:
-    image: comworkio/tekton-utils/slack-sender
+    image: comworkio/tekton-utils-slack-sender
     build:
       context: slack-sender
       dockerfile: Dockerfile
