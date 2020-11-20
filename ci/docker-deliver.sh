@@ -14,7 +14,7 @@ tag_and_push() {
 
 cd "${REPO_PATH}" && git pull origin master || : 
 
-COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose build "${IMAGE}"
+COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose build --no-cache "${IMAGE}"
 
 echo "${DOCKER_ACCESS_TOKEN}" | docker login --username comworkio --password-stdin
 

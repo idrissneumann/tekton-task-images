@@ -19,6 +19,7 @@ Composite task that will use:
 * `GITHUBTOKEN`: github token (from a secret)
 * `SLACK_TOKEN`: slack token (from a secret)
 * `SLACK_CHANNEL`: slack channel
+
 ## Tekton example
 
 See the [tekton-example.yaml](./tekton-example.yaml)
