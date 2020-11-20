@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
-  name: git-fetch-sources
+  name: init-pipeline
   namespace: tekton-pipelines
 spec:
   description: >-
