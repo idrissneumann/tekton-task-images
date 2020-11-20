@@ -82,3 +82,15 @@ git-fetch-sources:
       - git-fetch-sources/*
   tags:
     - tekton-utils
+
+set-state:
+  stage: publish
+  script:
+    - setsid ./ci/docker-deliver.sh "set-state" "1.0"
+  only:
+    refs:
+      - /^(master.*)$/
+    changes:
+      - set-state/*
+  tags:
+    - tekton-utils
