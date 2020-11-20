@@ -47,6 +47,18 @@ github-set-status:
   tags:
     - tekton-utils
 
+github-add-comment:
+  stage: publish
+  script:
+    - setsid ./ci/docker-deliver.sh "github-add-comment" "1.0"
+  only:
+    refs:
+      - /^(master.*)$/
+    changes:
+      - ggithub-add-comment/*
+  tags:
+    - tekton-utils
+
 git-fetch-sources:
   stage: publish
   script:
