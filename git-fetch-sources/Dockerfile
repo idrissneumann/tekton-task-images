@@ -4,4 +4,4 @@ COPY fetch-sources.sh /
 
 RUN chmod +x "/fetch-sources.sh"
 
-CMD ["/bin/sh", "/fetch-sources.sh"]
+CMD ["/fetch-sources.sh"]

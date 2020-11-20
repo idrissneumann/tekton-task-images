@@ -1,7 +1,6 @@
 stages:
   - mirror
   - publish
-  - publish-composite
 
 github-mirror:
   stage: mirror
@@ -9,6 +8,22 @@ github-mirror:
     - setsid ./ci/github-mirror.sh
   only:
     - /^(master.*)$/
+  tags:
+    - tekton-utils
+
+init-pipeline-github:
+  stage: publish
+  script:
+    - setsid ./ci/docker-deliver.sh "init-pipeline-github" "1.6"
+  only:
+    refs:
+      - /^(master.*)$/
+    changes:
+      - init-pipeline-github/*
+      - git-fetch-sources/*
+      - github-add-comment/*
+      - github-set-status/*
+      - slack-sender/*
   tags:
     - tekton-utils
 
@@ -96,18 +111,3 @@ state-success:
   tags:
     - tekton-utils
 
-init-pipeline-github:
-  stage: publish-composite
-  script:
-    - setsid ./ci/docker-deliver.sh "init-pipeline-github" "1.4"
-  only:
-    refs:
-      - /^(master.*)$/
-    changes:
-      - init-pipeline-github/*
-      - git-fetch-sources/*
-      - github-add-comment/*
-      - github-set-status/*
-      - slack-sender/*
-  tags:
-    - tekton-utils

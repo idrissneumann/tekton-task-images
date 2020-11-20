@@ -19,4 +19,4 @@ RUN chmod +x /search.sh && \
     pip install requests && \
     pip install git+git://github.com/broadinstitute/cromwell-tools.git@v0.3.1
 
-CMD ["/bin/sh", "/init-pipeline.sh"]
+CMD ["/init-pipeline.sh"]

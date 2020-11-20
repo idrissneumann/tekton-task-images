@@ -39,9 +39,9 @@ if os.environ.get("LAST_COMMIT") is None:
 
 if state == "toguess":
     if os.environ.get("PIPELINE_STATE") is not None:
-    state = os.environ['PIPELINE_STATE']
+        state = os.environ['PIPELINE_STATE']
     else:
-    state = "success"
+        state = "success"
 
 if log_level == "debug" or log_level == "DEBUG":
     print("[github-set-status][debug] last_commit = " + os.environ['LAST_COMMIT'] + ", state = " + state);

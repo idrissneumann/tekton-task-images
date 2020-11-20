@@ -14,7 +14,7 @@ echo "export REPO_ORG=${REPO_ORG}" >> "${env_script}"
 echo "export REPO_NAME=${REPO_NAME}" >> "${env_script}"
 echo "export WORKING_DIR=/workspace/git-\$REPO_ORG-\$REPO_NAME" >> "${env_script}"
 source "${env_script}"
-echo "source env.sh" > "${log_script}"
+echo "source ${env_script}" > "${log_script}"
 
 if [ "${LOG_LEVEL}" = "debug" ] || [ "${LOG_LEVEL}" = "DEBUG" ]; then
   echo "echo '[init][debug] Environment variables values'"  >> "${log_script}"
@@ -23,7 +23,7 @@ if [ "${LOG_LEVEL}" = "debug" ] || [ "${LOG_LEVEL}" = "DEBUG" ]; then
   echo 'ls -la' >> "${log_script}"
 fi
 
-echo "source env.sh" > "${git_script}"
+echo "source ${env_script}" > "${git_script}"
 [ "${LOG_LEVEL}" = "debug" ] || [ "${LOG_LEVEL}" = "DEBUG" ] && echo "echo '[git][1/4] installation'" >> "${git_script}"
 echo "apk add --no-cache git" >> "${git_script}"
 [ "${LOG_LEVEL}" = "debug" ] || [ "${LOG_LEVEL}" = "DEBUG" ] && echo "echo '[git][2/4] pull'" >> "${git_script}"
