@@ -33,3 +33,15 @@ github-search-pr:
       - github-search-pr/*
   tags:
     - tekton-utils
+
+github-set-status:
+  stage: publish
+  script:
+    - setsid ./ci/docker-deliver.sh "github-set-status" "1.0"
+  only:
+    refs:
+      - /^(master.*)$/
+    changes:
+      - github-set-status/*
+  tags:
+    - tekton-utils

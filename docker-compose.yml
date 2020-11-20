@@ -6,6 +6,11 @@ services:
     build:
       context: github-search-pr
       dockerfile: Dockerfile
+  github-set-status:
+    image: comworkio/tekton-utils-github-set-status
+    build:
+      context: github-set-status
+      dockerfile: Dockerfile
   slack-sender:
     image: comworkio/tekton-utils-slack-sender
     build:
