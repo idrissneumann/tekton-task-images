@@ -18,7 +18,7 @@ slack-sender:
     refs:
       - /^(master.*)$/
     changes:
-      - slack-sender
+      - slack-sender/*
   tags:
     - tekton-utils
 
@@ -30,6 +30,6 @@ github-search-pr:
     refs:
       - /^(master.*)$/
     changes:
-      - github-search-pr
+      - github-search-pr/*
   tags:
     - tekton-utils
