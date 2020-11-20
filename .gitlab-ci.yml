@@ -13,7 +13,7 @@ github-mirror:
 slack-sender:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "arm" "slack-sender" "1.0"
+    - setsid ./ci/docker-deliver.sh "slack-sender" "1.0"
   only:
     - /^(master.*)$/
   tags:
