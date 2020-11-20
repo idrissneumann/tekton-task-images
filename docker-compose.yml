@@ -26,3 +26,8 @@ services:
     build:
       context: slack-sender
       dockerfile: Dockerfile
+  slack-result-sender:
+    image: comworkio/tekton-utils-slack-result-sender
+    build:
+      context: slack-result-sender
+      dockerfile: Dockerfile

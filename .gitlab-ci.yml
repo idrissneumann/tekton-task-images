@@ -23,6 +23,18 @@ slack-sender:
   tags:
     - tekton-utils
 
+slack-result-sender:
+  stage: publish
+  script:
+    - setsid ./ci/docker-deliver.sh "slack-result-sender" "1.0"
+  only:
+    refs:
+      - /^(master.*)$/
+    changes:
+      - slack-result-sender/*
+  tags:
+    - tekton-utils
+
 github-search-pr:
   stage: publish
   script:
