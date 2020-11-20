@@ -15,6 +15,21 @@ slack-sender:
   script:
     - setsid ./ci/docker-deliver.sh "slack-sender" "1.0"
   only:
-    - /^(master.*)$/
+    refs:
+      - /^(master.*)$/
+    changes:
+      - slack-sender
+  tags:
+    - tekton-utils
+
+github-search-pr:
+  stage: publish
+  script:
+    - setsid ./ci/docker-deliver.sh "github-search-pr" "1.0"
+  only:
+    refs:
+      - /^(master.*)$/
+    changes:
+      - github-search-pr
   tags:
     - tekton-utils
