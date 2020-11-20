@@ -2,4 +2,6 @@ FROM alpine
 
 COPY state-success.sh /
 
-CMD ["/bin/sh", "-c", "/state-success.sh"]
+RUN chmod +x /state-success.sh
+
+CMD ["/bin/sh", "/state-success.sh"]

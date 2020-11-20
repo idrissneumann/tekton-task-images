@@ -7,4 +7,11 @@ COPY github-add-comment/add-comment.py /
 COPY git-fetch-sources/fetch-sources.sh /
 COPY slack-sender/slack-sender.py /
 
-CMD ["/bin/sh", "-c", "/init-pipeline.sh"]
+RUN chmod +x /search.sh && \
+    chmod +x /fetch-sources.sh && \
+    chmod +x /add-comment.py && \
+    chmod +x /slack-sender.py && \
+    chmod +x /set-status.py && \
+    chmod +x /init-pipeline.sh
+
+CMD ["/bin/sh", "/init-pipeline.sh"]

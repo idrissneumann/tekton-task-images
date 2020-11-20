@@ -62,3 +62,4 @@ spec:
               key: token
       image: comworkio/tekton-utils-init-pipeline-github:latest
       workingDir: /workspace/git-input
+      command: ["/init-pipeline.sh"]
