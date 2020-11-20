@@ -15,7 +15,7 @@ curl -H "Authorization: Bearer ${GITHUBTOKEN}"  -H "Accept: application/vnd.gith
 sed -i "s/${GITHUB_HOST_URL}\/repos\(\/${REPO_ORG}\/${REPO_NAME}\)\/issues/github\.com\1\/pull/g" $pr_json_file
 export LAST_PULL_REQUEST_URL="$(head -n1 $pr_json_file|jq -cr ".url")"
 
-if [[ ! $LAST_COMMIT && ! $LAST_PULL_REQUEST_URL ]]; then
+if [ -z "${LAST_COMMIT}" ] && [ -z "${LAST_PULL_REQUEST_URL}" ]; then
   echo "[github-search-pr] No need to continue this pipeline, no pull request or commit found: LAST_COMMIT=$LAST_COMMIT, LAST_PULL_REQUEST_URL=$LAST_PULL_REQUEST_URL"
   exit 1
 fi
@@ -27,7 +27,7 @@ echo "export LAST_PULL_REQUEST_ID=\"$(head -n1 $pr_json_file|jq -cr ".url"|awk -
 echo "export LAST_PULL_REQUEST_INTERNAL_ID=\"$(head -n1 $pr_json_file|jq -cr ".internal_id")\"" >> $pr_env_file
 echo "export PIPELINE_STATE=\"failure\"" >> $pr_env_file
 
-if [[ $LOG_LEVEL == "debug" || $LOG_LEVEL == "DEBUG" ]]; then
+if [ "${LOG_LEVEL}" = "debug" ] || [ "${LOG_LEVEL}" = "DEBUG" ]; then
   echo "[github-search-pr][debug] Content of $pr_json_file :"
   cat $pr_json_file
 fi
@@ -35,7 +35,7 @@ fi
 echo "[github-search-pr][info] Content of $pr_env_file :"
 cat $pr_env_file
 
-if [[ $LOG_LEVEL == "debug" || $LOG_LEVEL == "DEBUG" ]]; then
+if [ "${LOG_LEVEL}" = "debug" ] || [ "${LOG_LEVEL}" = "DEBUG" ]; then
   echo "[github-search-pr][debug] Environment variables values"
   env|grep -iv token|grep -iv password
 fi
