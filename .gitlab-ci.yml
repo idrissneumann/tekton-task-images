@@ -1,0 +1,21 @@
+stages:
+  - publish
+
+github-mirror:
+  stage: publish
+  script:
+    - setsid ./ci/github-mirror.sh
+  only:
+    - /^(master.*)$/
+  tags:
+    - tekton-utils
+
+slack-sender:
+  stage: publish
+  script:
+    - setsid ./ci/docker-deliver.sh "arm" "slack-sender" "1.0"
+  only:
+    - /^(master.*)$/
+  tags:
+    - tekton-utils
+
