@@ -91,4 +91,4 @@ spec:
             secretKeyRef:
               name: slack-token
               key: token
-      command: ["/slack-sender-result.py"]
+      command: ["/slack-result-sender.py"]
