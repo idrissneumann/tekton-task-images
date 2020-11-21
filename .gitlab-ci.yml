@@ -54,7 +54,7 @@ slack-sender:
 slack-result-sender:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "slack-result-sender" "1.1"
+    - setsid ./ci/docker-deliver.sh "slack-result-sender" "1.2"
   only:
     refs:
       - /^(master.*)$/

@@ -53,7 +53,7 @@ if PIPELINE_STATE == "toguess":
         PIPELINE_STATE = os.environ['PIPELINE_STATE']
 
 last_pr = ""
-if os.environ.get("LAST_PULL_REQUEST_URL") is None:
+if os.environ.get("LAST_PULL_REQUEST_URL") is not None:
     last_pr = os.environ['LAST_PULL_REQUEST_URL']
 
 if os.environ.get("LAST_COMMIT") is not None and (LOG_LEVEL == "debug" or LOG_LEVEL == "DEBUG"):
