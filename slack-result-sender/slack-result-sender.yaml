@@ -58,7 +58,7 @@ spec:
       default: toguess
   steps:
     - name: send-message
-      image: comworkio/tekton-utils-slack-sender-result:latest
+      image: comworkio/tekton-utils-slack-result-sender:latest
       env:
         - name: LOG_LEVEL
           value: $(params.logLevel)
