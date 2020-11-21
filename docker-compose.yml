@@ -47,12 +47,12 @@ services:
       context: .
       dockerfile: init-pipeline-github/Dockerfile
   destroy-pvc:
-    image: comworkio/tekton-utils-init-destroy-pvc
+    image: comworkio/tekton-utils-destroy-pvc
     build:
       context: .
       dockerfile: destroy-pvc/Dockerfile
   destroy-pods:
-    image: comworkio/tekton-utils-init-destroy-pods
+    image: comworkio/tekton-utils-destroy-pods
     build:
       context: .
       dockerfile: destroy-pods/Dockerfile

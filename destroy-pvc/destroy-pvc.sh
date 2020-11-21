@@ -7,4 +7,4 @@ sleep 5
 cat kubectl.log
 
 [ -f ~/.kube/config.old ] && cp -f ~/.kube/config.old ~/.kube/config
-exit 0
+
