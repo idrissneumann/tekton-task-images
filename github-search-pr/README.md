@@ -1,6 +1,7 @@
 # Github search pull requests
 
 Search the opened pull requests from a branch on github.
+
 ## Environment variables to set
 
 * `LOG_LEVEL`: log level (`debug` or `info`)
