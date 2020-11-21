@@ -48,9 +48,13 @@ proc.communicate()
 
 if PIPELINE_STATE == "toguess":
     if os.environ.get("PIPELINE_STATE") is None:
-    PIPELINE_STATE = "success"
+        PIPELINE_STATE = "success"
     else:
-    PIPELINE_STATE = os.environ['PIPELINE_STATE']
+        PIPELINE_STATE = os.environ['PIPELINE_STATE']
+
+last_pr = ""
+if os.environ.get("LAST_PULL_REQUEST_URL") is None:
+    last_pr = os.environ['LAST_PULL_REQUEST_URL']
 
 if os.environ.get("LAST_COMMIT") is not None and (LOG_LEVEL == "debug" or LOG_LEVEL == "DEBUG"):
     print("[slack-result-sender][debug] last_commit = " + os.environ['LAST_COMMIT'] + ", state = " + PIPELINE_STATE);
@@ -58,12 +62,12 @@ if os.environ.get("LAST_COMMIT") is not None and (LOG_LEVEL == "debug" or LOG_LE
 if PIPELINE_STATE == "success":
     state_str = " "
     publish = not str2bool(ONLY_ON_FAILURE)
-    msg_result = MSG_RESULT_TPL.format(GIT_REPO, GIT_BRANCH, SUCCESS_MESSAGE, state_str, os.environ['LAST_PULL_REQUEST_URL'], PIPELINE_URL)
+    msg_result = MSG_RESULT_TPL.format(GIT_REPO, GIT_BRANCH, SUCCESS_MESSAGE, state_str, last_pr, PIPELINE_URL)
     color_result = SUCCESS_COLOR
 else:
     state_str = STATE_FAIL_TPL.format(PIPELINE_STATE)
     publish = True
-    msg_result = MSG_RESULT_TPL.format(GIT_REPO, GIT_BRANCH, FAILURE_MESSAGE, state_str, os.environ['LAST_PULL_REQUEST_URL'], PIPELINE_URL)
+    msg_result = MSG_RESULT_TPL.format(GIT_REPO, GIT_BRANCH, FAILURE_MESSAGE, state_str, last_pr, PIPELINE_URL)
     color_result = FAILURE_COLOR
 
 if LOG_LEVEL == "debug" or LOG_LEVEL == "DEBUG":
