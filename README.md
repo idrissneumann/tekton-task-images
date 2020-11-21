@@ -1,6 +1,6 @@
 # Tekton tasks images
 
-Some cloud native image that will handle for you some common tasks like:
+Some cloud native image that will handle for you some common tekton tasks like:
 
 * Slack publishing
 * Github comment on pull requests
@@ -24,7 +24,9 @@ $ docker pull comworkio/tekton-utils-slack-sender
 
 ## How to use it
 
-For each task, you'll find a README file that will enumerate all the environment variables you need.
+For each directory which corresponds to one task, you'll find a README file that will enumerate all the environment variables you need.
+
+Sometimes you'll even find a tekton task yaml example in those directories.
 
 For each environment variable, you need to set it from Task parameter like that:
 
@@ -52,3 +54,14 @@ env:
   - name: TEKTON_WORKSPACE_PATH
     value: $(workspaces.NAME_OF_YOUR_WORKSPACE.path)
 ```
+
+## The result of those tasks in action
+
+Here's some screenshots of how those tasks help us to achieve beautiful and working tekton pipelines.
+
+![tekton_pipeline](images/tekton_pipeline.jpeg)
+
+![tekton_logs](images/tekton_logs.jpeg)
+
+![github_pr](images/github_pr.jpeg)
+
