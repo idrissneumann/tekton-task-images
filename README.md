@@ -1,12 +1,13 @@
 # Tekton tasks images
 
-Some cloud native image that will handle for you some common tekton tasks like:
+Some cloud native images that will handle for you some common tekton tasks like:
 
 * Slack publishing
 * Github comment on pull requests
 * Etc
 
 Some of the tasks are picked from the [tekton catalog](https://github.com/tektoncd/catalog) and updated a little bit.
+
 ## Git repositories
 
 * Main repo: https://gitlab.comwork.io/oss/tekton-task-images
