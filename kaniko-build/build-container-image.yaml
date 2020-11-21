@@ -1,0 +1,105 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: build-container-image
+  namespace: tekton-pipelines
+spec:
+  description: >-
+    This Task builds source into a container image using Google's kaniko tool.
+    Kaniko doesn't depend on a Docker daemon and executes each
+    command within a Dockerfile completely in userspace. This enables
+    building container images in environments that can't easily or
+    securely run a Docker daemon, such as a standard Kubernetes cluster.
+  workspaces:
+    - name: git-environment
+  params:
+    - name: GIT_BRANCH
+      description: Name of the git branch.
+    - name: IMAGE
+      description: Name (reference) of the image to build.
+    - name: DOCKERFILE
+      description: Path to the Dockerfile to build.
+      default: ./Dockerfile
+    - name: CONTEXT
+      description: The build context used by Kaniko.
+      default: ./
+    - name: EXTRA_ARGS
+      description: Kaniko extra args (for example --target for multistage build)
+      default: ""
+    - name: LOG_LEVEL
+      description: The level of logs
+      default: info
+    - name: ENABLE_CACHE
+      description: enable the cache (disabled or enabled)
+      default: "disabled"
+    - name: CACHE_TTL
+      description: cache ttl
+      default: 1h
+    - name: REGISTRY
+      description: conatiners images registry
+    - name: IMAGE_TAG
+      description: image tag
+      default: latest
+    - name: FORCE_PROJECT_UNSTABLE
+      description: "if enabled, always deliver the image on the unstable image path"
+      default: "disabled"
+    - name: PROJECT_STABLE
+      description: "path for stable images (that will be delivered in production)"
+      default: stable
+    - name: PROJECT_UNSTABLE
+      description: "path for unstable images (that will be delivered before the PR merge)"
+      default: ci
+    - name: IMAGE_NAME_PERSISTENT_FILE
+      default: image_result.name
+  results:
+    - name: IMAGE-DIGEST
+      description: Digest of the image just built.
+  steps:
+    - name: build-and-push
+      workingDir: $(workspaces.git-environment.path)
+      image: comworkio/tekton-utils-kaniko-build:latest
+      command: ["/build.sh"]
+      # specifying DOCKER_CONFIG is required to allow kaniko to detect docker credential
+      # https://github.com/tektoncd/pipeline/pull/706
+      env:
+        - name: DOCKER_CONFIG
+          value: /tekton/home/.docker
+        - name: LOG_LEVEL
+          value: $(params.LOG_LEVEL)
+        - name: IMAGE_NAME_PERSISTENT_FILE
+          value: $(params.IMAGE_NAME_PERSISTENT_FILE)
+        - name: ENABLE_CACHE
+          value: $(params.ENABLE_CACHE)
+        - name: DOCKER_REGISTRY
+          value: $(params.REGISTRY)
+        - name: FORCE_PROJECT_UNSTABLE
+          value: $(params.FORCE_PROJECT_UNSTABLE)
+        - name: PROJECT_STABLE
+          value: $(params.PROJECT_STABLE)
+        - name: PROJECT_UNSTABLE
+          value: $(params.PROJECT_UNSTABLE)
+        - name: TEKTON_WORKSPACE_PATH
+          value: $(workspaces.git-environment.path)
+        - name: GIT_BRANCH
+          value: $(params.GIT_BRANCH)
+        - name: CONTEXT
+          value: $(params.CONTEXT)
+      securityContext:
+        runAsUser: 0
+    - name: write-digest
+      workingDir: $(workspaces.git-environment.path)
+      image: gcr.io/tekton-releases/github.com/tektoncd/pipeline/cmd/imagedigestexporter:v0.16.2
+      env:
+        - name: IMAGE_NAME_PERSISTENT_FILE
+          value: $(params.IMAGE_NAME_PERSISTENT_FILE)
+      command: ["/ko-app/imagedigestexporter"]
+      args:
+        - -images=[{"name":"`cat $IMAGE_NAME_PERSISTENT_FILE`","type":"image","url":"`cat $IMAGE_NAME_PERSISTENT_FILE`","digest":"","OutputImageDir":"$(workspaces.git-environment.path)/$(params.CONTEXT)/image-digest"}] 
+        - -terminationMessagePath=$(params.CONTEXT)/image-digested
+      securityContext:
+        runAsUser: 0
+    - name: digest-to-results
+      workingDir: $(workspaces.git-environment.path)
+      image: stedolan/jq
+      script: |
+        cat $(params.CONTEXT)/image-digested | jq '.[0].value' -rj | tee /tekton/results/IMAGE-DIGEST
