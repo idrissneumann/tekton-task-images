@@ -36,6 +36,11 @@ services:
     build:
       context: state-success
       dockerfile: Dockerfile
+  kaniko-build:
+    image: comworkio/tekton-utils-kaniko-build
+    build:
+      context: kaniko-build
+      dockerfile: Dockerfile
   init-pipeline-github:
     image: comworkio/tekton-utils-init-pipeline-github
     build:

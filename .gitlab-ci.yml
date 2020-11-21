@@ -27,6 +27,18 @@ init-pipeline-github:
   tags:
     - tekton-utils
 
+kaniko-build:
+  stage: publish
+  script:
+    - setsid ./ci/docker-deliver.sh "kaniko-build" "1.0"
+  only:
+    refs:
+      - /^(master.*)$/
+    changes:
+      - kaniko-build/*
+  tags:
+    - tekton-utils
+
 slack-sender:
   stage: publish
   script:
