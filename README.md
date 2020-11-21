@@ -6,7 +6,7 @@ Some cloud native images that will handle for you some common tekton tasks like:
 * Github comment on pull requests
 * Etc
 
-Some of the tasks are picked from the [tekton catalog](https://github.com/tektoncd/catalog) and updated a little bit.
+It's like the [tekton catalog](https://github.com/tektoncd/catalog) but with images that are built in order to be ready to be used and directly available from the docker hub.
 
 ## Git repositories
 
