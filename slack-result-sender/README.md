@@ -18,3 +18,7 @@ Send a result message to a Slack channel.
 * `ONLY_ON_FAILURE`: slack only on failure (`yes` or `no`)
 * `SUCCESS_MESSAGE`: message displayed in case of success
 * `FAILURE_MESSAGE`: message displayed in case of failure
+
+## Tekton example
+
+See the [example](./slack-sender-result.yaml)

@@ -1,0 +1,94 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: slack-result-sender
+  labels:
+    app.kubernetes.io/version: "0.1"
+  annotations:
+    tekton.dev/pipelines.minVersion: "0.12.1"
+    tekton.dev/tags: messaging
+spec:
+  description: >-
+    This tasks post a simple message to a slack channel.
+    The content of this message can change depending on a build result that will be read using a tekton workspace.
+  workspaces:
+    - name: git-environment
+  params:
+    - name: gitBranchName
+      type: string
+      description: the branch name
+    - name: repoOrg
+      type: string
+      description: the git organization name
+    - name: repoName
+      type: string
+      description: the git repo name
+    - name: channel
+      type: string
+      description: channel id or channel name
+      default: "tekton"
+    - name: pipelineUrl
+      type: string
+      description: the pipeline url
+    - name: successMessage
+      type: string
+      description: plain text message
+      default: "Success :veryexcited: !"
+    - name: failureMessage
+      type: string
+      description: plain text message
+      default: "Fail :sob: !"
+    - name: onlyOnFailure
+      type: string
+      description: Publish only on failure (True or False)
+      default: "False"
+    - name: avatar
+      type: string
+      description: emojji code that will be used as a avatar
+      default: ":tekton:"
+    - name: username
+      description: the usename that will be shown
+      default: "Tekton"
+    - name: logLevel
+      type: string
+      description: the level of log (debug or info)
+      default: info
+    - name: state
+      description: state that prevail on the PIPELINE_STATE environment variable if it's set to (success, pending, failure)
+      default: toguess
+  steps:
+    - name: send-message
+      image: comworkio/tekton-utils-slack-sender-result:latest
+      env:
+        - name: LOG_LEVEL
+          value: $(params.logLevel)
+        - name: DEFAULT_PIPELINE_STATE
+          value: $(params.state)
+        - name: REPO_ORG
+          value: $(params.repoOrg)
+        - name: REPO_NAME
+          value: $(params.repoName)
+        - name: SLACK_USERNAME
+          value: $(params.usename)
+        - name: SLACK_EMOJI_AVATAR
+          value: $(params.avatar)
+        - name: SLACK_CHANNEL
+          value: $(params.channel)
+        - name: GIT_BRANCH
+          value: $(params.gitBranchName)
+        - name: ONLY_ON_FAILURE
+          value: $(params.onlyOnFailure)
+        - name: SUCCESS_MESSAGE
+          value: $(params.successMessage)
+        - name: FAILURE_MESSAGE
+          value: $(params.failureMessage)
+        - name: TEKTON_WORKSPACE_PATH
+          value: $(workspaces.git-environment.path)
+        - name: PIPELINE_URL
+          value: $(params.pipelineUrl)
+        - name: SLACK_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: slack-token
+              key: token
+      command: ["/slack-sender-result.py"]

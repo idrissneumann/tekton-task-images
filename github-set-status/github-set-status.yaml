@@ -83,6 +83,6 @@ spec:
               key: password
 
       image: python:3
-      image: comworkio/tekton-utils-github-set-status:1.0
+      image: comworkio/tekton-utils-github-set-status:latest
       workingDir: /workspace/git-input
       command: ["/set-status.py"]
