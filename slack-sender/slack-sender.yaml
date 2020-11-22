@@ -1,0 +1,47 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: slack-sender
+  labels:
+    app.kubernetes.io/version: "0.1"
+  annotations:
+    tekton.dev/pipelines.minVersion: "0.12.1"
+    tekton.dev/tags: messaging
+spec:
+  description: >-
+    This tasks post a simple message to a slack channel.
+    - name: channel
+      type: string
+      description: channel id or channel name
+      default: "tekton"
+    - name: message
+      type: string
+      description: plain text message
+    - name: avatar
+      type: string
+      description: emojji code that will be used as a avatar
+      default: ":tekton:"
+    - name: username
+      type: string
+      description: the usename that will be shown
+      default: "Tekton"
+  steps:
+    - name: send-message
+      image: comworkio/tekton-utils-slack-sender:latest
+      env:
+        - name: SLACK_USERNAME
+          value: $(params.usename)
+        - name: SLACK_EMOJI_AVATAR
+          value: $(params.avatar)
+        - name: SLACK_CHANNEL
+          value: $(params.channel)
+        - name: SLACK_MSG
+          value: $(params.message)
+        - name: SLACK_COLOR
+          value: $(params.slackColor)
+        - name: SLACK_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: slack-token
+              key: token
+      command: ["/slack-sender.py"]
