@@ -1,0 +1,50 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: yarn-ci
+  namespace: tekton-pipelines
+spec:
+  description: >-
+    Run CI task like unit tests on yarn based project (like angular or react frontend)
+  workspaces:
+    - name: git-environment
+  params:
+    - name: LOG_LEVEL
+      description: The level of logs
+      default: info
+    - name: TARGET
+      description: target of yarn (test or test:coverage). You could set only_install to only run yarn install
+    - name: NODE_VERSION
+      description: node version
+      default: "12"
+    - name: INSTALL_EXTRA_OPT
+      description: yarn install options
+      default: ""
+    - name: YARN_INSTALL
+      description: enabled if you want to run yarn install or else disabled
+      default: "enabled"
+  steps:
+    - name: yarn-tests
+      workingDir: $(workspaces.git-environment.path)
+      image: comworkio/tekton-utils-yarn-ci-node$(params.NODE_VERSION):latest
+      env:
+        - name: LOG_LEVEL
+          value: $(params.LOG_LEVEL)
+        - name: TARGET
+          value: $(params.TARGET)
+        - name: INSTALL_EXTRA_OPT
+          value: $(params.INSTALL_EXTRA_OPT)
+        - name: YARN_INSTALL
+          value: $(params.YARN_INSTALL)
+        - name: TEKTON_WORKSPACE_PATH
+          value: $(workspaces.git-environment.path)
+      command: ["/yarn-ci.sh"]
+    - name: success
+      image: comworkio/tekton-utils-state-success:latest
+      workingDir: $(workspaces.git-environment.path)
+      env:
+        - name: LOG_LEVEL
+          value: $(params.LOG_LEVEL)
+        - name: TEKTON_WORKSPACE_PATH
+          value: $(workspaces.git-environment.path)
+      command: ["/state-success.sh"]
