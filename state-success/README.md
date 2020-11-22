@@ -11,4 +11,4 @@ Use this image as an end step of your tasks in order to set the final state to `
 
 ## Tekton example
 
-See the [example](./state-success.yaml)
+See the [example](./tekton-example.yaml)
