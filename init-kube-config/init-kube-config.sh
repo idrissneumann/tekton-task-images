@@ -7,17 +7,17 @@ echo 'apiVersion: v1
 kind: Config
 clusters:
 - name: "'$KUBE_ENV'"
-    cluster:
+  cluster:
     server: "'$KUBE_URL'"
 
 users:
 - name: "'$KUBE_ENV'"
-    user:
+  user:
     token: "'$KUBE_TOKEN'"
 
 contexts:
 - name: "'$KUBE_ENV'"
-    context:
+  context:
     user: "'$KUBE_ENV'"
     cluster: "'$KUBE_ENV'"
 
