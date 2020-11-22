@@ -9,3 +9,7 @@ Send a message to a Slack channel.
 * `SLACK_CHANNEL`: channel where the message will be posted
 * `SLACK_COLOR`: border color of the message
 * `SLACK_MSG`: content of the message
+
+## Tekton example
+
+See the [example](./slack-sender.yaml)

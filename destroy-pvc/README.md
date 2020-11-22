@@ -9,3 +9,7 @@ Task for destroy the binded pvc at the end of the pipeline.
 * `KUBE_ENV`: kubernetes env name
 * `KUBE_URL`: kubernetes cluster url
 * `KUBE_TOKEN`: kubernetes token
+
+## Tekton example
+
+See the [example](./destroy-pvc.yaml)

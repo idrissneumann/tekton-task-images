@@ -8,3 +8,7 @@ Use this image as an end step of your tasks in order to set the final state to `
 
 * `LOG_LEVEL`: log level (`debug` or `info`)
 * `TEKTON_WORKSPACE_PATH`: the tekton workspace path which is bind to a pvc
+
+## Tekton example
+
+See the [example](./state-success.yaml)

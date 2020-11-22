@@ -21,4 +21,4 @@ Send a result message to a Slack channel.
 
 ## Tekton example
 
-See the [example](./slack-sender-result.yaml)
+See the [example](./slack-result-sender.yaml)

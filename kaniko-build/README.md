@@ -19,3 +19,7 @@ Build containers images with Kaniko.
 * `PROJECT_UNSTABLE`: path of stables images in the registry (before merge)
 * `FORCE_PROJECT_UNSTABLE`: force push in the `$PROJECT_UNSTABLE` path
 * `TEKTON_WORKSPACE_PATH`: the tekton workspace path which is bind to a pvc
+
+## Tekton example
+
+See the [example](./build-container-image.yaml)
