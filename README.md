@@ -27,7 +27,7 @@ $ docker pull comworkio/tekton-utils-slack-sender
 
 For each directory which corresponds to one task, you'll find a README file that will enumerate all the environment variables you need.
 
-Sometimes you'll even find a tekton task yaml example in those directories.
+And you'll even find a tekton task yaml example in those directories.
 
 For each environment variable, you need to set it from Task parameter like that:
 
@@ -55,8 +55,6 @@ env:
   - name: TEKTON_WORKSPACE_PATH
     value: $(workspaces.NAME_OF_YOUR_WORKSPACE.path)
 ```
-
-For most of the task directories, you'll find directly a ready to be imported yaml kubernetes manifest file.
 
 ## The result of those tasks in action
 

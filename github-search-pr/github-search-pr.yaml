@@ -1,0 +1,65 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: github-search-pr
+  namespace: tekton-pipelines
+  labels:
+    app.kubernetes.io/version: "0.1"
+  annotations:
+    tekton.dev/pipelines.minVersion: "0.12.1"
+    tekton.dev/tags: github
+    tekton.dev/displayName: "set github status"
+spec:
+  description: >-
+    This task will search the pull requests that are associated to a commit.
+  workspaces:
+    - name: git-environment
+  params:
+    - name: REPO_ORG
+      description: |
+        The GitHub organization
+      type: string
+
+    - name: REPO_NAME
+      description: |
+        The GitHub repository name, i.e: "client"
+      type: string
+
+    - name: SHA
+      description: |
+        Commit SHA to search the PR that are associated with.
+      type: string
+      default: " "
+
+    - name: BRANCH
+      type: string
+      description: the git branch
+
+    - name: LOG_LEVEL
+      type: string
+      description: the level of log (debug or info)
+      default: info
+  steps:
+    - name: get-prs
+      image: comworkio/tekton-utils-github-search-pr:latest
+      workingDir: $(workspaces.git-environment.path)
+      env:
+        - name: LOG_LEVEL
+          value: $(params.LOG_LEVEL)
+        - name: REPO_ORG
+          value: $(params.REPO_ORG)
+        - name: REPO_NAME
+          value: $(params.REPO_NAME)
+        - name: GIT_BRANCH
+          value: $(params.BRANCH)
+        - name: GIT_SHA
+          value: $(params.SHA)
+        - name: TEKTON_WORKSPACE_PATH
+          value: $(workspaces.git-environment.path)
+        - name: GITHUBTOKEN
+          valueFrom:
+            secretKeyRef:
+              name: github-access
+              key: password
+      command: ["/search.sh"]
