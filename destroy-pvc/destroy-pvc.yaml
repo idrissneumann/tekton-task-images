@@ -15,7 +15,7 @@ spec:
       description: the namespace
       default: tekton-pipelines
   steps:
-    - name: prepare-kube-auth
+    - name: destroy-pvc
       image: comworkio/tekton-utils-destroy-pvc:latest
       env:
         - name: NAMESPACE
