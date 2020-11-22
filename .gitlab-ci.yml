@@ -54,7 +54,7 @@ yarn-ci-node12:
 destroy-pvc:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "destroy-pvc" "1.1"
+    - setsid ./ci/docker-deliver.sh "destroy-pvc" "1.2"
   only:
     refs:
       - /^(master.*)$/
@@ -67,7 +67,7 @@ destroy-pvc:
 destroy-pods:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "destroy-pods" "1.1"
+    - setsid ./ci/docker-deliver.sh "destroy-pods" "1.2"
   only:
     refs:
       - /^(master.*)$/
