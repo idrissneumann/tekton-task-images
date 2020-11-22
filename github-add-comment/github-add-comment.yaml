@@ -1,0 +1,54 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: github-add-comment
+  namespace: tekton-pipelines
+  labels:
+    app.kubernetes.io/version: "0.1"
+  annotations:
+    tekton.dev/pipelines.minVersion: "0.12.1"
+    tekton.dev/tags: github
+    tekton.dev/displayName: "add github comment"
+spec:
+  description: >-
+    This Task will add a comment to a pull request or an issue.
+  workspaces:
+    - name: git-environment
+  params:
+    - name: GITHUB_HOST_URL
+      description: |
+        The GitHub host, adjust this if you run a GitHub enteprise.
+      default: "api.github.com"
+      type: string
+
+    - name: API_VERSION
+      description: |
+        The API version
+      default: "v3"
+      type: string
+
+    - name: COMMENT
+      description: |
+        The actual comment to add.
+      type: string
+
+    - name: LOG_LEVEL
+      description: the level of log (debug or info)
+      default: info
+      type: string
+  steps:
+    - name: add-comment
+      image: comworkio/tekton-utils-github-add-comment:latest
+      env:
+        - name: LOG_LEVEL
+          value: $(params.LOG_LEVEL)
+        - name: COMMENT
+          value: $(params.COMMENT)
+        - name: TEKTON_WORKSPACE_PATH
+          value: $(workspaces.git-environment.path)
+        - name: GITHUBTOKEN
+          valueFrom:
+            secretKeyRef:
+              name: github-access
+              key: password
+      command: ["/add-comment.py"]
