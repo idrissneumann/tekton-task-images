@@ -27,6 +27,30 @@ init-pipeline-github:
   tags:
     - tekton-utils
 
+yarn-ci-node14:
+  stage: publish
+  script:
+    - setsid ./ci/docker-deliver.sh "yarn-ci-node14" "1.0"
+  only:
+    refs:
+      - /^(master.*)$/
+    changes:
+      - yarn-ci/*
+  tags:
+    - tekton-utils
+
+yarn-ci-node12:
+  stage: publish
+  script:
+    - setsid ./ci/docker-deliver.sh "yarn-ci-node12" "1.0"
+  only:
+    refs:
+      - /^(master.*)$/
+    changes:
+      - yarn-ci/*
+  tags:
+    - tekton-utils
+
 destroy-pvc:
   stage: publish
   script:

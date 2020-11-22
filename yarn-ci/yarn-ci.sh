@@ -6,7 +6,7 @@ if [ "${LOG_LEVEL}" = "debug" ] || [ "${LOG_LEVEL}" = "DEBUG" ]; then
   du -sh "${TEKTON_WORKSPACE_PATH}"
 fi
 
-if [ "${YARN_INSTALL}" == "enabled" ]; then
+if [ "${YARN_INSTALL}" = "enabled" ]; then
   yarn install $INSTALL_EXTRA_OPT
 fi
 

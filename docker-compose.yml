@@ -41,6 +41,20 @@ services:
     build:
       context: kaniko-build
       dockerfile: Dockerfile
+  yarn-ci-node12:
+    image: comworkio/tekton-utils-yarn-ci-node12
+    build:
+      context: yarn-ci
+      dockerfile: Dockerfile
+      args:
+        NODE_VERSION: 12
+  yarn-ci-node14:
+    image: comworkio/tekton-utils-yarn-ci-node14
+    build:
+      context: yarn-ci
+      dockerfile: Dockerfile
+      args:
+        NODE_VERSION: 14
   init-pipeline-github:
     image: comworkio/tekton-utils-init-pipeline-github
     build:
