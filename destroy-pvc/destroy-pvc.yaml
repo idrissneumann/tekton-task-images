@@ -1,0 +1,40 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: destroy-pvc
+  namespace: tekton-pipelines
+spec:
+  description: >-
+    This task will destroy the binded pvc at the end of the pipeline.
+  params:
+    - name: pvcName
+      type: string
+      description: the PVC name
+    - name: namespaceName
+      type: string
+      description: the namespace
+      default: tekton-pipelines
+  steps:
+    - name: prepare-kube-auth
+      image: comworkio/tekton-utils-destroy-pvc:latest
+      env:
+        - name: NAMESPACE
+          value: $(params.namespaceName)
+        - name: PVC_NAME
+          value: $(params.pvcName)
+        - name: KUBE_ENV
+          valueFrom:
+            secretKeyRef:
+              name: kube-auth
+              key: env
+        - name: KUBE_URL
+          valueFrom:
+            secretKeyRef:
+              name: kube-auth
+              key: url
+        - name: KUBE_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: kube-auth
+              key: token
+      command: ["/destroy-pvc.sh"]
