@@ -9,3 +9,7 @@ Fetch the up to date sources and init environment variables for the other tasks.
 * `REPO_ORG`: github repo org
 * `REPO_NAME`: github repo name
 * `GIT_BRANCH`: git branch name
+
+## Tekton example
+
+See the [example](./git-fetch-sources.yaml)

@@ -1,0 +1,44 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: git-fetch-sources
+  namespace: tekton-pipelines
+spec:
+  description: >-
+    This task will fetch the sources.
+  workspaces:
+    - name: git-environment
+  params:
+    - name: gitBranchName
+      type: string
+      description: the branch name
+    - name: repoOrg
+      type: string
+      description: the shippeo git organization name
+    - name: repoName
+      type: string
+      description: the shippeo git repo name
+    - name: logLevel
+      type: string
+      description: the level of log (debug or info)
+      default: info
+  resources:
+    inputs:
+      - name: git-input
+        type: git
+  steps:
+    - name: fetch
+      image: comworkio/tekton-utils-git-fetch-sources:latest
+      workingDir: /workspace/git-input
+      env:
+        - name: LOG_LEVEL
+          value: $(params.logLevel)
+        - name: TEKTON_WORKSPACE_PATH
+          value: $(workspaces.git-environment.path)
+        - name: REPO_ORG
+          value: $(params.repoOrg)
+        - name: REPO_NAME
+          value: $(params.repoName)
+        - name: GIT_BRANCH
+          value: $(params.gitBranchName)
+      command: [ "/fetch-sources.sh" ]
