@@ -30,7 +30,7 @@ init-pipeline-github:
 yarn-ci-node14:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "yarn-ci-node14" "1.0"
+    - setsid ./ci/docker-deliver.sh "yarn-ci-node14" "1.1"
   only:
     refs:
       - /^(master.*)$/
@@ -42,7 +42,7 @@ yarn-ci-node14:
 yarn-ci-node12:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "yarn-ci-node12" "1.0"
+    - setsid ./ci/docker-deliver.sh "yarn-ci-node12" "1.1"
   only:
     refs:
       - /^(master.*)$/

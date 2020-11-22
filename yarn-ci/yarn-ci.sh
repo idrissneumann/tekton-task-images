@@ -15,6 +15,6 @@ if [ "${LOG_LEVEL}" = "debug" ] || [ "${LOG_LEVEL}" = "DEBUG" ]; then
   du -sh "${TEKTON_WORKSPACE_PATH}"
 fi
 
-if [ ! -z "${TARGET}" ] && [ "${TARGET} "!= "only_install" ]; then
+if [ ! -z "${TARGET}" ] && [ "${TARGET}" != "only_install" ]; then
   yarn $TARGET
 fi
