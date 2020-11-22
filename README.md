@@ -56,6 +56,8 @@ env:
     value: $(workspaces.NAME_OF_YOUR_WORKSPACE.path)
 ```
 
+For most of the task directories, you'll find directly a ready to be imported yaml kubernetes manifest file.
+
 ## The result of those tasks in action
 
 Here's some screenshots of how those tasks help us to achieve beautiful and working tekton pipelines.
@@ -65,4 +67,3 @@ Here's some screenshots of how those tasks help us to achieve beautiful and work
 ![tekton_logs](images/tekton_logs.jpeg)
 
 ![github_pr](images/github_pr.jpeg)
-
