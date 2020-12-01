@@ -1,6 +1,6 @@
 # Git set status
 
-Set a status to the last commit (you need to play the task [`github-search-pr`](../github-search-pr) before this one).
+Create a github webhook in order to be used by tekton trigger.
 
 ## Environment variables to set
 
