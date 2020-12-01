@@ -36,6 +36,11 @@ services:
     build:
       context: kubect-secret-cert
       dockerfile: Dockerfile
+  create-ingress:
+    image: comworkio/tekton-utils-create-ingress
+    build:
+      context: create-ingress
+      dockerfile: Dockerfile
   slack-sender:
     image: comworkio/tekton-utils-slack-sender
     build:

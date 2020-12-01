@@ -185,6 +185,18 @@ kubectl-secret-cert:
   tags:
     - tekton-utils
 
+create-ingress:
+  stage: publish
+  script:
+    - setsid ./ci/docker-deliver.sh "create-ingress" "1.0"
+  only:
+    refs:
+      - /^(master.*)$/
+    changes:
+      - create-ingress/*
+  tags:
+    - tekton-utils
+
 git-fetch-sources:
   stage: publish
   script:

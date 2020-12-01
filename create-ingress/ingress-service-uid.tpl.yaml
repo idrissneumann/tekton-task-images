@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ##SERVICE_NAME
+  namespace: ##NAMESPACE
+  ownerReferences:
+    - name: ##SERVICE_NAME
+      apiVersion: v1
+      kind: Service
+      uid: ##SERVICE_UID
+spec:
+  tls:
+    - secretName: ##CERTIFICATE_SECRET_NAME
+      hosts:
+        - ##EXTERNAL_DOMAIN
+  rules:
+  - host: ##EXTERNAL_DOMAIN
+    http:
+      paths:
+        - backend:
+            serviceName: ##SERVICE_NAME
+            servicePort: ##SERVICE_PORT
