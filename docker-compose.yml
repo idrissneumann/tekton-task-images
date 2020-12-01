@@ -21,6 +21,11 @@ services:
     build:
       context: github-add-comment
       dockerfile: Dockerfile
+  github-webhook:
+    image: comworkio/tekton-utils-github-webhook
+    build:
+      context: github-webhook
+      dockerfile: Dockerfile
   slack-sender:
     image: comworkio/tekton-utils-slack-sender
     build:

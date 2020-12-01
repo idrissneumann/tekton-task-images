@@ -149,6 +149,18 @@ github-add-comment:
   tags:
     - tekton-utils
 
+github-webhook:
+  stage: publish
+  script:
+    - setsid ./ci/docker-deliver.sh "github-webhook" "1.0"
+  only:
+    refs:
+      - /^(master.*)$/
+    changes:
+      - github-webhook/*
+  tags:
+    - tekton-utils
+
 git-fetch-sources:
   stage: publish
   script:
