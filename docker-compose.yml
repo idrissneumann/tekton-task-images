@@ -26,6 +26,11 @@ services:
     build:
       context: github-webhook
       dockerfile: Dockerfile
+  generate-certificate:
+    image: comworkio/tekton-utils-generate-certificate
+    build:
+      context: generate-certificate
+      dockerfile: Dockerfile
   slack-sender:
     image: comworkio/tekton-utils-slack-sender
     build:

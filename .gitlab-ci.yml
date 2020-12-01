@@ -161,6 +161,18 @@ github-webhook:
   tags:
     - tekton-utils
 
+generate-certificate:
+  stage: publish
+  script:
+    - setsid ./ci/docker-deliver.sh "generate-certificate" "1.0"
+  only:
+    refs:
+      - /^(master.*)$/
+    changes:
+      - generate-certificate/*
+  tags:
+    - tekton-utils
+
 git-fetch-sources:
   stage: publish
   script:
