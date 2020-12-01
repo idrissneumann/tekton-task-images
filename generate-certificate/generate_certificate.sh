@@ -1,7 +1,14 @@
 #!/bin/sh
 
+if [ "${LOG_LEVEL}" = "debug" ] || [ "${LOG_LEVEL}" = "DEBUG" ]; then
+  set -e
+  echo "[generate_certificate] x509 certificate creation with:"
+  echo "CREATE_CERTIFICATE=${CREATE_CERTIFICATE}"
+  echo "EXTERNAL_DOMAIN=${EXTERNAL_DOMAIN}"
+fi
+
 if [ "${CREATE_CERTIFICATE}" = "false" ]; then
-    exit 0
+  exit 0
 fi
 
 mkdir /var/tmp/work/ingress

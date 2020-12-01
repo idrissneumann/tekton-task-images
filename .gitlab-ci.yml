@@ -173,6 +173,18 @@ generate-certificate:
   tags:
     - tekton-utils
 
+kubectl-secret-cert:
+  stage: publish
+  script:
+    - setsid ./ci/docker-deliver.sh "kubectl-secret-cert" "1.0"
+  only:
+    refs:
+      - /^(master.*)$/
+    changes:
+      - kubectl-secret-cert/*
+  tags:
+    - tekton-utils
+
 git-fetch-sources:
   stage: publish
   script:
