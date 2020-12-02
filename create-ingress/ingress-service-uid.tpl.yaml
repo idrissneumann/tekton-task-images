@@ -14,9 +14,9 @@ spec:
       hosts:
         - ##EXTERNAL_DOMAIN
   rules:
-  - host: ##EXTERNAL_DOMAIN
-    http:
-      paths:
-        - backend:
-            serviceName: ##SERVICE_NAME
-            servicePort: ##SERVICE_PORT
+    - host: ##EXTERNAL_DOMAIN
+      http:
+        paths:
+          - backend:
+              serviceName: ##SERVICE_NAME
+              servicePort: ##SERVICE_PORT
