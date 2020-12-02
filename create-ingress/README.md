@@ -11,3 +11,7 @@ Create ingress.
 * `SERVICE_PORT`: the service port that the ingress is being created on
 * `EXTERNAL_DOMAIN`: the external domain for the EventListener (ex: `$(params.EventListenerName).PROXYIP.nip.io`)
 * `CERTIFICATE_SECRET_NAME`: cecret name for Ingress certificate. The Secret should not exist if the self-signed certificate creation is enabled
+
+## Tekton example
+
+See the [example](./create-ingress.yaml)

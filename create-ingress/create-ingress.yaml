@@ -1,0 +1,79 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: create-ingress
+  namespace: tekton-pipelines
+spec:
+  volumes:
+    - name: work
+      emptyDir: {}
+  params:
+    - name: CreateCertificate
+      description: "Enables/disables the creation of a self-signed certificate for $(params.ExternalDomain)"
+      default: "true"
+    - name: CertificateKeyPassphrase
+      description: "Phrase that protects private key. This must be provided when the self-signed certificate is created"
+    - name: CertificateSecretName
+      description: "Secret name for Ingress certificate. The Secret should not exist if the self-signed certificate creation is enabled"
+    - name: ExternalDomain
+      description: "The external domain for the EventListener e.g. `$(params.EventListenerName).PROXYIP.nip.io`"
+    - name: Service
+      description: "The name of the Service used in the Ingress. This will also be the name of the Ingress."
+    - name: ServicePort
+      description: "The service port that the ingress is being created on"
+    - name: ServiceUID
+      description: "The uid of the service. If set, this creates an owner reference on the service"
+      default: ""
+    - name: Namespace
+      description: "The namespace"
+      default: 'tekton-pipelines'
+    - name: LogLevel
+      description: "The loglevel (info or debug)"
+      default: 'info'
+  steps:
+    - name: generate-certificate
+      image: comworkio/tekton-utils-generate-certificate:latest
+      volumeMounts:
+        - name: work
+          mountPath: /var/tmp/work
+      env:
+        - name: LOG_LEVEL
+          value: $(params.LogLevel)
+        - name: CREATE_CERTIFICATE
+          value: $(params.CreateCertificate)
+        - name: CERTIFICATE_KEY_PASSPHRASE
+          value: $(params.CertificateKeyPassphrase)
+        - name: EXTERNAL_DOMAIN
+          value: $(params.ExternalDomain)
+      command: ["/generate_certificate.sh"]
+    - name: create-certificate-secret
+      image: comworkio/tekton-utils-kubect-secret-cert:latest
+      volumeMounts:
+        - name: work
+          mountPath: /var/tmp/work
+      env:
+        - name: LOG_LEVEL
+          value: $(params.LogLevel)
+        - name: CREATE_CERTIFICATE
+          value: $(params.CreateCertificate)
+        - name: SECRET_NAME
+          value: $(params.CertificateSecretName)
+      command: ["/create_secret.sh"]
+    - name: create-ingress
+      image: comworkio/tekton-utils-create-ingress:latest
+      env:
+        - name: LOG_LEVEL
+          value: $(params.LogLevel)
+        - name: NAMESPACE
+          value: $(params.Namespace)
+        - name: SERVICE_UID
+          value: $(params.ServiceUID)
+        - name: SERVICE_NAME
+          value: $(params.Service)
+        - name: SERVICE_PORT
+          value: $(params.ServicePort)
+        - name: EXTERNAL_DOMAIN
+          value: $(params.ExternalDomain)
+        - name: CERTIFICATE_SECRET_NAME
+          value: $(params.CertificateSecretName)
+      command: ["/create_ingress.sh"]
