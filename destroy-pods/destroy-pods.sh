@@ -8,4 +8,5 @@ if [[ $GIT_BRANCH != "develop" && $GIT_BRANCH != "master" ]] && ! echo "$GIT_BRA
 fi
 
 kubectl -n "$NAMESPACE" get pods|grep -E "^${POD_PREFIX}"|awk '{print $1}'|xargs kubectl -n "$NAMESPACE" delete pod || :
+[[ $DELETE_JOBS == "true" || $DELETE_JOBS == "enabled" ]] && kubectl -n "$NAMESPACE" get jobs|grep -E "^${POD_PREFIX}"|awk '{print $1}'|xargs kubectl -n "$NAMESPACE" delete job || :
 [[ -f ~/.kube/config.old ]] && cp -f ~/.kube/config.old ~/.kube/config

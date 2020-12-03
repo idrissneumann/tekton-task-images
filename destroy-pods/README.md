@@ -9,3 +9,4 @@ Task for destroy pods in order to let ArgoCD redeploy them with new images.
 * `KUBE_ENV`: kubernetes env name
 * `KUBE_URL`: kubernetes cluster url
 * `KUBE_TOKEN`: kubernetes token
+* `DELETE_JOBS`: delete jobs (`enabled` or `disabled`)
