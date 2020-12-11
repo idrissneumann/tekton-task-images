@@ -1,11 +1,11 @@
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
-  name: yarn-ci
+  name: php-ci
   namespace: tekton-pipelines
 spec:
   description: >-
-    Run CI task like unit tests on yarn based project (like angular or react frontend)
+    Run CI task like unit tests on php projects
   workspaces:
     - name: git-environment
   params:
