@@ -1,6 +1,6 @@
 # State success
 
-Yarn task.
+Yarn tasks.
 
 ## Environment variables to set
 
