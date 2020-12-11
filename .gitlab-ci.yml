@@ -27,6 +27,18 @@ init-pipeline-github:
   tags:
     - tekton-utils
 
+php-ci-7-4:
+  stage: publish
+  script:
+    - setsid ./ci/docker-deliver.sh "php-ci-7-4" "1.0"
+  only:
+    refs:
+      - /^(master.*)$/
+    changes:
+      - php-ci/*
+  tags:
+    - tekton-utils
+
 yarn-ci-node14:
   stage: publish
   script:

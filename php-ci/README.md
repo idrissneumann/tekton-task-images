@@ -15,4 +15,4 @@ Php ci tasks (composer, phpunit, phpcs, psalm).
 
 ## Tekton example
 
-See the [example](./yarn-ci.yaml)
+See the [example](./php-ci.yaml)

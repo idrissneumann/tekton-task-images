@@ -61,6 +61,15 @@ services:
     build:
       context: kaniko-build
       dockerfile: Dockerfile
+  php-ci-7-4:
+    image: comworkio/tekton-utils-php-ci-7-4
+    build: 
+      context: php-ci
+      dockerfile: Dockerfile
+      target: php_ci
+      args:
+        PHP_VERSION: 7.4
+        COMPOSER_VERSION: 1.10.13
   yarn-ci-node12:
     image: comworkio/tekton-utils-yarn-ci-node12
     build:
