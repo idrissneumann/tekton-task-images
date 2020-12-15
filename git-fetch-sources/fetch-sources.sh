@@ -48,3 +48,8 @@ if [ "${LOG_LEVEL}" = "debug" ] || [ "${LOG_LEVEL}" = "DEBUG" ]; then
 fi
 
 echo "{\"sha\": \"$(git rev-parse HEAD)\", \"tag\": \"$(git describe --tags)\"}" > "${json_manifest}"
+
+if [ "${LOG_LEVEL}" = "debug" ] || [ "${LOG_LEVEL}" = "DEBUG" ]; then
+  echo "[fetch-sources] Content of ${json_manifest}"
+  cat "${json_manifest}"
+fi
