@@ -14,7 +14,7 @@ github-mirror:
 init-pipeline-github:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "init-pipeline-github" "1.7"
+    - setsid ./ci/docker-deliver.sh "init-pipeline-github" "1.8"
   only:
     refs:
       - /^(master.*)$/
@@ -212,7 +212,7 @@ create-ingress:
 git-fetch-sources:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "git-fetch-sources" "1.1"
+    - setsid ./ci/docker-deliver.sh "git-fetch-sources" "1.2"
   only:
     refs:
       - /^(master.*)$/
