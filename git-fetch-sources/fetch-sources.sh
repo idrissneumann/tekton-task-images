@@ -5,6 +5,7 @@ pr_env_file="${TEKTON_WORKSPACE_PATH}/pr_env-${suffix}.sh"
 git_script="${TEKTON_WORKSPACE_PATH}/git.sh"
 env_script="${TEKTON_WORKSPACE_PATH}/env.sh"
 log_script="${TEKTON_WORKSPACE_PATH}/log.sh"
+json_manifest="${TEKTON_WORKSPACE_PATH}/manifest.json"
 
 [ -f "${pr_env_file}" ] && source "$pr_env_file" 
 
@@ -45,3 +46,5 @@ if [ "${LOG_LEVEL}" = "debug" ] || [ "${LOG_LEVEL}" = "DEBUG" ]; then
   echo "[github-fetch-sources][debug] Content of workspaces.path = ${target_path}"
   ls -la "${target_path}"
 fi
+
+echo "{\"sha\": \"$(git rev-parse HEAD)\", \"tag\": \"$(git describe --tags)\"}" > "${json_manifest}"
