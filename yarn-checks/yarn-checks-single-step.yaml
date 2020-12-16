@@ -14,6 +14,7 @@ spec:
       default: info
     - name: TARGET
       description: target of yarn (test or test:coverage). You could set only_install to only run yarn install
+      default: "only_install"
     - name: NODE_VERSION
       description: node version
       default: "12"
