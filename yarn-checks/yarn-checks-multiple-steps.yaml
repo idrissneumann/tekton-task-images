@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
-  name: yarn-checks-single-step
+  name: yarn-checks-multiple-steps
   namespace: tekton-pipelines
 spec:
   description: >-
