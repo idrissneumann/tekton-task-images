@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
-  name: yarn-ci
+  name: yarn-checks-single-step
   namespace: tekton-pipelines
 spec:
   description: >-
@@ -24,9 +24,9 @@ spec:
       description: enabled if you want to run yarn install or else disabled
       default: "enabled"
   steps:
-    - name: yarn-target
+    - name: checks
       workingDir: $(workspaces.git-environment.path)
-      image: comworkio/tekton-utils-yarn-ci-node$(params.NODE_VERSION):latest
+      image: comworkio/tekton-utils-yarn-checks-node$(params.NODE_VERSION):latest
       env:
         - name: LOG_LEVEL
           value: $(params.LOG_LEVEL)
@@ -38,7 +38,7 @@ spec:
           value: $(params.YARN_INSTALL)
         - name: TEKTON_WORKSPACE_PATH
           value: $(workspaces.git-environment.path)
-      command: ["/yarn-ci.sh"]
+      command: ["/yarn-checks.sh"]
     - name: success
       image: comworkio/tekton-utils-state-success:latest
       workingDir: $(workspaces.git-environment.path)

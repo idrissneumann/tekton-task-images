@@ -12,4 +12,4 @@ Yarn tasks.
 
 ## Tekton example
 
-See the [example](./yarn-ci.yaml)
+See the [example](./yarn-checks-single-step.yaml)

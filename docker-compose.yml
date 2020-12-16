@@ -61,26 +61,26 @@ services:
     build:
       context: kaniko-build
       dockerfile: Dockerfile
-  php-ci-7-4:
-    image: comworkio/tekton-utils-php-ci-7-4
+  php-checks-7-4:
+    image: comworkio/tekton-utils-php-checks-7-4
     build: 
-      context: php-ci
+      context: php-checks
       dockerfile: Dockerfile
-      target: php_ci
+      target: php_checks
       args:
         PHP_VERSION: 7.4
         COMPOSER_VERSION: 1.10.13
-  yarn-ci-node12:
-    image: comworkio/tekton-utils-yarn-ci-node12
+  yarn-checks-node12:
+    image: comworkio/tekton-utils-yarn-checks-node12
     build:
-      context: yarn-ci
+      context: yarn-checks
       dockerfile: Dockerfile
       args:
         NODE_VERSION: 12
-  yarn-ci-node14:
-    image: comworkio/tekton-utils-yarn-ci-node14
+  yarn-checks-node14:
+    image: comworkio/tekton-utils-yarn-checks-node14
     build:
-      context: yarn-ci
+      context: yarn-checks
       dockerfile: Dockerfile
       args:
         NODE_VERSION: 14

@@ -2,9 +2,9 @@ ARG NODE_VERSION
 
 FROM node:$NODE_VERSION-alpine
 
-COPY yarn-ci.sh /
+COPY yarn-checks.sh /
 
 RUN apk add --no-cache git && \
-    chmod +x /yarn-ci.sh
+    chmod +x /yarn-checks.sh
 
-CMD [ "/yarn-ci.sh" ]
+CMD [ "/yarn-checks.sh" ]

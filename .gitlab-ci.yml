@@ -27,39 +27,39 @@ init-pipeline-github:
   tags:
     - tekton-utils
 
-php-ci-7-4:
+php-checks-7-4:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "php-ci-7-4" "1.0"
+    - setsid ./ci/docker-deliver.sh "php-checks-7-4" "1.0"
   only:
     refs:
       - /^(master.*)$/
     changes:
-      - php-ci/*
+      - php-checks/*
   tags:
     - tekton-utils
 
-yarn-ci-node14:
+yarn-checks-node14:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "yarn-ci-node14" "1.1"
+    - setsid ./ci/docker-deliver.sh "yarn-checks-node14" "1.0"
   only:
     refs:
       - /^(master.*)$/
     changes:
-      - yarn-ci/*
+      - yarn-checks/*
   tags:
     - tekton-utils
 
-yarn-ci-node12:
+yarn-checks-node12:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "yarn-ci-node12" "1.1"
+    - setsid ./ci/docker-deliver.sh "yarn-checks-node12" "1.0"
   only:
     refs:
       - /^(master.*)$/
     changes:
-      - yarn-ci/*
+      - yarn-checks/*
   tags:
     - tekton-utils
 

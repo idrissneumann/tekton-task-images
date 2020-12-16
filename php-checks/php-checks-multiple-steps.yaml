@@ -1,0 +1,93 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: php-checks-multiple-steps
+  namespace: tekton-pipelines
+spec:
+  description: >-
+    Run CI task like unit tests on php projects
+  workspaces:
+    - name: git-environment
+  params:
+    - name: LOG_LEVEL
+      description: The level of logs
+      default: info
+    - name: SRC_DIR
+      description: sources subdirectory
+      default: src/
+    - name: PHP_VERSION
+      description: node version
+      default: "7-4"
+    - name: ENABLE_COMPOSER_INSTALL
+      description: enable composer install
+      default: "enabled"
+    - name: ENABLE_PHPCS
+      description: enable phpcs
+      default: "enabled"
+    - name: ENABLE_PHPUNIT
+      description: enable phpunit
+      default: "enabled"
+    - name: ENABLE_PSALM
+      description: enable psalm
+      default: "enabled"
+    - name: PSALM_FILE
+      description: enable psalm
+      default: "psalm.xml"
+  steps:
+    - name: install
+      workingDir: $(workspaces.git-environment.path)
+      image: comworkio/tekton-utils-php-checks-$(params.PHP_VERSION):latest
+      env:
+        - name: LOG_LEVEL
+          value: $(params.LOG_LEVEL)
+        - name: ENABLE_COMPOSER_INSTALL
+          value: $(params.ENABLE_COMPOSER_INSTALL)
+        - name: TEKTON_WORKSPACE_PATH
+          value: $(workspaces.git-environment.path)
+      command: ["/php-checks.sh"]
+    - name: check-style
+      workingDir: $(workspaces.git-environment.path)
+      image: comworkio/tekton-utils-php-checks-$(params.PHP_VERSION):latest
+      env:
+        - name: LOG_LEVEL
+          value: $(params.LOG_LEVEL)
+        - name: SRC_DIR
+          value: $(params.SRC_DIR)
+        - name: ENABLE_PHPCS
+          value:  $(params.ENABLE_PHPCS)
+        - name: TEKTON_WORKSPACE_PATH
+          value: $(workspaces.git-environment.path)
+      command: ["/php-checks.sh"]
+    - name: static-analyze
+      workingDir: $(workspaces.git-environment.path)
+      image: comworkio/tekton-utils-php-checks-$(params.PHP_VERSION):latest
+      env:
+        - name: LOG_LEVEL
+          value: $(params.LOG_LEVEL)
+        - name: ENABLE_PSALM
+          value: $(params.ENABLE_PSALM)
+        - name: PSALM_FILE
+          value: $(params.PSALM_FILE)
+        - name: TEKTON_WORKSPACE_PATH
+          value: $(workspaces.git-environment.path)
+      command: ["/php-checks.sh"]
+    - name: unit-tests
+      workingDir: $(workspaces.git-environment.path)
+      image: comworkio/tekton-utils-php-checks-$(params.PHP_VERSION):latest
+      env:
+        - name: LOG_LEVEL
+          value: $(params.LOG_LEVEL)
+        - name: ENABLE_PHPUNIT
+          value: $(params.ENABLE_PHPUNIT)
+        - name: TEKTON_WORKSPACE_PATH
+          value: $(workspaces.git-environment.path)
+      command: ["/php-checks.sh"]
+    - name: success
+      image: comworkio/tekton-utils-state-success:latest
+      workingDir: $(workspaces.git-environment.path)
+      env:
+        - name: LOG_LEVEL
+          value: $(params.LOG_LEVEL)
+        - name: TEKTON_WORKSPACE_PATH
+          value: $(workspaces.git-environment.path)
+      command: ["/state-success.sh"]

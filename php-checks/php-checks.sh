@@ -4,7 +4,12 @@ cd "${TEKTON_WORKSPACE_PATH}"
 
 [ -z "${SRC_DIR}" ] && SRC_DIR="src/"
 [ -z "${PSALM_FILE}" ] && PSALM_FILE="psalm.xml"
-
+[ -z "${INSTALL_EXTRA_ARGS}" ] && INSTALL_EXTRA_ARGS="--prefer-dist --no-progress --no-suggest"
+[ -z "${ENABLE_COMPOSER_INSTALL}"] && ENABLE_COMPOSER_INSTALL="disabled"
+[ -z "${ENABLE_PHPCS}"] && ENABLE_PHPCS="disabled"
+[ -z "${ENABLE_PSALM}"] && ENABLE_PSALM="disabled"
+[ -z "${ENABLE_PHPUNIT}"] && ENABLE_PHPUNIT="disabled"
+ 
 if [ "${LOG_LEVEL}" = "debug" ] || [ "${LOG_LEVEL}" = "DEBUG" ]; then
   echo "[php-ci][debug] Show the occuped space of workspace"
   du -sh "${TEKTON_WORKSPACE_PATH}"
@@ -13,8 +18,8 @@ fi
 
 
 if [ "${ENABLE_COMPOSER_INSTALL}" == "enabled" ]; then
-    echo "[php-ci] run composer install --prefer-dist --no-progress --no-suggest"
-    composer install --prefer-dist --no-progress --no-suggest
+    echo "[php-ci] run composer install ${INSTALL_EXTRA_ARGS}"
+    composer install ${INSTALL_EXTRA_ARGS}
 fi
 
 if [ "${ENABLE_PHPCS}" == "enabled" ]; then

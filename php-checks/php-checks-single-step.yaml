@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
-  name: php-ci
+  name: php-checks-single-step
   namespace: tekton-pipelines
 spec:
   description: >-
@@ -34,9 +34,9 @@ spec:
       description: enable psalm
       default: "psalm.xml"
   steps:
-    - name: php-ci
+    - name: checks
       workingDir: $(workspaces.git-environment.path)
-      image: comworkio/tekton-utils-php-ci-$(params.PHP_VERSION):latest
+      image: comworkio/tekton-utils-php-checks-$(params.PHP_VERSION):latest
       env:
         - name: LOG_LEVEL
           value: $(params.LOG_LEVEL)
@@ -54,7 +54,7 @@ spec:
           value: $(params.PSALM_FILE)
         - name: TEKTON_WORKSPACE_PATH
           value: $(workspaces.git-environment.path)
-      command: ["/php-ci.sh"]
+      command: ["/php-checks.sh"]
     - name: success
       image: comworkio/tekton-utils-state-success:latest
       workingDir: $(workspaces.git-environment.path)
