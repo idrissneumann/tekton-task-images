@@ -1,5 +1,8 @@
 #!/bin/sh
 
+[ -z "${YARN_INSTALL}" ] && YARN_INSTALL="disabled"
+[ -z "${TARGET}" ] && TARGET="only_install"
+
 if [ "${LOG_LEVEL}" = "debug" ] || [ "${LOG_LEVEL}" = "DEBUG" ]; then
   echo "[yarn-ci][success][debug] target = ${TARGET}, opt = ${INSTALL_EXTRA_OPT}"
   echo "[yarn-ci][success][debug] Show the occuped space of workspace"

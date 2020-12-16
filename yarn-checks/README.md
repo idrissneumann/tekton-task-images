@@ -13,3 +13,7 @@ Yarn tasks.
 ## Tekton example
 
 See the [example](./yarn-checks-single-step.yaml)
+
+See the following examples:
+* [yarn-checks-single-step](./yarn-checks-single-step.yaml)
+* [yarn-checks-multiple-steps](./yarn-checks-single-step.yaml)
