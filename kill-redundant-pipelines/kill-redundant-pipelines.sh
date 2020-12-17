@@ -22,3 +22,5 @@ kubectl -n "${TEKTON_NAMESPACE}" get pipelineruns|awk '{if ($2 = "Unknown" && $3
 done
 
 [[ -f ~/.kube/config.old ]] && cp -f ~/.kube/config.old ~/.kube/config
+
+exit 0
