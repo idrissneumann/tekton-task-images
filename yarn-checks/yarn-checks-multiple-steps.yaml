@@ -37,7 +37,7 @@ spec:
         - name: TEKTON_WORKSPACE_PATH
           value: $(workspaces.git-environment.path)
       command: ["/yarn-checks.sh"]
-    - name: target
+    - name: processing
       workingDir: $(workspaces.git-environment.path)
       image: comworkio/tekton-utils-yarn-checks-node$(params.NODE_VERSION):latest
       env:
