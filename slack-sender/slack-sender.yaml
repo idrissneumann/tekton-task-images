@@ -10,6 +10,7 @@ metadata:
 spec:
   description: >-
     This tasks post a simple message to a slack channel.
+  params:
     - name: channel
       type: string
       description: channel id or channel name
@@ -25,12 +26,15 @@ spec:
       type: string
       description: the usename that will be shown
       default: "Tekton"
+    - name: color
+      description: the message color bar
+      default: "#87CEEB"
   steps:
     - name: send-message
       image: comworkio/tekton-utils-slack-sender:latest
       env:
         - name: SLACK_USERNAME
-          value: $(params.usename)
+          value: $(params.username)
         - name: SLACK_EMOJI_AVATAR
           value: $(params.avatar)
         - name: SLACK_CHANNEL
@@ -38,7 +42,7 @@ spec:
         - name: SLACK_MSG
           value: $(params.message)
         - name: SLACK_COLOR
-          value: $(params.slackColor)
+          value: $(params.color)
         - name: SLACK_TOKEN
           valueFrom:
             secretKeyRef:
