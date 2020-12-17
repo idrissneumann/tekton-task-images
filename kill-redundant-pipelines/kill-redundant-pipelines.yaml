@@ -30,7 +30,7 @@ spec:
       default: tekton-pipelines
   steps:
     - name: kill-redundant-pipelines
-      image: comworkio/kill-redundant-pipelines:latest
+      image: comworkio/tekton-utils-kill-redundant-pipelines:latest
       env:
         - name: GIT_BRANCH
           value: $(params.gitBranchName)
