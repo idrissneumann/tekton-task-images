@@ -7,6 +7,9 @@ spec:
   description: >-
     This task will destroy the binded pvc at the end of the pipeline.
   params:
+    - name: gitBranchName
+      type: string
+      description: the branch name
     - name: projectName
       type: string
       description: project name (prefix of the pipelineruns name)
@@ -29,6 +32,8 @@ spec:
     - name: kill-redundant-pipelines
       image: comworkio/kill-redundant-pipelines:latest
       env:
+        - name: GIT_BRANCH
+          value: $(params.gitBranchName)
         - name: PROJECT_NAME
           value: $(params.projectName)
         - name: BUILD_ID
