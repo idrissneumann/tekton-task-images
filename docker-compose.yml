@@ -90,7 +90,7 @@ services:
       context: .
       dockerfile: init-pipeline-github/Dockerfile
   kill-redundant-pipelines:
-    image: comworkio/kill-redundant-pipelines
+    image: comworkio/tekton-utils-kill-redundant-pipelines
     build:
       context: .
       dockerfile: kill-redundant-pipelines/Dockerfile

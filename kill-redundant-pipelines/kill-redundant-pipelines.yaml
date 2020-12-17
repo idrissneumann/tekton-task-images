@@ -13,6 +13,10 @@ spec:
     - name: buildId
       type: string
       description: build id (suffix of the pipelineruns name) to filter
+    - name: destroyPvc
+      type: string
+      description: destroy the associated pvc (enabled or disabled)
+      default: enabled
     - name: namespace
       type: string
       description: namespace of tekton pipelines
@@ -33,6 +37,8 @@ spec:
           value: $(params.logLevel)
         - name: TEKTON_NAMESPACE
           value: $(params.namespace)
+        - name: DESTROY_PVC
+          value: $(params.destroyPvc)
         - name: KUBE_ENV
           valueFrom:
             secretKeyRef:
