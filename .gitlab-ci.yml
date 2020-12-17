@@ -66,7 +66,7 @@ yarn-checks-node12:
 kill-redundant-pipelines:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "kill-redundant-pipelines" "1.0"
+    - setsid ./ci/docker-deliver.sh "kill-redundant-pipelines" "1.1"
   only:
     refs:
       - /^(master.*)$/
