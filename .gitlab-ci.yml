@@ -224,7 +224,7 @@ git-fetch-sources:
 state-success:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "state-success" "1.0"
+    - setsid ./ci/docker-deliver.sh "state-success" "1.1"
   only:
     refs:
       - /^(master.*)$/
@@ -232,4 +232,3 @@ state-success:
       - state-success/*
   tags:
     - tekton-utils
-
