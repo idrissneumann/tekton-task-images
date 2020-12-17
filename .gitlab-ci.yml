@@ -63,6 +63,19 @@ yarn-checks-node12:
   tags:
     - tekton-utils
 
+kill-redundant-pipelines:
+  stage: publish
+  script:
+    - setsid ./ci/docker-deliver.sh "kill-redundant-pipelines" "1.0"
+  only:
+    refs:
+      - /^(master.*)$/
+    changes:
+      - init-kube-config/*
+      - kill-redundant-pipelines/*
+  tags:
+    - tekton-utils
+
 destroy-pvc:
   stage: publish
   script:

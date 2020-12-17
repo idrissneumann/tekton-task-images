@@ -89,6 +89,11 @@ services:
     build:
       context: .
       dockerfile: init-pipeline-github/Dockerfile
+  kill-redundant-pipelines:
+    image: comworkio/kill-redundant-pipelines
+    build:
+      context: .
+      dockerfile: kill-redundant-pipelines/Dockerfile
   destroy-pvc:
     image: comworkio/tekton-utils-destroy-pvc
     build:

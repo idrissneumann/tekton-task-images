@@ -1,0 +1,51 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: kill-redundant-pipelines.sh
+  namespace: tekton-pipelines
+spec:
+  description: >-
+    This task will destroy the binded pvc at the end of the pipeline.
+  params:
+    - name: projectName
+      type: string
+      description: project name (prefix of the pipelineruns name)
+    - name: buildId
+      type: string
+      description: build id (suffix of the pipelineruns name) to filter
+    - name: namespace
+      type: string
+      description: namespace of tekton pipelines
+      default: tekton-pipelines
+    - name: logLevel
+      type: string
+      description: log level
+      default: tekton-pipelines
+  steps:
+    - name: kill-redundant-pipelines
+      image: comworkio/kill-redundant-pipelines:latest
+      env:
+        - name: PROJECT_NAME
+          value: $(params.projectName)
+        - name: BUILD_ID
+          value: $(params.buildId)
+        - name: LOG_LEVEL
+          value: $(params.logLevel)
+        - name: TEKTON_NAMESPACE
+          value: $(params.namespace)
+        - name: KUBE_ENV
+          valueFrom:
+            secretKeyRef:
+              name: kube-auth
+              key: env
+        - name: KUBE_URL
+          valueFrom:
+            secretKeyRef:
+              name: kube-auth
+              key: url
+        - name: KUBE_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: kube-auth
+              key: token
+      command: ["/kill-redundant-pipelines.sh"]
