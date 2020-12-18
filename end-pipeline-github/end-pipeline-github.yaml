@@ -76,7 +76,7 @@ spec:
       type: string
   steps:
     - name: processing
-      image: comworkio/tekton-utils-end-pipeline:latest
+      image: comworkio/tekton-utils-end-pipeline-github:latest
       env:
         - name: LOG_LEVEL
           value: $(params.logLevel)
