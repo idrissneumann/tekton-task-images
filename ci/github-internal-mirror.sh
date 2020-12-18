@@ -25,6 +25,6 @@ sed -i "11,25d" README.md
 
 git add .
 git commit -m "${commit_msg}"
-git push github master 
+git push origin master 
 
 exit 0
