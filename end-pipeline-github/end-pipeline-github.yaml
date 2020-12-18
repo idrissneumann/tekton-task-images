@@ -55,9 +55,6 @@ spec:
     - name: state
       description: state that prevail on the PIPELINE_STATE environment variable if it's set to (success, pending, failure)
       default: toguess
-    - name: pvcName
-      type: string
-      description: the PVC name
     - name: namespaceName
       type: string
       description: the namespace
@@ -100,8 +97,6 @@ spec:
           value: $(params.pipelineUrl)
         - name: NAMESPACE
           value: $(params.namespaceName)
-        - name: PVC_NAME
-          value: $(params.pvcName)
         - name: STATUS_CONTEXT
           value: $(params.context)
         - name: STATUS_DESCRIPTION
