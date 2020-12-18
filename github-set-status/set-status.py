@@ -23,7 +23,7 @@ github_host_url = "api.github.com"
 env_file = tekton_workspace_path + "/pr_env-" + re.sub("-(pend|resu|init|succ|end)", "", re.sub(r"-[^-]*$", "", os.environ['HOSTNAME'])) + ".sh"
 
 if log_level == "debug" or log_level == "DEBUG":
-    print("[github-set-status][debug] env_file = " + env_file + ", pre-state = " + state);
+    print("[github-set-status][debug] env_file = {}, pre-state = ".format(env_file, state));
 
 command = shlex.split("env -i bash -c 'source " + env_file + " && env'")
 proc = subprocess.Popen(command, stdout = subprocess.PIPE, stderr = subprocess.STDOUT, text = True, encoding = 'utf8')

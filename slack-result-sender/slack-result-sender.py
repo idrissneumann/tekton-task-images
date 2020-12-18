@@ -36,7 +36,7 @@ def str2bool(v):
 env_file = TEKTON_WORKSPACE_PATH + "/pr_env-" + re.sub("-(pend|resu|init|succ|end)", "", re.sub(r"-[^-]*$", "", os.environ['HOSTNAME'])) + ".sh"
 
 if LOG_LEVEL == "debug" or LOG_LEVEL == "DEBUG":
-    print("[slack-result-sender][debug] env_file = " + env_file);
+    print("[slack-result-sender][debug] env_file = {}, pre-state = {}".format(env_file, PIPELINE_STATE));
 
 command = shlex.split("env -i bash -c 'source " + env_file + " && env'")
 proc = subprocess.Popen(command, stdout = subprocess.PIPE, stderr = subprocess.STDOUT, encoding = 'utf8')
