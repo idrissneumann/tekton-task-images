@@ -9,7 +9,7 @@ metadata:
     tekton.dev/tags: messaging
 spec:
   description: >-
-    Composite task for the esult of the pipeline (send slack, set github status, destroy pvc, etc)
+    Composite task for the esult of the pipeline (send slack, set github status, etc)
   workspaces:
     - name: git-environment
   params:
@@ -55,10 +55,6 @@ spec:
     - name: state
       description: state that prevail on the PIPELINE_STATE environment variable if it's set to (success, pending, failure)
       default: toguess
-    - name: enableDestroyPvc
-      type: string
-      description: enable/disable destroying pvc
-      default: enabled
     - name: pvcName
       type: string
       description: the PVC name
@@ -102,8 +98,6 @@ spec:
           value: $(params.failureMessage)
         - name: PIPELINE_URL
           value: $(params.pipelineUrl)
-        - name: ENABLE_DESTROY_PVC
-          value: $(params.enableDestroyPvc)
         - name: NAMESPACE
           value: $(params.namespaceName)
         - name: PVC_NAME
@@ -114,21 +108,6 @@ spec:
           value: $(params.desc)
         - name: TEKTON_WORKSPACE_PATH
           value: $(workspaces.git-environment.path)
-        - name: KUBE_ENV
-          valueFrom:
-            secretKeyRef:
-              name: kube-auth
-              key: env
-        - name: KUBE_URL
-          valueFrom:
-            secretKeyRef:
-              name: kube-auth
-              key: url
-        - name: KUBE_TOKEN
-          valueFrom:
-            secretKeyRef:
-              name: kube-auth
-              key: token
         - name: SLACK_TOKEN
           valueFrom:
             secretKeyRef:

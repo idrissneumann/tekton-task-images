@@ -1,16 +1,11 @@
 # Slack result sender
 
-Composite task for the esult of the pipeline (send slack, set github status, destroy pvc, etc)
+Composite task for the esult of the pipeline (send slack, set github status, etc)
 
 ## Environment variables to set
 
 * `LOG_LEVEL`: log level (`debug` or `info`)
 * `NAMESPACE`: the namespace
-* `ENABLE_DESTROY_PVC`: enable/disable destroying pvc (`enabled` or `disabled`)
-* `PVC_NAME`: the pvc name
-* `KUBE_ENV`: kubernetes env name
-* `KUBE_URL`: kubernetes cluster url
-* `KUBE_TOKEN`: kubernetes token
 * `SLACK_TOKEN`: slack token
 * `SLACK_USERNAME`: username
 * `SLACK_EMOJI_AVATAR`: an emoji code that will be used as an avatar
