@@ -1,6 +1,6 @@
-ARG K8S_VERSION
-
 FROM alpine
+
+ENV K8S_VERSION=1.18.2
 
 COPY init-kube-config/init-kube-config.sh /
 COPY destroy-pods/destroy-pods.sh /

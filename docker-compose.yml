@@ -89,8 +89,6 @@ services:
     build:
       context: kubectl
       dockerfile: Dockerfile
-      args:
-        K8S_VERSION: 1.18.2
   init-pipeline-github:
     image: comworkio/tekton-utils-init-pipeline-github
     build:
@@ -101,22 +99,16 @@ services:
     build:
       context: .
       dockerfile: kill-redundant-pipelines/Dockerfile
-      args:
-        K8S_VERSION: 1.18.2
   destroy-pvc:
     image: comworkio/tekton-utils-destroy-pvc
     build:
       context: .
       dockerfile: destroy-pvc/Dockerfile
-      args:
-        K8S_VERSION: 1.18.2
   destroy-pods:
     image: comworkio/tekton-utils-destroy-pods
     build:
       context: .
       dockerfile: destroy-pods/Dockerfile
-      args:
-        K8S_VERSION: 1.18.2
   end-pipeline-github:
     image: comworkio/tekton-utils-end-pipeline-github
     build:
