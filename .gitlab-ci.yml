@@ -137,6 +137,18 @@ kaniko-build:
   tags:
     - tekton-utils
 
+kubectl:
+  stage: publish
+  script:
+    - setsid ./ci/docker-deliver.sh "kubectl" "1.0"
+  only:
+    refs:
+      - /^(master.*)$/
+    changes:
+      - kubectl/*
+  tags:
+    - tekton-utils
+
 slack-sender:
   stage: publish
   script:

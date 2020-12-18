@@ -84,6 +84,11 @@ services:
       dockerfile: Dockerfile
       args:
         NODE_VERSION: 14
+  kubectl:
+    image: comworkio/tekton-utils-kubectl
+    build:
+      context: kubectl
+      dockerfile: Dockerfile
   init-pipeline-github:
     image: comworkio/tekton-utils-init-pipeline-github
     build:
