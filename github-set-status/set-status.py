@@ -42,11 +42,11 @@ if os.environ.get("LAST_COMMIT") is None:
 if state == "toguess":
     if os.environ.get("PIPELINE_STATE") is not None:
         state = os.environ['PIPELINE_STATE']
-        if LOG_LEVEL == "debug" or LOG_LEVEL == "DEBUG":
+        if log_level == "debug" or log_level == "DEBUG":
             print("[github-set-status][debug] environment variable PIPELINE_STATE is set with {}".format(os.environ['PIPELINE_STATE']))
     else:
         state = "success"
-        if LOG_LEVEL == "debug" or LOG_LEVEL == "DEBUG":
+        if log_level == "debug" or log_level == "DEBUG":
             print("[github-set-status][debug] no environment variable PIPELINE_STATE set, set the state to success...")
 
 if log_level == "debug" or log_level == "DEBUG":
