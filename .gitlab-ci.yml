@@ -54,7 +54,7 @@ end-pipeline-github:
 php-checks-7-4:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "php-checks-7-4" "1.0"
+    - setsid ./ci/docker-deliver.sh "php-checks-7-4" "1.1"
   only:
     refs:
       - /^(master.*)$/
@@ -66,7 +66,7 @@ php-checks-7-4:
 yarn-checks-node14:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "yarn-checks-node14" "1.0"
+    - setsid ./ci/docker-deliver.sh "yarn-checks-node14" "1.1"
   only:
     refs:
       - /^(master.*)$/
@@ -78,7 +78,7 @@ yarn-checks-node14:
 yarn-checks-node12:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "yarn-checks-node12" "1.0"
+    - setsid ./ci/docker-deliver.sh "yarn-checks-node12" "1.1"
   only:
     refs:
       - /^(master.*)$/
