@@ -30,4 +30,4 @@ Composite task for the esult of the pipeline (send slack, set github status, des
 
 ## Tekton example
 
-See the [example](./end-pipeline.yaml)
+See the [example](./end-pipeline-github.yaml)
