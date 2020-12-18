@@ -31,6 +31,8 @@ proc = subprocess.Popen(command, stdout = subprocess.PIPE, stderr = subprocess.S
 for line in proc.stdout:
     (key, _, value) = line.partition("=")
     os.environ[key] = value.strip();
+    if LOG_LEVEL == "debug" or LOG_LEVEL == "DEBUG":
+        print("[github-set-status][debug] set env variable key={}, value={}".format(key, value.strip()))
 proc.communicate()
 
 if os.environ.get("LAST_COMMIT") is None:
