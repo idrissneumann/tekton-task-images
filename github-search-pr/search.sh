@@ -15,17 +15,23 @@ curl -H "Authorization: Bearer ${GITHUBTOKEN}"  -H "Accept: application/vnd.gith
 sed -i "s/${GITHUB_HOST_URL}\/repos\(\/${REPO_ORG}\/${REPO_NAME}\)\/issues/github\.com\1\/pull/g" $pr_json_file
 export LAST_PULL_REQUEST_URL="$(head -n1 $pr_json_file|jq -cr ".url")"
 
-if [ -z "${LAST_COMMIT}" ] && [ -z "${LAST_PULL_REQUEST_URL}" ]; then
+echo "export PIPELINE_STATE=\"failure\"" > $pr_env_file
+[ -z "${LAST_COMMIT}" ] || echo "export LAST_COMMIT=$LAST_COMMIT" >> $pr_env_file
+
+if [ -z "${LAST_COMMIT}" ] || [ -z "${LAST_PULL_REQUEST_URL}" ]; then
+  if [ "${LOG_LEVEL}" = "debug" ] || [ "${LOG_LEVEL}" = "DEBUG" ]; then
+    echo "[github-search-pr][debug] Content of $pr_json_file :"
+    cat $pr_json_file
+  fi
+
   echo "[github-search-pr] No need to continue this pipeline, no pull request or commit found: LAST_COMMIT=$LAST_COMMIT, LAST_PULL_REQUEST_URL=$LAST_PULL_REQUEST_URL"
   exit 1
 fi
 
-echo "export LAST_COMMIT=$LAST_COMMIT" > $pr_env_file
 echo "export LAST_PULL_REQUEST_URL=\"${LAST_PULL_REQUEST_URL}\"" >> $pr_env_file
 echo "export LAST_PULL_REQUEST_TITLE=\"$(head -n1 $pr_json_file|jq -cr ".title")\"" >> $pr_env_file
 echo "export LAST_PULL_REQUEST_ID=\"$(head -n1 $pr_json_file|jq -cr ".url"|awk -F "/" '{print $NF}')\"" >> $pr_env_file
 echo "export LAST_PULL_REQUEST_INTERNAL_ID=\"$(head -n1 $pr_json_file|jq -cr ".internal_id")\"" >> $pr_env_file
-echo "export PIPELINE_STATE=\"failure\"" >> $pr_env_file
 
 if [ "${LOG_LEVEL}" = "debug" ] || [ "${LOG_LEVEL}" = "DEBUG" ]; then
   echo "[github-search-pr][debug] Content of $pr_json_file :"

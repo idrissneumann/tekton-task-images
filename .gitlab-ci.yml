@@ -23,7 +23,7 @@ github-internal-mirror:
 init-pipeline-github:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "init-pipeline-github" "1.9"
+    - setsid ./ci/docker-deliver.sh "init-pipeline-github" "1.10"
   only:
     refs:
       - /^(master.*)$/
@@ -39,7 +39,7 @@ init-pipeline-github:
 end-pipeline-github:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "end-pipeline-github" "1.4"
+    - setsid ./ci/docker-deliver.sh "end-pipeline-github" "1.5"
   only:
     refs:
       - /^(master.*)$/
@@ -176,7 +176,7 @@ slack-result-sender:
 github-search-pr:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "github-search-pr" "1.0"
+    - setsid ./ci/docker-deliver.sh "github-search-pr" "1.1"
   only:
     refs:
       - /^(master.*)$/
