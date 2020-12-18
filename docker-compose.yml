@@ -93,7 +93,6 @@ services:
     image: comworkio/tekton-utils-kill-redundant-pipelines
     build:
       context: .
-      target: tekton_utils
       dockerfile: kill-redundant-pipelines/Dockerfile
       args:
         K8S_VERSION: 1.18.2
@@ -101,7 +100,6 @@ services:
     image: comworkio/tekton-utils-destroy-pvc
     build:
       context: .
-      target: tekton_utils
       dockerfile: destroy-pvc/Dockerfile
       args:
         K8S_VERSION: 1.18.2
@@ -109,7 +107,6 @@ services:
     image: comworkio/tekton-utils-destroy-pods
     build:
       context: .
-      target: tekton_utils
       dockerfile: destroy-pods/Dockerfile
       args:
         K8S_VERSION: 1.18.2
