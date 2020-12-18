@@ -47,7 +47,6 @@ end-pipeline-github:
       - end-pipeline-github/*
       - slack-result-sender/*
       - github-set-status/*
-      - destroy-pvc/*
   tags:
     - tekton-utils
 
@@ -90,7 +89,7 @@ yarn-checks-node12:
 kill-redundant-pipelines:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "kill-redundant-pipelines" "1.3"
+    - setsid ./ci/docker-deliver.sh "kill-redundant-pipelines" "1.4"
   only:
     refs:
       - /^(master.*)$/
@@ -103,7 +102,7 @@ kill-redundant-pipelines:
 destroy-pvc:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "destroy-pvc" "1.3"
+    - setsid ./ci/docker-deliver.sh "destroy-pvc" "1.4"
   only:
     refs:
       - /^(master.*)$/
@@ -116,7 +115,7 @@ destroy-pvc:
 destroy-pods:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "destroy-pods" "1.3"
+    - setsid ./ci/docker-deliver.sh "destroy-pods" "1.4"
   only:
     refs:
       - /^(master.*)$/
