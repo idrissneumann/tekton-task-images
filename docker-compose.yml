@@ -108,4 +108,5 @@ services:
     image: comworkio/tekton-utils-end-pipeline-github
     build:
       context: .
+      target: end_pipeline
       dockerfile: end-pipeline-github/Dockerfile
