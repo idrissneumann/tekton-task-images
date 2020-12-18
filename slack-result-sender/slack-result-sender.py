@@ -49,8 +49,12 @@ proc.communicate()
 if PIPELINE_STATE == "toguess":
     if os.environ.get("PIPELINE_STATE") is None:
         PIPELINE_STATE = "success"
+        if LOG_LEVEL == "debug" or LOG_LEVEL == "DEBUG":
+            print("[slack-result-sender][debug] no environment variable PIPELINE_STATE set, set the state to success...")
     else:
         PIPELINE_STATE = os.environ['PIPELINE_STATE']
+        if LOG_LEVEL == "debug" or LOG_LEVEL == "DEBUG":
+            print("[slack-result-sender][debug] environment variable PIPELINE_STATE is set with {}".format(os.environ['PIPELINE_STATE']))
 
 last_pr = ""
 if os.environ.get("LAST_PULL_REQUEST_URL") is not None:
