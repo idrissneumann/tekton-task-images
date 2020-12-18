@@ -8,7 +8,7 @@ COPY github-set-status/set-status.py /
 COPY slack-result-sender/slack-result-sender.py /
 COPY init-kube-config/init-kube-config.sh /
 COPY destroy-pvc/destroy-pvc.sh /
-COPY --from=k8s_dep /usr/bin/kubectl /usr/local/bin/kubectl
+COPY --from=k8s_dep /usr/bin/kubectl /usr/bin/kubectl
 
 RUN chmod +x /end-pipeline.sh && \
     chmod +x /set-status.py && \
