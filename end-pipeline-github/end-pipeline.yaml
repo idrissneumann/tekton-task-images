@@ -69,12 +69,12 @@ spec:
     - name: targetUrl
       description: The target URL to associate with this status. This URL will be linked from the GitHub UI to allow users to easily see the source of the status.
       type: string
-    - name: description
+    - name: desc
       description: A short description of the status.
       default: "build in progress"
       type: string
     - name: context
-      description: The GitHub context, A string label to differentiate this status from the status of other systems. ie: "continuous-integration/tekton"
+      description: The GitHub context string label to differentiate this status from the status of other systems. ie continuous-integration/tekton
       default: "continuous-integration/tekton"
       type: string
   steps:
@@ -116,7 +116,7 @@ spec:
         - name: STATUS_CONTEXT
           value: $(params.context)
         - name: STATUS_DESCRIPTION
-          value: $(params.description)
+          value: $(params.desc)
         - name: TEKTON_WORKSPACE_PATH
           value: $(workspaces.git-environment.path)
         - name: KUBE_ENV
