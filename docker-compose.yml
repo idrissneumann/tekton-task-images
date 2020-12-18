@@ -89,6 +89,8 @@ services:
     build:
       context: kubectl
       dockerfile: Dockerfile
+      args:
+        K8S_VERSION: 1.18.2
   init-pipeline-github:
     image: comworkio/tekton-utils-init-pipeline-github
     build:
