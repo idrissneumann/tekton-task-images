@@ -48,12 +48,3 @@ spec:
         - name: TEKTON_WORKSPACE_PATH
           value: $(workspaces.git-environment.path)
       command: ["/yarn-checks.sh"]
-    - name: success
-      image: comworkio/tekton-utils-state-success:latest
-      workingDir: $(workspaces.git-environment.path)
-      env:
-        - name: LOG_LEVEL
-          value: $(params.LOG_LEVEL)
-        - name: TEKTON_WORKSPACE_PATH
-          value: $(workspaces.git-environment.path)
-      command: ["/state-success.sh"]

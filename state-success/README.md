@@ -1,6 +1,6 @@
 # State success
 
-Use this image as an end step of your tasks in order to set the final state to `success`.
+Use this image as an end task of your pipeline in order to set the final state to `success`.
 
 (Usefull when you use the [`github-set-status`](./github-set-status) or the [`slack-result-sender`](./slack-result-sender) tasks).
 
@@ -11,4 +11,4 @@ Use this image as an end step of your tasks in order to set the final state to `
 
 ## Tekton example
 
-See the [example](./tekton-example.yaml)
+See the [example](./success.yaml)

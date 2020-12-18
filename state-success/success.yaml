@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
-  name: task-example
+  name: success
   namespace: tekton-pipelines
 spec:
   description: >-
@@ -13,9 +13,6 @@ spec:
       description: The level of logs
       default: info
   steps:
-    - name: some-first-task
-      workingDir: $(workspaces.git-environment.path)
-      image: the-image
     - name: success
       image: comworkio/tekton-utils-state-success:latest
       workingDir: $(workspaces.git-environment.path)
