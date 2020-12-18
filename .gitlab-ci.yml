@@ -261,7 +261,7 @@ git-fetch-sources:
 state-success:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "state-success" "1.1"
+    - setsid ./ci/docker-deliver.sh "state-success" "1.2"
   only:
     refs:
       - /^(master.*)$/
