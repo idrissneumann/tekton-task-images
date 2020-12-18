@@ -46,7 +46,7 @@ spec:
       description: emojji code that will be used as a avatar
       default: ":tekton:"
     - name: username
-      description: the usename that will be shown
+      description: the username that will be shown
       default: "Tekton"
     - name: logLevel
       type: string
@@ -87,7 +87,7 @@ spec:
         - name: REPO_NAME
           value: $(params.repoName)
         - name: SLACK_USERNAME
-          value: $(params.usename)
+          value: $(params.username)
         - name: SLACK_EMOJI_AVATAR
           value: $(params.avatar)
         - name: SLACK_CHANNEL
