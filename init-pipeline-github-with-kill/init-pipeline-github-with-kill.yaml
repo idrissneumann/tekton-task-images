@@ -21,6 +21,13 @@ spec:
     - name: repoName
       type: string
       description: the github repo name
+    - name: buildId
+      type: string
+      description: build id (suffix of the pipelineruns name) to filter
+    - name: destroyPvc
+      type: string
+      description: destroy the associated pvc (enabled or disabled)
+      default: enabled
     - name: logLevel
       type: string
       description: the level of log (debug or info)
@@ -29,11 +36,46 @@ spec:
       type: string
       description: the slack channel
       default: "tekton"
+    - name: namespace
+      type: string
+      description: namespace of tekton pipelines
+      default: tekton-pipelines
   resources:
     inputs:
       - name: git-input
         type: git
   steps:
+    - name: kill-redundant-pipelines
+      image: comworkio/tekton-utils-kill-redundant-pipelines:latest
+      env:
+        - name: GIT_BRANCH
+          value: $(params.gitBranchName)
+        - name: PROJECT_NAME
+          value: $(params.repoName)
+        - name: BUILD_ID
+          value: $(params.buildId)
+        - name: LOG_LEVEL
+          value: $(params.logLevel)
+        - name: TEKTON_NAMESPACE
+          value: $(params.namespace)
+        - name: DESTROY_PVC
+          value: $(params.destroyPvc)
+        - name: KUBE_ENV
+          valueFrom:
+            secretKeyRef:
+              name: kube-auth
+              key: env
+        - name: KUBE_URL
+          valueFrom:
+            secretKeyRef:
+              name: kube-auth
+              key: url
+        - name: KUBE_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: kube-auth
+              key: token
+      command: ["/kill-redundant-pipelines.sh"]
     - name: init-env
       env:
         - name: LOG_LEVEL
