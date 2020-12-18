@@ -104,3 +104,8 @@ services:
     build:
       context: .
       dockerfile: destroy-pods/Dockerfile
+  end-pipeline-github:
+    image: comworkio/tekton-utils-end-pipeline-github
+    build:
+      context: .
+      dockerfile: end-pipeline-github/Dockerfile

@@ -1,0 +1,147 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: end-pipeline
+  labels:
+    app.kubernetes.io/version: "0.1"
+  annotations:
+    tekton.dev/pipelines.minVersion: "0.12.1"
+    tekton.dev/tags: messaging
+spec:
+  description: >-
+    Composite task for the esult of the pipeline (send slack, set github status, destroy pvc, etc)
+  workspaces:
+    - name: git-environment
+  params:
+    - name: gitBranchName
+      type: string
+      description: the branch name
+    - name: repoOrg
+      type: string
+      description: the git organization name
+    - name: repoName
+      type: string
+      description: the git repo name
+    - name: channel
+      type: string
+      description: channel id or channel name
+      default: "tekton"
+    - name: pipelineUrl
+      type: string
+      description: the pipeline url
+    - name: successMessage
+      type: string
+      description: plain text message
+      default: "Success :veryexcited: !"
+    - name: failureMessage
+      type: string
+      description: plain text message
+      default: "Fail :sob: !"
+    - name: onlyOnFailure
+      type: string
+      description: Publish only on failure (True or False)
+      default: "False"
+    - name: avatar
+      type: string
+      description: emojji code that will be used as a avatar
+      default: ":tekton:"
+    - name: username
+      description: the usename that will be shown
+      default: "Tekton"
+    - name: logLevel
+      type: string
+      description: the level of log (debug or info)
+      default: info
+    - name: state
+      description: state that prevail on the PIPELINE_STATE environment variable if it's set to (success, pending, failure)
+      default: toguess
+    - name: enableDestroyPvc
+      type: string
+      description: enable/disable destroying pvc
+      default: enabled
+    - name: pvcName
+      type: string
+      description: the PVC name
+    - name: namespaceName
+      type: string
+      description: the namespace
+      default: tekton-pipelines
+    - name: targetUrl
+      description: The target URL to associate with this status. This URL will be linked from the GitHub UI to allow users to easily see the source of the status.
+      type: string
+    - name: description
+      description: A short description of the status.
+      default: "build in progress"
+      type: string
+    - name: context
+      description: The GitHub context, A string label to differentiate this status from the status of other systems. ie: "continuous-integration/tekton"
+      default: "continuous-integration/tekton"
+      type: string
+  steps:
+    - name: processing
+      image: comworkio/tekton-utils-end-pipeline:latest
+      env:
+        - name: LOG_LEVEL
+          value: $(params.logLevel)
+        - name: DEFAULT_PIPELINE_STATE
+          value: $(params.state)
+        - name: REPO_ORG
+          value: $(params.repoOrg)
+        - name: REPO_NAME
+          value: $(params.repoName)
+        - name: SLACK_USERNAME
+          value: $(params.usename)
+        - name: SLACK_EMOJI_AVATAR
+          value: $(params.avatar)
+        - name: SLACK_CHANNEL
+          value: $(params.channel)
+        - name: GIT_BRANCH
+          value: $(params.gitBranchName)
+        - name: ONLY_ON_FAILURE
+          value: $(params.onlyOnFailure)
+        - name: SUCCESS_MESSAGE
+          value: $(params.successMessage)
+        - name: FAILURE_MESSAGE
+          value: $(params.failureMessage)
+        - name: PIPELINE_URL
+          value: $(params.pipelineUrl)
+        - name: ENABLE_DESTROY_PVC
+          value: $(params.enableDestroyPvc)
+        - name: NAMESPACE
+          value: $(params.namespaceName)
+        - name: PVC_NAME
+          value: $(params.pvcName)
+        - name: PIPELINE_TARGET_URL
+          value: $(params.targetUrl)
+        - name: STATUS_CONTEXT
+          value: $(params.context)
+        - name: STATUS_DESCRIPTION
+          value: $(params.description)
+        - name: TEKTON_WORKSPACE_PATH
+          value: $(workspaces.git-environment.path)
+        - name: KUBE_ENV
+          valueFrom:
+            secretKeyRef:
+              name: kube-auth
+              key: env
+        - name: KUBE_URL
+          valueFrom:
+            secretKeyRef:
+              name: kube-auth
+              key: url
+        - name: KUBE_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: kube-auth
+              key: token
+        - name: SLACK_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: slack-token
+              key: token
+        - name: GITHUBTOKEN
+          valueFrom:
+            secretKeyRef:
+              name: github-access
+              key: password
+      command: ["/end-pipeline.sh"]

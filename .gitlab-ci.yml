@@ -36,6 +36,21 @@ init-pipeline-github:
   tags:
     - tekton-utils
 
+end-pipeline-github:
+  stage: publish
+  script:
+    - setsid ./ci/docker-deliver.sh "end-pipeline-github" "1.0"
+  only:
+    refs:
+      - /^(master.*)$/
+    changes:
+      - end-pipeline-github/*
+      - slack-result-sender/*
+      - github-set-status/*
+      - destroy-pvc/*
+  tags:
+    - tekton-utils
+
 php-checks-7-4:
   stage: publish
   script:
