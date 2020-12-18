@@ -108,8 +108,6 @@ spec:
           value: $(params.namespaceName)
         - name: PVC_NAME
           value: $(params.pvcName)
-        - name: PIPELINE_TARGET_URL
-          value: $(params.pipelineUrl)
         - name: STATUS_CONTEXT
           value: $(params.context)
         - name: STATUS_DESCRIPTION

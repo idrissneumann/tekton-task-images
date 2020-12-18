@@ -25,7 +25,6 @@ Composite task for the esult of the pipeline (send slack, set github status, des
 * `SUCCESS_MESSAGE`: message displayed in case of success
 * `FAILURE_MESSAGE`: message displayed in case of failure
 * `GITHUBTOKEN`: the token (from a secret)
-* `PIPELINE_TARGET_URL`: pipeline target url
 * `STATUS_DESCRIPTION`: a short description of the status (for example `build in progress`)
 * `STATUS_CONTEXT`: a string label to differentiate this status from the status of other systems (example: `continuous-integration/tekton`)
 
