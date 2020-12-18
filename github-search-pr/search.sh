@@ -5,7 +5,7 @@ API_VERSION="v3"
 GITHUB_HOST_URL="api.github.com"
 STATE="open"
 
-suffix=$(echo ${HOSTNAME}|sed 's/\(.*\)-.*/\1/;s/\-sear//g')
+suffix=$(echo ${HOSTNAME}|sed 's/\(.*\)-.*/\1/;s/\-sear//g;s/\-init//g')
 pr_json_file="${TEKTON_WORKSPACE_PATH}/prs-${suffix}.json"
 pr_env_file="${TEKTON_WORKSPACE_PATH}/pr_env-${suffix}.sh"
 

@@ -33,7 +33,7 @@ def slack_message(emoji, channel, color, message, token, user):
 def str2bool(v):
     return v.lower() in ("yes", "true", "t", "1")
 
-env_file = TEKTON_WORKSPACE_PATH + "/pr_env-" + re.sub("-resu", "", re.sub(r"-[^-]*$", "", os.environ['HOSTNAME'])) + ".sh"
+env_file = TEKTON_WORKSPACE_PATH + "/pr_env-" + re.sub("-(pend|resu|init|succ|end)", "", re.sub(r"-[^-]*$", "", os.environ['HOSTNAME'])) + ".sh"
 
 if LOG_LEVEL == "debug" or LOG_LEVEL == "DEBUG":
     print("[slack-result-sender][debug] env_file = " + env_file);
