@@ -38,7 +38,7 @@ env_file = TEKTON_WORKSPACE_PATH + "/pr_env-" + re.sub("-(pend|resu|init|succ|en
 if LOG_LEVEL == "debug" or LOG_LEVEL == "DEBUG":
     print("[slack-result-sender][debug] env_file = {}, pre-state = {}".format(env_file, PIPELINE_STATE));
 
-command = shlex.split("env -i bash -c 'source " + env_file + " && env'")
+command = shlex.split("env -i sh -c 'source {} && env'".format(env_file))
 proc = subprocess.Popen(command, stdout = subprocess.PIPE, stderr = subprocess.STDOUT, encoding = 'utf8')
 
 for line in proc.stdout:

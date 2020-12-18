@@ -25,13 +25,13 @@ env_file = tekton_workspace_path + "/pr_env-" + re.sub("-(pend|resu|init|succ|en
 if log_level == "debug" or log_level == "DEBUG":
     print("[github-set-status][debug] env_file = {}, pre-state = {}".format(env_file, state));
 
-command = shlex.split("env -i bash -c 'source " + env_file + " && env'")
+command = shlex.split("env -i sh -c 'source {} && env'".format(env_file))
 proc = subprocess.Popen(command, stdout = subprocess.PIPE, stderr = subprocess.STDOUT, text = True, encoding = 'utf8')
 
 for line in proc.stdout:
     (key, _, value) = line.partition("=")
     os.environ[key] = value.strip();
-    if LOG_LEVEL == "debug" or LOG_LEVEL == "DEBUG":
+    if log_level == "debug" or log_level == "DEBUG":
         print("[github-set-status][debug] set env variable key={}, value={}".format(key, value.strip()))
 proc.communicate()
 
