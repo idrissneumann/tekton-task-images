@@ -140,7 +140,7 @@ kaniko-build:
 kubectl:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "kubectl" "1.0"
+    - setsid ./ci/docker-deliver.sh "kubectl" "1.1"
   only:
     refs:
       - /^(master.*)$/
