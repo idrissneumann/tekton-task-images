@@ -66,9 +66,6 @@ spec:
       type: string
       description: the namespace
       default: tekton-pipelines
-    - name: targetUrl
-      description: The target URL to associate with this status. This URL will be linked from the GitHub UI to allow users to easily see the source of the status.
-      type: string
     - name: desc
       description: A short description of the status.
       default: "build in progress"
@@ -112,7 +109,7 @@ spec:
         - name: PVC_NAME
           value: $(params.pvcName)
         - name: PIPELINE_TARGET_URL
-          value: $(params.targetUrl)
+          value: $(params.pipelineUrl)
         - name: STATUS_CONTEXT
           value: $(params.context)
         - name: STATUS_DESCRIPTION
