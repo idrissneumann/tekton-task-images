@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/bin/sh
 
-[[ ! -d ~/.kube ]] && mkdir ~/.kube
-[[ -f ~/.kube/config ]] && cp -f ~/.kube/config ~/.kube/config.old
+[ ! -d "~/.kube" ] && mkdir ~/.kube
+[ -f "~/.kube/config" ] && cp -f ~/.kube/config ~/.kube/config.old
 
 echo 'apiVersion: v1
 kind: Config
