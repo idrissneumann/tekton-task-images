@@ -4,5 +4,3 @@
 
 /set-status.py
 /slack-result-sender.py
-
-exit 0
