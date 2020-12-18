@@ -89,7 +89,7 @@ yarn-checks-node12:
 kill-redundant-pipelines:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "kill-redundant-pipelines" "1.5"
+    - setsid ./ci/docker-deliver.sh "kill-redundant-pipelines" "1.6"
   only:
     refs:
       - /^(master.*)$/
@@ -102,7 +102,7 @@ kill-redundant-pipelines:
 destroy-pvc:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "destroy-pvc" "1.5"
+    - setsid ./ci/docker-deliver.sh "destroy-pvc" "1.6"
   only:
     refs:
       - /^(master.*)$/
@@ -115,7 +115,7 @@ destroy-pvc:
 destroy-pods:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "destroy-pods" "1.5"
+    - setsid ./ci/docker-deliver.sh "destroy-pods" "1.6"
   only:
     refs:
       - /^(master.*)$/
