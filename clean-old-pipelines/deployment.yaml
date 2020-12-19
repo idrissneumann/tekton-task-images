@@ -43,6 +43,31 @@ spec:
                 configMapKeyRef:
                   name: tekton-clean-old-pipelines-conf
                   key: wait_time
+            - name: SHOULD_SLACK
+              valueFrom:
+                configMapKeyRef:
+                  name: tekton-clean-old-pipelines-conf
+                  key: should_slack
+            - name: SLACK_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: tekton-clean-old-pipelines-conf
+                  key: slack_username
+            - name: SLACK_EMOJI_AVATAR
+              valueFrom:
+                configMapKeyRef:
+                  name: tekton-clean-old-pipelines-conf
+                  key: slack_avatar
+            - name: SLACK_CHANNEL
+              valueFrom:
+                configMapKeyRef:
+                  name: tekton-clean-old-pipelines-conf
+                  key: slack_channel
+            - name: SLACK_COLOR
+              valueFrom:
+                configMapKeyRef:
+                  name: tekton-clean-old-pipelines-conf
+                  key: slack_color
             - name: KUBE_ENV
               valueFrom:
                 secretKeyRef:
@@ -57,4 +82,9 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: kube-auth
+                  key: token
+            - name: SLACK_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: slack-token
                   key: token

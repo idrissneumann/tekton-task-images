@@ -108,6 +108,7 @@ clean-old-pipelines:
       - /^(master.*)$/
     changes:
       - init-kube-config/*
+      - slack-sender/*
       - clean-old-pipelines/*
   tags:
     - tekton-utils

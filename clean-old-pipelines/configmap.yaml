@@ -8,4 +8,8 @@ data:
   wait_time: "43200"
   project_prefixes: "(project1|project2)"
   retention_days: 1
-
+  should_slack: on
+  slack_username: tekton-clean
+  slack_channel: "#tekton"
+  slack_avatar: ":tekton:"
+  slack_color: "#87CEEB"
