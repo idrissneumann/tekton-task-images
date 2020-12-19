@@ -6,16 +6,16 @@
 
 /init-kube-config.sh
 
-kubectl -n "${TEKTON_NAMESPACE}" get pipelineruns|awk '{if ($2 = "Unknown" && $3 ~ "Running" && $1 ~ "'"${PROJECT_NAME}"'.*" && !($1 ~ ".*'"${BUILD_ID}"'")){print $1}}'|while read pipeline; do
+tkn -n "${TEKTON_NAMESPACE}" pipelinerun list|awk '{if ($4 ~ "Running" && $1 ~ "'"${PROJECT_NAME}"'.*" && !($1 ~ ".*'"${BUILD_ID}"'")){print $1}}'|while read pipeline; do
   if [ "${LOG_LEVEL}" = "debug" ] || [ "${LOG_LEVEL}" = "DEBUG" ]; then
     echo "[kill-redundant-pipelines][debug] Checking branch for ${pipeline}..."
   fi
   
-  branch=$(kubectl -n "${TEKTON_NAMESPACE}" get pipelineruns "${pipeline}" -o json|jq -r '.spec.params | map(select(.name ==  "gitBranchName")) | .[] .value')
+  branch=$(tkn -n "${TEKTON_NAMESPACE}" pipelinerun describe "${pipeline}" -o json|jq -r '.spec.params | map(select(.name ==  "gitBranchName")) | .[] .value')
     
   if [ "${branch}" = "${GIT_BRANCH}" ]; then
     echo "[kill-redundant-pipelines] Killing ${pipeline} because branch=${branch}..."
-    kubectl -n "${TEKTON_NAMESPACE}" delete pipelineruns "${pipeline}"
+    tkn -n "${TEKTON_NAMESPACE}" pipelinerun delete "${pipeline}"
     if [ "${DESTROY_PVC}" = "enabled" ]; then
       PVC=$(echo "${pipeline}"|sed "s/${PROJECT_NAME}/${PROJECT_NAME}-pvc/g")
       echo "[kill-redundant-pipelines] Removing pvc ${PVC}..."
