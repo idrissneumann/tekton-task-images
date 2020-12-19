@@ -48,7 +48,7 @@ processing() {
 }
 
 while true; do
-  log_msg "Cleaning job that are older than ${retention_days} (wait_time = ${wait_time})"
+  log_msg "Cleaning job that are older than ${retention_days} days (wait_time = ${wait_time})"
   processing
   sleep "${wait_time}"
 done
