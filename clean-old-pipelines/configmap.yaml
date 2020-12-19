@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tekton-clean-old-pipelines-conf
+  namespace: tekton-pipelines
+data:
+  namespace: "tekton-pipelines"
+  wait_time: "43200"
+  project_prefixes: "(project1|project2)"
+  retention_days: 1
+

@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tekton-clean-old-pipelines
+  namespace: tekton-pipelines
+  labels:
+    app: tekton-clean-old-pipelines
+    app.kubernetes.io/name: tekton-clean-old-pipelines
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tekton-clean-old-pipelines
+      app.kubernetes.io/name: tekton-clean-old-pipelines
+  template:
+    metadata:
+      labels:
+        app: tekton-clean-old-pipelines
+        app.kubernetes.io/name: tekton-clean-old-pipelines
+    spec:
+      containers:
+        - name: tekton-clean-old-jobs
+          image: comworkio/tekton-utils-clean-old-pipelines:latest
+          imagePullPolicy: Always
+          env:
+            - name: NAMESPACE
+              valueFrom:
+                configMapKeyRef:
+                  name: tekton-clean-old-pipelines-conf
+                  key: namespace
+            - name: PROJECT_PREFIXES
+              valueFrom:
+                configMapKeyRef:
+                  name: tekton-clean-old-pipelines-conf
+                  key: project_prefixes
+            - name: RETENTION_DAYS
+              valueFrom:
+                configMapKeyRef:
+                  name: tekton-clean-old-pipelines-conf
+                  key: retention_days
+            - name: WAIT_TIME
+              valueFrom:
+                configMapKeyRef:
+                  name: tekton-clean-old-pipelines-conf
+                  key: wait_time
+            - name: KUBE_ENV
+              valueFrom:
+                secretKeyRef:
+                  name: kube-auth
+                  key: env
+            - name: KUBE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: kube-auth
+                  key: url
+            - name: KUBE_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: kube-auth
+                  key: token

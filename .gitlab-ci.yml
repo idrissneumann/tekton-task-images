@@ -99,6 +99,19 @@ kill-redundant-pipelines:
   tags:
     - tekton-utils
 
+clean-old-pipelines:
+  stage: publish
+  script:
+    - setsid ./ci/docker-deliver.sh "clean-old-pipelines" "1.0"
+  only:
+    refs:
+      - /^(master.*)$/
+    changes:
+      - init-kube-config/*
+      - clean-old-pipelines/*
+  tags:
+    - tekton-utils
+
 destroy-pvc:
   stage: publish
   script:

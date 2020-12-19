@@ -109,6 +109,11 @@ services:
     build:
       context: .
       dockerfile: destroy-pods/Dockerfile
+  clean-old-pipelines:
+    image: comworkio/tekton-utils-clean-old-pipelines
+    build:
+      context: .
+      dockerfile: clean-old-pipelines/Dockerfile
   end-pipeline-github:
     image: comworkio/tekton-utils-end-pipeline-github
     build:
