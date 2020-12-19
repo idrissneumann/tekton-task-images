@@ -7,8 +7,8 @@ data:
   namespace: "tekton-pipelines"
   wait_time: "43200"
   project_prefixes: "(project1|project2)"
-  retention_days: 1
-  should_slack: on
+  retention_days: "1"
+  should_slack: "on"
   slack_username: tekton-clean
   slack_channel: "#tekton"
   slack_avatar: ":tekton:"
