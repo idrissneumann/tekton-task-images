@@ -20,19 +20,6 @@ github-internal-mirror:
   tags:
     - tekton-utils
 
-tkn-test:
-  stage: publish
-  script:
-    - setsid ./ci/docker-deliver.sh "tkn-test" "1.1"
-  only:
-    refs:
-      - /^(master.*)$/
-    changes:
-      - tkn-test/*
-  tags:
-    - tekton-utils
-
-
 init-pipeline-github:
   stage: publish
   script:
