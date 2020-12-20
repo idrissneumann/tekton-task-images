@@ -15,7 +15,7 @@ kubectl -n "${TEKTON_NAMESPACE}" get pipelineruns|awk '{if ($2 = "Unknown" && $3
     
   if [ "${branch}" = "${GIT_BRANCH}" ]; then
     echo "[kill-redundant-pipelines] Killing ${pipeline} because branch=${branch}..."
-    kubectl -n "${TEKTON_NAMESPACE}" delete pipelineruns "${pipeline}"
+    tkn -n "${TEKTON_NAMESPACE}" pipelinerun cancel "${pipeline}"
     if [ "${DESTROY_PVC}" = "enabled" ]; then
       PVC=$(echo "${pipeline}"|sed "s/${PROJECT_NAME}/${PROJECT_NAME}-pvc/g")
       echo "[kill-redundant-pipelines] Removing pvc ${PVC}..."
