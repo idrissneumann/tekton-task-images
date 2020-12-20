@@ -61,6 +61,11 @@ services:
     build:
       context: kaniko-build
       dockerfile: Dockerfile
+  tkn-test:
+    image: comworkio/tekton-utils-tkn-test
+    build:
+      context: tkn-test
+      dockerfile: Dockerfile
   php-checks-7-4:
     image: comworkio/tekton-utils-php-checks-7-4
     build: 
