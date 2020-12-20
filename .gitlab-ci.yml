@@ -23,7 +23,7 @@ github-internal-mirror:
 tkn-test:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "tkn-test" "1.0"
+    - setsid ./ci/docker-deliver.sh "tkn-test" "1.1"
   only:
     refs:
       - /^(master.*)$/

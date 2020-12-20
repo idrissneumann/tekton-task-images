@@ -13,7 +13,7 @@ spec:
       default: tekton-pipelines
   steps:
     - name: tkn-test
-      image: comworkio/tekton-utils-tkn-test:latest
+      image: comworkio/tekton-utils-tkn-test:1.1
       env:
         - name: LOG_LEVEL
           value: $(params.logLevel)
