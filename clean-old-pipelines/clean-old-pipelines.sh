@@ -37,7 +37,7 @@ processing() {
   done
 
   kubectl -n "$kube_namespace" get pvc | while read pvc_name pvc_status pvc_volume pvc_capacity pvc_access_mode pvc_storage_class pvc_age trash; do
-    if [[ $pvc_name =~ $project_prefixes.*pvc-[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$ && $pvc_access_mode == "RWO" ]]; then
+    if [[ $pvc_name =~ $project_prefixes.*pvc-.*$ && $pvc_access_mode == "RWO" ]]; then
       age_in_days=$(echo $pvc_age | grep -oE "[0-9]+d" | tr -d 'd')
       if [[ $age_in_days && $age_in_days -ge $retention_days ]]; then
         log_msg "Deleting ${pvc_name} because ${age_in_days} >= ${retention_days}"
