@@ -65,7 +65,7 @@ processing() {
   fi
 }
 
-if [[ $wait_time =~ ^[0-9]+$ ; then
+if [[ $wait_time =~ ^[0-9]+$ ]]; then
   while true; do
     processing
     sleep "${wait_time}"
