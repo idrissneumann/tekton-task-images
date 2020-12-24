@@ -15,4 +15,3 @@ data:
   slack_color: "#87CEEB"
   enable_destroy_pvc: enabled
   max_pipelines_keep: "100"
-  
