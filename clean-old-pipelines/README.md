@@ -8,7 +8,7 @@ It clean the pipelineruns and associated pvc that are older than a configurable 
 
 * `NAMESPACE`: the namespace
 * `PROJECT_PREFIXES`: list of pvc prefixes with the following format: `(project1|project2|...)`
-* `MAX_PIPELINES_KEEP`: max pipelinerun to keep
+* `MAX_PIPELINES_KEEP`: max pipelinerun to keep (you can set `disabled` if you want to keep all the job that are younger than `RETENTION_DAYS`)
 * `RETENTION_DAYS`: number of days to keep the pipelineruns (you can set `disabled` if you want to only keep `MAX_PIPELINES_KEEP` regardless of the age of the pipelines)
 * `ENABLE_DESTROY_PVC`: `enabled` if you need to also destroy the pvc (because you're not using `volumeClaimTemplate` directly), `disabled` otherwise
 * `WAIT_TIME`: sleep time in millis
