@@ -9,6 +9,10 @@ wait_time="${WAIT_TIME}"
 should_slack="${SHOULD_SLACK}"
 max_pipelines="${MAX_PIPELINES_KEEP}"
 enable_destroy_pvc="${ENABLE_DESTROY_PVC}"
+enable_clean_resources="${ENABLE_CLEAN_RESOURCES}"
+
+[[ -z $enable_destroy_pvc ]] && enable_destroy_pvc="disabled"
+[[ -z $enable_clean_resources ]] && enable_clean_resources="disabled"
 
 if [[ ! $max_pipelines =~ ^[0-9]+$ && $max_pipelines != "disabled" ]]; then
   echo "Max pipelines to keep must be an integer"
@@ -39,29 +43,39 @@ processing() {
 
   if [[ $max_pipelines =~ ^[0-9]+$ ]]; then
     log_msg "Keeping only the ${max_pipelines} more recent pipelines"
-    tkn -n "$kube_namespace" pipelinerun delete --keep "${max_pipelines}" -f
+    tkn -n "${kube_namespace}" pipelinerun delete --keep "${max_pipelines}" -f
   fi
 
   if [[ $retention_days =~ ^[0-9]+$ ]]; then
-    kubectl -n "$kube_namespace" get pipelinerun | while read pipeline_name pipeline_status pipeline_reason pipeline_start pipeline_completion trash; do
+    kubectl -n "${kube_namespace}" get pipelinerun | while read pipeline_name pipeline_status pipeline_reason pipeline_start pipeline_completion trash; do
     age_in_days=$(echo $pipeline_completion | grep -oE "[0-9]+d" | tr -d 'd')
       if [[ $age_in_days && $age_in_days -ge $retention_days ]]; then
-        log_msg "Deleting ${pipeline_name} because ${age_in_days} >= ${retention_days}"
-        tkn -n "$kube_namespace" pipelinerun delete "${pipeline_name}" -f
+        log_msg "Deleting pipelinerun ${pipeline_name} because ${age_in_days} >= ${retention_days}"
+        tkn -n "${kube_namespace}" pipelinerun delete "${pipeline_name}" -f
       fi
     done
   fi
 
   if [[ $enable_destroy_pvc == "enabled" && $retention_days =~ ^[0-9]+$ ]]; then
-    kubectl -n "$kube_namespace" get pvc | while read pvc_name pvc_status pvc_volume pvc_capacity pvc_access_mode pvc_storage_class pvc_age trash; do
+    kubectl -n "${kube_namespace}" get pvc | while read pvc_name pvc_status pvc_volume pvc_capacity pvc_access_mode pvc_storage_class pvc_age trash; do
       if [[ $pvc_name =~ $project_prefixes.*pvc-.*$ && $pvc_access_mode == "RWO" ]]; then
         age_in_days=$(echo $pvc_age | grep -oE "[0-9]+d" | tr -d 'd')
         if [[ $age_in_days && $age_in_days -ge $retention_days ]]; then
-          log_msg "Deleting ${pvc_name} because ${age_in_days} >= ${retention_days}"
-          kubectl -n "$kube_namespace" delete pvc "${pvc_name}"
+          log_msg "Deleting pvc ${pvc_name} because ${age_in_days} >= ${retention_days}"
+          kubectl -n "${kube_namespace}" delete pvc "${pvc_name}"
         fi
       fi
     done
+  fi
+
+  if [[ $enable_clean_resources == "enabled" && $retention_days =~ ^[0-9]+$ ]]; then
+    kubectl -n "${kube_namespace}" get pipelineresources | while read resource_name resource_age trash; do
+      age_in_days=$(echo $resource_age | grep -oE "[0-9]+d" | tr -d 'd')
+      if [[ $age_in_days && $age_in_days -ge $retention_days ]]; then
+        log_msg "Deleting resource ${resource_name} because ${age_in_days} >= ${retention_days}"
+        tkn -n "${kube_namespace}" resource delete "${resource_name}" -f
+      fi
+    done 
   fi
 }
 

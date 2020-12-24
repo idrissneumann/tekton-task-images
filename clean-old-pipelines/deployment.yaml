@@ -43,6 +43,11 @@ spec:
                 configMapKeyRef:
                   name: tekton-clean-old-pipelines-conf
                   key: enable_destroy_pvc
+            - name: ENABLE_CLEAN_RESOURCES
+              valueFrom:
+                configMapKeyRef:
+                  name: tekton-clean-old-pipelines-conf
+                  key: enable_clean_resources
             - name: RETENTION_DAYS
               valueFrom:
                 configMapKeyRef:
