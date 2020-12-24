@@ -20,7 +20,7 @@ if [[ ! $retention_days =~ ^[0-9]+$ && $retention_days != "disabled" ]]; then
   exit 1
 fi
 
-if [[ ! $wait_time =~ ^[0-9]+$ ]]; then
+if [[ ! $wait_time =~ ^[0-9]+$ && $wait_time != "disabled" ]]; then
   echo "Wait time day must be an integer (time in millis)"
   exit 1
 fi
@@ -35,6 +35,8 @@ log_msg() {
 }
 
 processing() {
+  log_msg "Cleaning pipelines and pvc with max_pipelines=${max_pipelines}, retention_days=${retention_days}, enable_destroy_pvc=${enable_destroy_pvc}, wait_time=${wait_time}"
+
   if [[ $max_pipelines =~ ^[0-9]+$ ]]; then
     log_msg "Keeping only the ${max_pipelines} more recent pipelines"
     tkn -n "$kube_namespace" pipelinerun delete --keep "${max_pipelines}" -f
@@ -63,8 +65,11 @@ processing() {
   fi
 }
 
-while true; do
-  log_msg "Cleaning pipelines and pvc with max_pipelines=${max_pipelines}, retention_days=${retention_days}, enable_destroy_pvc=${enable_destroy_pvc}, wait_time=${wait_time}"
+if [[ $wait_time =~ ^[0-9]+$ ; then
+  while true; do
+    processing
+    sleep "${wait_time}"
+  done
+else
   processing
-  sleep "${wait_time}"
-done
+fi
