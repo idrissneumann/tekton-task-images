@@ -89,6 +89,11 @@ services:
     build:
       context: kubectl
       dockerfile: Dockerfile
+  init-pipeline:
+    image: comworkio/tekton-utils-init-pipeline
+    build:
+      context: .
+      dockerfile: init-pipeline/Dockerfile
   init-pipeline-github:
     image: comworkio/tekton-utils-init-pipeline-github
     build:

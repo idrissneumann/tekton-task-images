@@ -1,0 +1,55 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: init-pipeline
+  namespace: tekton-pipelines
+spec:
+  description: >-
+    This task will init the pipeline from a git repository
+  workspaces:
+    - name: git-environment
+  params:
+    - name: pipelineUrl
+      type: string
+      description: the pipeline url
+    - name: gitBranchName
+      type: string
+      description: the branch name
+    - name: repoUrl
+      type: string
+      description: the git repo url
+    - name: logLevel
+      type: string
+      description: the level of log (debug or info)
+      default: info
+    - name: slackChannel
+      type: string
+      description: the slack channel
+      default: "tekton"
+  resources:
+    inputs:
+      - name: git-input
+        type: git
+  steps:
+    - name: init-env
+      env:
+        - name: LOG_LEVEL
+          value: $(params.logLevel)
+        - name: SLACK_CHANNEL
+          value: $(params.slackChannel)
+        - name: PIPELINE_URL
+          value: $(params.pipelineUrl)
+        - name: GIT_BRANCH
+          value: $(params.gitBranchName)
+        - name: REPO_URL
+          value: $(params.repoUrl)
+        - name: TEKTON_WORKSPACE_PATH
+          value: $(workspaces.git-environment.path)
+        - name: SLACK_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: slack-token
+              key: token
+      image: comworkio/tekton-utils-init-pipeline:latest
+      workingDir: /workspace/git-input
+      command: ["/init-pipeline.sh"]

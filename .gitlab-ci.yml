@@ -20,10 +20,24 @@ github-internal-mirror:
   tags:
     - tekton-utils
 
+init-pipeline:
+  stage: publish
+  script:
+    - setsid ./ci/docker-deliver.sh "init-pipeline" "1.0"
+  only:
+    refs:
+      - /^(master.*)$/
+    changes:
+      - init-pipeline/*
+      - git-fetch-sources/*
+      - slack-sender/*
+  tags:
+    - tekton-utils
+
 init-pipeline-github:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "init-pipeline-github" "1.11"
+    - setsid ./ci/docker-deliver.sh "init-pipeline-github" "1.12"
   only:
     refs:
       - /^(master.*)$/
@@ -32,6 +46,7 @@ init-pipeline-github:
       - git-fetch-sources/*
       - github-add-comment/*
       - github-set-status/*
+      - github-search-pr/*
       - slack-sender/*
   tags:
     - tekton-utils
@@ -274,7 +289,7 @@ create-ingress:
 git-fetch-sources:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "git-fetch-sources" "1.3"
+    - setsid ./ci/docker-deliver.sh "git-fetch-sources" "1.4"
   only:
     refs:
       - /^(master.*)$/
