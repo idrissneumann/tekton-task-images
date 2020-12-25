@@ -42,7 +42,7 @@ processing() {
   log_msg "Cleaning pipelines and pvc with max_pipelines=${max_pipelines}, retention_days=${retention_days}, enable_destroy_pvc=${enable_destroy_pvc}, enable_clean_resources=${enable_clean_resources}, wait_time=${wait_time}"
 
   if [[ $max_pipelines =~ ^[0-9]+$ ]]; then
-    log_msg "Keeping only the ${max_pipelines} more recent pipelines"
+    log_msg "Keeping only the ${max_pipelines} most recent pipelines"
     tkn -n "${kube_namespace}" pipelinerun delete --keep "${max_pipelines}" -f
   fi
 
