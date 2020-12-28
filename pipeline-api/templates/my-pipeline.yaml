@@ -1,0 +1,46 @@
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: git-myorg-myproject-BRANCH_HASH
+  namespace: tekton-pipelines
+spec:
+  type: git
+  params:
+    - name: url
+      value: https://github.com/myorg/myproject
+    - name: revision
+      value: "BRANCH_NAME"
+    - name: depth
+      value: "0"
+---
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: "build-myorg-myproject-UNIQ_ID"
+  namespace: tekton-pipelines
+spec:
+  pipelineRef:
+    name: my-pipeline
+  resources:
+    - name: git-myorg-myproject
+      resourceRef:
+        name: git-myorg-myproject-BRANCH_HASH
+  params:
+    - name: buildId
+      value: "UNIQ_ID"
+    - name: gitBranchName
+      value: "BRANCH_NAME"
+    - name: logLevel
+      value: LOG_LEVEL
+  serviceAccountName: all-access-sa
+  workspaces:
+    - name: git-environment
+      volumeClaimTemplate:
+        metadata:
+          name: myorg-myproject-pvc-UNIQ_ID
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 1Gi

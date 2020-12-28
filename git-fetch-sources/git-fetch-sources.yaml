@@ -14,10 +14,10 @@ spec:
       description: the branch name
     - name: repoOrg
       type: string
-      description: the shippeo git organization name
+      description: the git organization name
     - name: repoName
       type: string
-      description: the shippeo git repo name
+      description: the git repo name
     - name: logLevel
       type: string
       description: the level of log (debug or info)

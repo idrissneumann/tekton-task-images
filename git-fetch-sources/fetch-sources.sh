@@ -11,9 +11,12 @@ json_manifest="${TEKTON_WORKSPACE_PATH}/manifest.json"
 
 echo "export LOG_LEVEL=${LOG_LEVEL}" > "${env_script}"
 echo "export GIT_BRANCH=${GIT_BRANCH}" >> "${env_script}"
-echo "export REPO_ORG=${REPO_ORG}" >> "${env_script}"
-echo "export REPO_NAME=${REPO_NAME}" >> "${env_script}"
-echo "export WORKING_DIR=/workspace/git-\$REPO_ORG-\$REPO_NAME" >> "${env_script}"
+[ -z "${REPO_ORG}"] || echo "export REPO_ORG=${REPO_ORG}" >> "${env_script}"
+[ -z "${REPO_NAME}"] || echo "export REPO_NAME=${REPO_NAME}" >> "${env_script}"
+[ -z "${REPO_URL}"] || echo "export REPO_URL=${REPO_URL}" >> "${env_script}"
+WORKING_DIR="/workspace/git-workspace"
+[ -z "${REPO_ORG}"] || [ -z "${REPO_NAME}"] || WORKING_DIR="/workspace/git-${REPO_ORG}-${REPO_NAME}"
+echo "export WORKING_DIR=${WORKING_DIR}" >> "${env_script}"
 source "${env_script}"
 echo "source ${env_script}" > "${log_script}"
 
@@ -25,13 +28,11 @@ if [ "${LOG_LEVEL}" = "debug" ] || [ "${LOG_LEVEL}" = "DEBUG" ]; then
 fi
 
 echo "source ${env_script}" > "${git_script}"
-[ "${LOG_LEVEL}" = "debug" ] || [ "${LOG_LEVEL}" = "DEBUG" ] && echo "echo '[git][1/4] installation'" >> "${git_script}"
-echo "apk add --no-cache git" >> "${git_script}"
-[ "${LOG_LEVEL}" = "debug" ] || [ "${LOG_LEVEL}" = "DEBUG" ] && echo "echo '[git][2/4] pull'" >> "${git_script}"
+[ "${LOG_LEVEL}" = "debug" ] || [ "${LOG_LEVEL}" = "DEBUG" ] && echo "echo '[git][1/3] pull'" >> "${git_script}"
 echo "git pull" >> "${git_script}"
-[ "${LOG_LEVEL}" = "debug" ] || [ "${LOG_LEVEL}" = "DEBUG" ] && echo "echo '[git][3/4] checkout '\$GIT_BRANCH" >> "${git_script}"
+[ "${LOG_LEVEL}" = "debug" ] || [ "${LOG_LEVEL}" = "DEBUG" ] && echo "echo '[git][2/3] checkout '\$GIT_BRANCH" >> "${git_script}"
 echo "git checkout \$GIT_BRANCH" >> "${git_script}"
-[ "${LOG_LEVEL}" = "debug" ] || [ "${LOG_LEVEL}" = "DEBUG" ] && echo "echo '[git][4/4] pull rebase '\$GIT_BRANCH" >> "${git_script}"
+[ "${LOG_LEVEL}" = "debug" ] || [ "${LOG_LEVEL}" = "DEBUG" ] && echo "echo '[git][3/3] pull rebase '\$GIT_BRANCH" >> "${git_script}"
 echo "git pull --rebase origin \$GIT_BRANCH" >> "${git_script}"
 
 /bin/sh "${log_script}"

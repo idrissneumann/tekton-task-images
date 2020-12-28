@@ -1,0 +1,13 @@
+version: "3.3"
+
+services: 
+  tekton-pipeline-api:
+    image: comworkio/tekton-pipeline-api
+    user: root
+    build:
+      context: ../../../
+      dockerfile: tekton-pipelines/base/pipeline_api/Dockerfile
+    env_file: 
+      - ./tekton-pipelines.env
+    ports: 
+      - 8080:8080
