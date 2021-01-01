@@ -2,7 +2,7 @@ FROM python:3-alpine
 
 COPY ./yaml-patch.py /
 
-RUN pip install ruamel.yaml && \
+RUN pip install HiYaPyCo && \
     chmod +x yaml-patch.py
 
 CMD ["/yaml-patch.py"]

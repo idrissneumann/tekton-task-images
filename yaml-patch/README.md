@@ -6,5 +6,4 @@
 * `YAML_OUTPUT_FILE_PATH`: relative path to the output yaml file (in the `TEKTON_WORKSPACE_PATH`)
 * `YAML_TEMPLATE_PATCH`: relative path to the template yaml file (in the `TEKTON_WORKSPACE_PATH`)
 * `VALUES_TO_REPLACE`: the value to replace in the template with `sed` format (ie: `s/foo/bar/g`)
-* `ROOT_KEY`: root key to perform replacements
 * `TEKTON_WORKSPACE_PATH`: the tekton workspace path

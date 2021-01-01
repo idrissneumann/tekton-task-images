@@ -1,5 +1,7 @@
 root:
   group1:
-    key2: VALUES_TO_REPLACE
+    key1: test1
+    key2: 1.1
   group2:
+    key3: test3
     key4: test4
