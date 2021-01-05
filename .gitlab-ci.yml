@@ -310,6 +310,18 @@ git-fetch-sources:
   tags:
     - tekton-utils
 
+git-push-changes:
+  stage: publish
+  script:
+    - setsid ./ci/docker-deliver.sh "git-push-changes" "1.0"
+  only:
+    refs:
+      - /^(master.*)$/
+    changes:
+      - git-push-changes/*
+  tags:
+    - tekton-utils
+
 state-success:
   stage: publish
   script:

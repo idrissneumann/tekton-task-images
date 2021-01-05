@@ -11,6 +11,11 @@ services:
     build:
       context: git-fetch-sources
       dockerfile: Dockerfile
+  git-push-changes:
+    image: comworkio/tekton-utils-git-push-changes
+    build:
+      context: git-push-changes
+      dockerfile: Dockerfile
   github-search-pr:
     image: comworkio/tekton-utils-github-search-pr
     build:
