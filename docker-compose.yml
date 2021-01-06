@@ -21,6 +21,11 @@ services:
     build:
       context: github-search-pr
       dockerfile: Dockerfile
+  github-open-pr:
+    image: comworkio/tekton-utils-github-open-pr
+    build:
+      context: github-open-pr
+      dockerfile: Dockerfile
   github-set-status:
     image: comworkio/tekton-utils-github-set-status
     build:

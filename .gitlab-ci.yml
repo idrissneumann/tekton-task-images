@@ -226,6 +226,18 @@ github-search-pr:
   tags:
     - tekton-utils
 
+github-open-pr:
+  stage: publish
+  script:
+    - setsid ./ci/docker-deliver.sh "github-open-pr" "1.0"
+  only:
+    refs:
+      - /^(master.*)$/
+    changes:
+      - github-open-pr/*
+  tags:
+    - tekton-utils
+
 github-set-status:
   stage: publish
   script:
