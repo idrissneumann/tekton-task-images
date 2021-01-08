@@ -77,6 +77,18 @@ yaml-merge:
   tags:
     - tekton-utils
 
+yaml-patch:
+  stage: publish
+  script:
+    - setsid ./ci/docker-deliver.sh "yaml-patch" "1.1"
+  only:
+    refs:
+      - /^(master.*)$/
+    changes:
+      - yaml-patch/*
+  tags:
+    - tekton-utils
+
 php-checks-7-4:
   stage: publish
   script:
