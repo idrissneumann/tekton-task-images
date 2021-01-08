@@ -1,0 +1,7 @@
+#!/bin/bash
+
+SRC="${GIT_SRC_BRANCH}"
+TARGET="${GIT_TARGET_BRANCH}"
+
+export GIT_SRC_BRANCH="${TARGET}"
+export GIT_TARGET_BRANCH="${SRC}"
