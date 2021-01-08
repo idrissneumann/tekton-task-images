@@ -8,7 +8,7 @@ log_level = os.environ['LOG_LEVEL']
 
 def get_script_output (cmd):
     if log_level == "debug" or log_level == "DEBUG":
-        print("[yaml-patch][get_script_output][debug] cmd = {}".format(cmd))
+        print("[yaml-merge][get_script_output][debug] cmd = {}".format(cmd))
     try:
         return check_output(cmd, shell=True, text=True)
     except:
@@ -23,7 +23,7 @@ def yaml_dump_to_file (input, path):
         fp.write(hiyapyco.dump(input))
     if log_level == "debug" or log_level == "DEBUG":
         with open(path, 'r') as f:
-            print("[yaml-patch][yaml_dump_to_file][debug] content : {}".format(f.read()))
+            print("[yaml-merge][yaml_dump_to_file][debug] content : {}".format(f.read()))
 
 def patch_from_template(template_path):
     if os.environ.get("VALUES_TO_REPLACE") is not None:
@@ -32,14 +32,14 @@ def patch_from_template(template_path):
         get_script_output("sed '{}' {} > {}".format(value_to_replaces, template_path, patch_path))
         if log_level == "debug" or log_level == "DEBUG":
             with open(patch_path, 'r') as f:
-                print("[yaml-patch][patch_from_template][debug] content : {}".format(f.read()))
+                print("[yaml-merge][patch_from_template][debug] content : {}".format(f.read()))
         return patch_path
     else:
         return template_path
 
 files_path = os.environ['TEKTON_WORKSPACE_PATH']
 input_path = "{}/{}".format(files_path, os.environ['YAML_INPUT_FILE_PATH'])
-template_path = "{}/{}".format(files_path, os.environ['YAML_TEMPLATE_PATCH'])
+template_path = "{}/{}".format(files_path, os.environ['YAML_TEMPLATE_TO_MERGE'])
 output_path = "{}/{}".format(files_path, os.environ['YAML_OUTPUT_FILE_PATH'])
 
 patch_path = patch_from_template(template_path)
