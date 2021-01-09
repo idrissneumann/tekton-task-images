@@ -1,5 +1,7 @@
 #!/bin/sh
 
+INPUT_FILE="${TEKTON_WORKSPACE_PATH}/${YAML_INPUT_FILE_PATH}"
+
 echo "[yaml-patch] patching ${INPUT_FILE} with ${YQ_EXPRESSION}"
 
 yq e "${YQ_EXPRESSION}" "${INPUT_FILE}" | sponge "${INPUT_FILE}"

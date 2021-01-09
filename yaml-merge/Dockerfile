@@ -1,8 +1,8 @@
 FROM python:3-alpine
 
-COPY ./yaml-patch.py /
+COPY ./yaml-merge.py /
 
 RUN pip install HiYaPyCo && \
-    chmod +x yaml-patch.py
+    chmod +x yaml-merge.py
 
 CMD ["/yaml-merge.py"]

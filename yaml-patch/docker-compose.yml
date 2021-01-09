@@ -1,0 +1,15 @@
+version: "3.3"
+
+services:
+  yaml-patch:
+    image: comworkio/tekton-utils-yaml-patch
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes: 
+      - ./test:/test:z
+    environment: 
+      - LOG_LEVEL=debug
+      - TEKTON_WORKSPACE_PATH=/test
+      - YAML_INPUT_FILE_PATH=yaml_src.yaml
+      - YQ_EXPRESSION=".root.group1.key1 = 'test2'"

@@ -68,7 +68,7 @@ end-pipeline-github:
 yaml-merge:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "yaml-merge" "1.0"
+    - setsid ./ci/docker-deliver.sh "yaml-merge" "1.1"
   only:
     refs:
       - /^(master.*)$/
