@@ -12,4 +12,4 @@ services:
       - LOG_LEVEL=debug
       - TEKTON_WORKSPACE_PATH=/test
       - YAML_INPUT_FILE_PATH=yaml_src.yaml
-      - YQ_EXPRESSION=".root.group1.key1 = 'test2'"
+      - YQ_EXPRESSION=.root.group1.key1 = "test2"

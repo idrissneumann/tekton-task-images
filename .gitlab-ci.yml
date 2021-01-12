@@ -80,7 +80,7 @@ yaml-merge:
 yaml-patch:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "yaml-patch" "1.1"
+    - setsid ./ci/docker-deliver.sh "yaml-patch" "1.2"
   only:
     refs:
       - /^(master.*)$/

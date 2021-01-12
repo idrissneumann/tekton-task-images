@@ -1,3 +1,5 @@
 root:
   group1:
     key1: "test1"
+  group2:
+    key2: "test3"
