@@ -65,15 +65,27 @@ end-pipeline-github:
   tags:
     - tekton-utils
 
-yaml-patch:
+yaml-merge:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "yaml-patch" "1.0"
+    - setsid ./ci/docker-deliver.sh "yaml-merge" "1.1"
   only:
     refs:
       - /^(master.*)$/
     changes:
-      - php-checks/*
+      - yaml-merge/*
+  tags:
+    - tekton-utils
+
+yaml-patch:
+  stage: publish
+  script:
+    - setsid ./ci/docker-deliver.sh "yaml-patch" "1.2"
+  only:
+    refs:
+      - /^(master.*)$/
+    changes:
+      - yaml-patch/*
   tags:
     - tekton-utils
 

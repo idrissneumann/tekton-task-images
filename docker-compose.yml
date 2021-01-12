@@ -1,6 +1,11 @@
 version: "3.3"
 
 services:
+  yaml-merge:
+    image: comworkio/tekton-utils-yaml-merge
+    build:
+      context: yaml-merge
+      dockerfile: Dockerfile
   yaml-patch:
     image: comworkio/tekton-utils-yaml-patch
     build:

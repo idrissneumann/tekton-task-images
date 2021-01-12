@@ -1,8 +1,8 @@
 version: "3.3"
 
 services:
-  yaml-patch:
-    image: comworkio/tekton-utils-yaml-patch
+  yaml-merge:
+    image: comworkio/tekton-utils-yaml-merge
     build:
       context: .
       dockerfile: Dockerfile
@@ -10,6 +10,9 @@ services:
       - ./test:/test:z
     environment: 
       - LOG_LEVEL=debug
+      - ROOT_KEY=root
       - TEKTON_WORKSPACE_PATH=/test
       - YAML_INPUT_FILE_PATH=yaml_src.yaml
-      - YQ_EXPRESSION=.root.group1.key1 = "test2"
+      - YAML_TEMPLATE_TO_MERGE=yaml_to_merge.yaml.tpl
+      - YAML_OUTPUT_FILE_PATH=output.yaml
+      - VALUES_TO_REPLACE=s/VALUE_TO_REPLACE/1.1/g
