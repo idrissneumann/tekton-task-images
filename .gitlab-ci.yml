@@ -250,6 +250,21 @@ github-open-pr:
   tags:
     - tekton-utils
 
+github-bump-pr:
+  stage: publish
+  script:
+    - setsid ./ci/docker-deliver.sh "github-bump-pr" "1.0"
+  only:
+    refs:
+      - /^(master.*)$/
+    changes:
+      - github-open-pr/*
+      - github-bump-pr/*
+      - git-push-changes/*
+      - yaml-patch/*
+  tags:
+    - tekton-utils
+
 github-set-status:
   stage: publish
   script:

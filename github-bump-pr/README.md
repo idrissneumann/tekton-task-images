@@ -12,3 +12,7 @@ Open a bump pull request
 * `PR_TITLE`: git commit message (ie: `bump to 1.3.4`)
 * `REPO_ORG`: github repo org
 * `REPO_NAME`: github repo name
+* `YAML_INPUT_FILE_PATH`: relative path to the input yaml file (in the `TEKTON_WORKSPACE_PATH`)
+* `YQ_EXPRESSION`: `yq` patch expression
+
+For multiple expressions and multiple file, you can use `YQ_EXPRESSION_X` with `YAML_INPUT_FILE_PATH_X` instead of `YAML_INPUT_FILE_PATH` and `YQ_EXPRESSION`, with `X`, a number that need to match for both variables.
