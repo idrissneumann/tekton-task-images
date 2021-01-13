@@ -6,7 +6,7 @@ ENV YQ_VERSION=v4.2.1 \
 COPY ./yaml-patch.sh /
 
 RUN chmod +x /yaml-patch.sh && \
-    apk add --no-cache curl && \
+    apk add --no-cache bash curl && \
     curl -LO "https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/${YQ_BINARY}.tar.gz" && \
     tar xvzf ${YQ_BINARY}.tar.gz && \
     mv ${YQ_BINARY} /usr/bin/yq && \ 
