@@ -1,6 +1,6 @@
 # Github open pull request
 
-Open a bump pull request.
+Open a bump pull request to upgrade yaml manifests with a version number from a git tag.
 
 ## Environment variables to set
 
