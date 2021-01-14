@@ -7,9 +7,11 @@ COPY yaml-patch/yaml-patch.sh /
 COPY github-bump-pr/bump.sh /
 COPY github-bump-pr/reverse_branches.sh /
 COPY github-open-pr/open.sh /
+COPY github-open-pr/fetch.sh /
 COPY git-push-changes/git-push-changes.sh /
 
 RUN chmod +x /yaml-patch.sh && \
+    chmod +x /fetch.sh && \
     chmod +x /bump.sh && \
     chmod +x reverse_branches.sh && \
     chmod +x /open.sh && \
