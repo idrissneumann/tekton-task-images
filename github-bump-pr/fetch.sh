@@ -27,6 +27,7 @@ fetch() {
   fi
 
   cd "${git_workspace_val}"
+  git pull
 
   if [[ ! $git_src_branch ]]; then
     echo "[fetch] git_src_branch=${git_src_branch} is not a valid branch"
@@ -35,7 +36,6 @@ fetch() {
 
   git checkout "${git_src_branch}"
   git pull --rebase origin "${git_src_branch}"
-  git fetch --prune --unshallow
 
   if [[ $LOG_LEVEL == "debug" || $LOG_LEVEL == "DEBUG" ]]; then
     echo "[fetch] Content of ${git_workspace_var}=${git_workspace_val} after fetch"
