@@ -1,0 +1,58 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: notification-bump
+  namespace: tekton-pipelines
+spec:
+  description: >-
+    This task will init a bump pull request
+  params:
+    - name: gitBranchName
+      type: string
+      description: the branch name
+    - name: repoOrg
+      type: string
+      description: the gitops organization name
+      default: "myorga"
+    - name: repoName
+      type: string
+      description: the gitops repo name
+      default: "kubernetes-deployments"
+    - name: yamlFileInput
+      type: string
+      description: relative path to the input yaml file 
+      default: xxxxx/yyyyy/development/values.yaml
+    - name: yqExpression
+      type: string
+      description: yq patch expression
+      default: .nginx.image.tag = "VERSION_TO_REPLACE"
+    - name: logLevel
+      type: string
+      description: the level of log (debug or info)
+      default: info
+  resources:
+    inputs:
+      - name: gitops-input
+        type: git
+  steps:
+    - name: bump
+      image: comworkio/tekton-utils-github-bump-pr:latest
+      env:
+        - name: GIT_BRANCH
+          value: $(params.gitBranchName)
+        - name: REPO_ORG
+          value: $(params.repoOrg)
+        - name: REPO_NAME
+          value: $(params.repoName)
+        - name: LOG_LEVEL
+          value: $(params.logLevel)
+        - name: YAML_INPUT_FILE_PATH
+          value: $(params.yamlFileInput)
+        - name: YQ_EXPRESSION
+          value: $(params.yqExpression)
+        - name: GITHUBTOKEN
+          valueFrom:
+            secretKeyRef:
+              name: github-access
+              key: password
+      command: ["/bump.sh"]

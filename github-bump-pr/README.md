@@ -14,3 +14,7 @@ Open a bump pull request
 * `GIT_TARGET_BRANCH`: git target branch of the deployment/gitops repository (default: `master`)
 
 For multiple expressions and multiple file, you can use `YQ_EXPRESSION_X` with `YAML_INPUT_FILE_PATH_X` instead of `YAML_INPUT_FILE_PATH` and `YQ_EXPRESSION`, with `X`, a number that need to match for both variables.
+
+## Tekton example
+
+See the [example](./myproject-bump.yaml)
