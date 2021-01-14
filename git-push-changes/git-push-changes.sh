@@ -4,7 +4,7 @@ if [ "${LOG_LEVEL}" = "debug" ] || [ "${LOG_LEVEL}" = "DEBUG" ]; then
   set -x
 fi
 
-cd "${TEKTON_WORKSPACE_PATH}"
+cd "${GIT_WORKSPACE_PATH}"
 git checkout "${GIT_SRC_BRANCH}"
 git pull --rebase origin "${GIT_SRC_BRANCH}"
 git branch -D "${GIT_TARGET_BRANCH}" || :

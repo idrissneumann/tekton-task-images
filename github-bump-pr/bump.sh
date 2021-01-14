@@ -14,6 +14,7 @@ replace_version() {
 }
 
 yamls_patch() {
+  export TEKTON_WORKSPACE_PATH="${GIT_WORKSPACE_PATH}"
   replace_version "YQ_EXPRESSION=${YQ_EXPRESSION}"
   env|grep -E "YQ_EXPRESSION_[0-9]+"|while read -r; do
     replace_version "${REPLY}"
@@ -59,8 +60,6 @@ if [[ $GIT_BRANCH != "master" && $GIT_BRANCH != "develop" ]] && [[ ! $GIT_BRANCH
   echo "[github-bump-pr] No need to bump because GIT_BRANCH=${GIT_BRANCH}"
   exit 0
 fi
-
-cd "${TEKTON_WORKSPACE_PATH}"
 
 set_version
 set_branches_and_pr

@@ -6,7 +6,6 @@ Open a bump pull request
 
 * `LOG_LEVEL`: log level (`debug` or `info`)
 * `GITHUBTOKEN`: the token (from a secret)
-* `TEKTON_WORKSPACE_PATH`: the workspace path
 * `GIT_BRANCH`: git branch of the application repository
 * `REPO_ORG`: github repo org
 * `REPO_NAME`: github repo name
