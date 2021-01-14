@@ -5,6 +5,8 @@ if [[ $GIT_BRANCH != "master" && $GIT_BRANCH != "develop" ]] && [[ ! $GIT_BRANCH
   exit 0
 fi
 
+[[ ! $GIT_TARGET_BRANCH ]] && GIT_TARGET_BRANCH="master"
+
 cd "${TEKTON_WORKSPACE_PATH}"
 /yaml-patch.sh
 
