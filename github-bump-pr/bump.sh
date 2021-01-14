@@ -45,15 +45,18 @@ set_branches_and_pr() {
 git_fetch() {
   source /reverse_branches.sh
   /fetch.sh
+  [[ $? -ne 0 ]] && exit 1
 }
 
 git_push() {
   /git-push-changes.sh
+  [[ $? -ne 0 ]] && exit 1
 }
 
 open_pr() {
   source /reverse_branches.sh
   /open.sh
+  [[ $? -ne 0 ]] && exit 1
 }
 
 if [[ $GIT_BRANCH != "master" && $GIT_BRANCH != "develop" ]] && [[ ! $GIT_BRANCH =~ ^[0-9]+.[0-9]+.x$ ]]; then
