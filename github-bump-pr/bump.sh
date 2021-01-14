@@ -20,6 +20,7 @@ else
 fi
 
 export GIT_SRC_BRANCH="bump_${VERSION}"
+export PR_TITLE="Bump ${REPO_ORG}/${REPO_NAME} to ${VERSION}"
 source /reverse_branches.sh
 /git-push-changes.sh
 source /reverse_branches.sh

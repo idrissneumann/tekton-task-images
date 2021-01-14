@@ -8,11 +8,10 @@ Open a bump pull request
 * `GITHUBTOKEN`: the token (from a secret)
 * `TEKTON_WORKSPACE_PATH`: the workspace path
 * `GIT_BRANCH`: git branch of the application repository
-* `GIT_TARGET_BRANCH`: git target branch of the deployment/gitops repository (ie: `master` or `develop`)
-* `PR_TITLE`: git commit message (ie: `bump to 1.3.4`)
 * `REPO_ORG`: github repo org
 * `REPO_NAME`: github repo name
 * `YAML_INPUT_FILE_PATH`: relative path to the input yaml file (in the `TEKTON_WORKSPACE_PATH`)
 * `YQ_EXPRESSION`: `yq` patch expression
+* `GIT_TARGET_BRANCH`: git target branch of the deployment/gitops repository (default: `master`)
 
 For multiple expressions and multiple file, you can use `YQ_EXPRESSION_X` with `YAML_INPUT_FILE_PATH_X` instead of `YAML_INPUT_FILE_PATH` and `YQ_EXPRESSION`, with `X`, a number that need to match for both variables.
