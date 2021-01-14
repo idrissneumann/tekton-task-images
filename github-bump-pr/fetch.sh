@@ -21,7 +21,6 @@ if [[ $LOG_LEVEL == "debug" || $LOG_LEVEL == "DEBUG" ]]; then
 fi
 
 cd "${GIT_WORKSPACE_PATH}"
-git pull
 
 if [[ ! $GIT_SRC_BRANCH ]]; then
   echo "[fetch] GIT_SRC_BRANCH=${GIT_SRC_BRANCH} is not a valid branch"
@@ -30,6 +29,7 @@ fi
 
 git checkout "${GIT_SRC_BRANCH}"
 git pull --rebase origin "${GIT_SRC_BRANCH}"
+git fetch --prune --unshallow
 
 if [[ $LOG_LEVEL == "debug" || $LOG_LEVEL == "DEBUG" ]]; then
   echo "[fetch] Content of GIT_WORKSPACE_PATH=${GIT_WORKSPACE_PATH} after fetch"
