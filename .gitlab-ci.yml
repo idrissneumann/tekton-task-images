@@ -253,7 +253,7 @@ github-open-pr:
 github-bump-pr:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "github-bump-pr" "1.20"
+    - setsid ./ci/docker-deliver.sh "github-bump-pr" "1.21"
   only:
     refs:
       - /^(master.*)$/
@@ -352,7 +352,7 @@ git-fetch-sources:
 git-push-changes:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "git-push-changes" "1.4"
+    - setsid ./ci/docker-deliver.sh "git-push-changes" "1.5"
   only:
     refs:
       - /^(master.*)$/
