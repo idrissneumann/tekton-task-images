@@ -22,6 +22,12 @@ fi
 
 cd "${GIT_WORKSPACE_PATH}"
 git pull
+
+if [[ !$GIT_SRC_BRANCH ]]; then
+  echo "[fetch] GIT_SRC_BRANCH=${GIT_SRC_BRANCH} is not a valid branch"
+  exit 1
+fi
+
 git checkout "${GIT_SRC_BRANCH}"
 git pull --rebase origin "${GIT_SRC_BRANCH}"
 

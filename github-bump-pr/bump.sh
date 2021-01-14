@@ -45,7 +45,7 @@ set_version() {
 }
 
 set_branches_and_pr() {
-  [[ ! $GIT_TARGET_BRANCH ]] && GIT_TARGET_BRANCH="master"
+  [[ ! $GIT_TARGET_BRANCH ]] && export GIT_TARGET_BRANCH="master"
   export GIT_SRC_BRANCH="bump_${VERSION}"
   export PR_TITLE="Bump ${REPO_ORG}/${REPO_NAME} to ${VERSION}"
 
@@ -55,7 +55,7 @@ set_branches_and_pr() {
 }
 
 git_fetch() {
-  source /reverse_branches.sh
+  [[ ! $GIT_SRC_BRANCH ]] && export GIT_SRC_BRANCH="master"
   source /fetch.sh
   [[ $? -ne 0 ]] && exit 1
 }
@@ -65,8 +65,15 @@ git_push() {
   [[ $? -ne 0 ]] && exit 1
 }
 
+reverse_branches() {
+  src="${GIT_SRC_BRANCH}"
+  target="${GIT_TARGET_BRANCH}"
+  export GIT_TARGET_BRANCH="${src}"
+  export GIT_SRC_BRANCH="${target}"
+}
+
 open_pr() {
-  source /reverse_branches.sh
+  reverse_branches
   /open.sh
   [[ $? -ne 0 ]] && exit 1
 }
