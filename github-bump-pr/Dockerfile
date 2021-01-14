@@ -6,8 +6,8 @@ ENV YQ_VERSION=v4.2.1 \
 COPY yaml-patch/yaml-patch.sh /
 COPY github-bump-pr/bump.sh /
 COPY github-bump-pr/reverse_branches.sh /
+COPY github-bump-pr/fetch.sh /
 COPY github-open-pr/open.sh /
-COPY github-open-pr/fetch.sh /
 COPY git-push-changes/git-push-changes.sh /
 
 RUN chmod +x /yaml-patch.sh && \
