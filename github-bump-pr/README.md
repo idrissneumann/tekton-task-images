@@ -1,6 +1,6 @@
 # Github open pull request
 
-Open a bump pull request
+Open a bump pull request.
 
 ## Environment variables to set
 
