@@ -13,3 +13,5 @@ curl ${VERBOSE_OPT} -X POST "https://${GITHUB_HOST_URL}/repos/${REPO_ORG}/${REPO
     -H "Authorization: Bearer ${GITHUBTOKEN}"  \
     -H "Accept: application/vnd.github.${API_VERSION}+json" \
     -d '{"title":"'"${PR_TITLE}"'", "head":"'"${GIT_SRC_BRANCH}"'","base":"'"${GIT_TARGET_BRANCH}"'", "owner":"'"${REPO_ORG}"'", "repo":"'"${REPO_NAME}"'"}'
+
+exit 0

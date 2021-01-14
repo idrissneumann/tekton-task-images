@@ -79,7 +79,6 @@ reverse_branches() {
 open_pr() {
   reverse_branches
   /open.sh
-  [[ $? -ne 0 ]] && exit 1
 }
 
 if [[ $GIT_BRANCH != "master" && $GIT_BRANCH != "develop" ]] && [[ ! $GIT_BRANCH =~ ^[0-9]+.[0-9]+.x$ ]]; then
