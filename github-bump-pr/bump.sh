@@ -49,6 +49,7 @@ set_branches_and_pr() {
   [[ ! $GIT_TARGET_BRANCH ]] && export GIT_TARGET_BRANCH="master"
   export GIT_SRC_BRANCH="bump_${VERSION}"
   export PR_TITLE="Bump ${REPO_ORG}/${REPO_NAME} to ${VERSION}"
+  export GIT_COMMIT_MSG="${PR_TITLE}"
 
   if [[ $LOG_LEVEL == "debug" || $LOG_LEVEL == "DEBUG" ]]; then
     echo "[git-bump-pr][set_branches_and_pr] GIT_TARGET_BRANCH=${GIT_TARGET_BRANCH}, GIT_SRC_BRANCH=${GIT_SRC_BRANCH}, PR_TITLE=${PR_TITLE}"
