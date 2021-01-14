@@ -9,8 +9,7 @@ if [ "${LOG_LEVEL}" = "debug" ] || [ "${LOG_LEVEL}" = "DEBUG" ]; then
   VERBOSE_OPT="-v"
 fi
 
-curl -X POST "https://${GITHUB_HOST_URL}/repos/${REPO_ORG}/${REPO_NAME}/pulls" \
+curl ${VERBOSE_OPT} -X POST "https://${GITHUB_HOST_URL}/repos/${REPO_ORG}/${REPO_NAME}/pulls" \
     -H "Authorization: Bearer ${GITHUBTOKEN}"  \
-    -H "Accept: application/vnd.github.${API_VERSION}+json" \ 
-    ${VERBOSE_OPT} \
+    -H "Accept: application/vnd.github.${API_VERSION}+json" \
     -d '{"title":"'"${PR_TITLE}"'", "head":"'"${GIT_SRC_BRANCH}"'","base":"'"${GIT_TARGET_BRANCH}"'", "owner":"'"${REPO_ORG}"'", "repo":"'"${REPO_NAME}"'"}'

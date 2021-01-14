@@ -24,10 +24,14 @@ if [ -z "${GIT_USER_NAME}" ]; then
   export GIT_USER_NAME="tekton"
 fi
 
+git add .
+git stash
 git checkout "${GIT_SRC_BRANCH}"
 git pull --rebase origin "${GIT_SRC_BRANCH}"
 git branch -D "${GIT_TARGET_BRANCH}" || :
+git push -d origin "${GIT_TARGET_BRANCH}" || :
 git checkout -b "${GIT_TARGET_BRANCH}"
+git stash pop
 git config --global user.email "${GIT_USER_EMAIL}"
 git config --global user.name "${GIT_USER_NAME}"
 git add .
