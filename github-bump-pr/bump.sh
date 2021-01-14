@@ -7,7 +7,7 @@ replace_version() {
   if [[ "${yq_expr_var}" ]]; then
     yq_expr_val=$(eval "echo \$YQ_EXPRESSION_${digit}"|sed "s/VERSION_TO_REPLACE/${VERSION}/g")
     [[ "${yq_expr_val}" ]] && export "${yq_expr_var}=${yq_expr_val}"
-    if [[ $LOG_LEVEL == "debug" || $LOG_LEVEL == "debug" ]]; then
+    if [[ $LOG_LEVEL == "debug" || $LOG_LEVEL == "DEBUG" ]]; then
       echo "[github-bump-pr][replace_version] ${yq_expr_var} = ${yq_expr_val}"
     fi
   fi
@@ -37,7 +37,7 @@ set_branches_and_pr() {
   export GIT_SRC_BRANCH="bump_${VERSION}"
   export PR_TITLE="Bump ${REPO_ORG}/${REPO_NAME} to ${VERSION}"
 
-  if [[ $LOG_LEVEL == "debug" || $LOG_LEVEL == "debug" ]]; then
+  if [[ $LOG_LEVEL == "debug" || $LOG_LEVEL == "DEBUG" ]]; then
     echo "[git-bump-pr][set_branches_and_pr] GIT_TARGET_BRANCH=${GIT_TARGET_BRANCH}, GIT_SRC_BRANCH=${GIT_SRC_BRANCH}, PR_TITLE=${PR_TITLE}"
   fi
 }
