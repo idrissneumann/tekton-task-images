@@ -32,6 +32,8 @@ spec:
       default: info
   resources:
     inputs:
+      - name: git-input
+        type: git
       - name: gitops-input
         type: git
   steps:
