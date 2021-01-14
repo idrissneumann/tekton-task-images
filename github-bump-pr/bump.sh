@@ -14,7 +14,7 @@ replace_version() {
 }
 
 yamls_patch() {
-  export TEKTON_WORKSPACE_PATH="${GIT_WORKSPACE_PATH}"
+  export TEKTON_WORKSPACE_PATH="${GITOPS_WORKSPACE_PATH}"
   if [[ ! $TEKTON_WORKSPACE_PATH ]] || [[ ! -d $TEKTON_WORKSPACE_PATH ]]; then
     echo "[yamls_patch] TEKTON_WORKSPACE_PATH=${TEKTON_WORKSPACE_PATH} is not a valid directory"
     exit 1
@@ -36,6 +36,7 @@ set_version() {
 
   cd "${GIT_WORKSPACE_PATH}"
   export VERSION="$(git describe --long|sed "s/-/\./")"
+
   if [[ ! $VERSION ]]; then
     echo "[github-bump-pr][set_version] There is no tag that fit a version number, pick VERSION=${VERSION}"
     exit 1
@@ -61,6 +62,7 @@ git_fetch() {
 }
 
 git_push() {
+  export GIT_WORKSPACE_PATH="${GITOPS_WORKSPACE_PATH}"
   /git-push-changes.sh
   [[ $? -ne 0 ]] && exit 1
 }
