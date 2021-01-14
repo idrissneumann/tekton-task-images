@@ -8,7 +8,7 @@ fi
 
 [[ ! -d "${GIT_WORKSPACE_PATH}" ]] && export GIT_WORKSPACE_PATH="${ROOT_WORKSPACE_DIR}/git-${REPO_ORG}-${REPO_NAME}-${GIT_SRC_BRANCH}"
 [[ ! -d "${GIT_WORKSPACE_PATH}" ]] && export GIT_WORKSPACE_PATH="${ROOT_WORKSPACE_DIR}/git-${REPO_ORG}-${REPO_NAME}"
-[[ ! -d "${GIT_WORKSPACE_PATH}" ]] && export GIT_WORKSPACE_PATH="${ROOT_WORKSPACE_DIR}/gitops-input/gitops-input"
+[[ ! -d "${GIT_WORKSPACE_PATH}" ]] && export GIT_WORKSPACE_PATH="${ROOT_WORKSPACE_DIR}/gitops-input"
 
 if [[ ! -d "${GIT_WORKSPACE_PATH}" ]]; then
   echo "[github-bump-pr][fetch.sh] GIT_WORKSPACE_PATH=${GIT_WORKSPACE_PATH} doesn't exists as a directory"
