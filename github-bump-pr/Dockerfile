@@ -13,7 +13,7 @@ COPY git-push-changes/git-push-changes.sh /
 RUN chmod +x /yaml-patch.sh && \
     chmod +x /fetch.sh && \
     chmod +x /bump.sh && \
-    chmod +x reverse_branches.sh && \
+    chmod +x /reverse_branches.sh && \
     chmod +x /open.sh && \
     chmod +x /git-push-changes.sh && \
     apk add --no-cache bash curl git && \
