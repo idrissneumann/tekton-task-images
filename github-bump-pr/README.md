@@ -9,6 +9,8 @@ Open a bump pull request to upgrade yaml manifests with a version number from a 
 * `GIT_BRANCH`: git branch of the application repository
 * `REPO_ORG`: github repo org
 * `REPO_NAME`: github repo name
+* `GIT_USER_EMAIL`: the git email you want to use for commit
+* `GIT_USER_NAME`: the git name you want to use for commit
 * `YAML_INPUT_FILE_PATH`: relative path to the input yaml file (in the `TEKTON_WORKSPACE_PATH`)
 * `YQ_EXPRESSION`: `yq` patch expression (it can contain `VERSION_TO_REPLACE` that will be automatically replaced by the git tag version)
 * `GIT_TARGET_BRANCH`: git target branch of the deployment/gitops repository (default: `master`)
