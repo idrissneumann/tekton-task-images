@@ -5,7 +5,7 @@ replace_version() {
   yq_expr_var="$(echo ${yq_expr_full_var}|cut -d= -f1)"
 
   if [[ "${yq_expr_var}" ]]; then
-    yq_expr_val=$(eval "echo \$yq_expr_var"|sed "s/VERSION_TO_REPLACE/${VERSION}/g")
+    yq_expr_val=$(eval "echo \$${yq_expr_var}"|sed "s/VERSION_TO_REPLACE/${VERSION}/g")
     [[ "${yq_expr_val}" ]] && export "${yq_expr_var}=${yq_expr_val}"
     if [[ $LOG_LEVEL == "debug" || $LOG_LEVEL == "DEBUG" ]]; then
       echo "[github-bump-pr][replace_version] ${yq_expr_var} = ${yq_expr_val}"
@@ -63,6 +63,7 @@ git_fetch() {
 
 git_push() {
   export GIT_WORKSPACE_PATH="${GITOPS_WORKSPACE_PATH}"
+  reverse_branches
   /git-push-changes.sh
   [[ $? -ne 0 ]] && exit 1
 }
