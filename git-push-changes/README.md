@@ -9,3 +9,5 @@ Push a branch with some changes
 * `GIT_SRC_BRANCH`: git source branch name (ie: `master` or `develop`)
 * `GIT_TARGET_BRANCH`: git target branch (ie: `bump_1.3.4`)
 * `GIT_COMMIT_MSG`: git commit message (ie: `bump to 1.3.4`)
+* `GIT_USER_EMAIL`: the git email you want to use for commit
+* `GIT_USER_NAME`: the git name you want to use for commit

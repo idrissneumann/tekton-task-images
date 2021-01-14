@@ -17,7 +17,7 @@ if [ -z "${GIT_SRC_BRANCH}" ] || [ -z "${GIT_TARGET_BRANCH}" ]; then
 fi
 
 if [ -z "${GIT_USER_EMAIL}" ]; then
-  export GIT_USER_EMAIL="tekton@tekton.io"
+  export GIT_USER_EMAIL="tekton@tekton.dev"
 fi
 
 if [ -z "${GIT_USER_NAME}" ]; then
