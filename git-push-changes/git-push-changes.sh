@@ -16,10 +16,20 @@ if [ -z "${GIT_SRC_BRANCH}" ] || [ -z "${GIT_TARGET_BRANCH}" ]; then
   exit 1
 fi
 
+if [ -z "${GIT_USER_EMAIL}" ]; then
+  export GIT_USER_EMAIL="tekton@tekton.io"
+fi
+
+if [ -z "${GIT_USER_NAME}" ]; then
+  export GIT_USER_NAME="tekton"
+fi
+
 git checkout "${GIT_SRC_BRANCH}"
 git pull --rebase origin "${GIT_SRC_BRANCH}"
 git branch -D "${GIT_TARGET_BRANCH}" || :
-git checkout 
+git checkout -b "${GIT_TARGET_BRANCH}"
+git config --global user.email "${GIT_USER_EMAIL}"
+git config --global user.name "${GIT_USER_NAME}"
 git add .
 git commit -m "${GIT_COMMIT_MSG}"
 git push origin "${GIT_TARGET_BRANCH}"
