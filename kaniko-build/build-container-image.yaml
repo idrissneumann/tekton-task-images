@@ -34,7 +34,7 @@ spec:
       default: "disabled"
     - name: CACHE_TTL
       description: cache ttl
-      default: 1h
+      default: 8h
     - name: REGISTRY
       description: conatiners images registry
     - name: IMAGE_TAG
