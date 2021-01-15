@@ -74,12 +74,12 @@ spec:
           value: $(params.ENABLE_CACHE)
         - name: DOCKER_REGISTRY
           value: $(params.REGISTRY)
-        - name: FORCE_PROJECT_CI
-          value: $(params.FORCE_PROJECT_CI)
+        - name: FORCE_PROJECT_UNSTABLE
+          value: $(params.FORCE_PROJECT_UNSTABLE)
         - name: PROJECT_STABLE
           value: $(params.PROJECT_STABLE)
-        - name: PROJECT_CI
-          value: $(params.PROJECT_CI)
+        - name: PROJECT_UNSTABLE
+          value: $(params.PROJECT_UNSTABLE)
         - name: WORKSPACE_PATH
           value: $(workspaces.git-environment.path)
         - name: GIT_BRANCH
