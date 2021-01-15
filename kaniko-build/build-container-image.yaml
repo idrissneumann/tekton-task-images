@@ -81,6 +81,8 @@ spec:
           value: $(params.IMAGE_NAME_PERSISTENT_FILE)
         - name: ENABLE_CACHE
           value: $(params.ENABLE_CACHE)
+        - name: EXTRA_ARGS
+          value: $(params.EXTRA_ARGS)
         - name: DOCKER_REGISTRY
           value: $(params.REGISTRY)
         - name: FORCE_PROJECT_UNSTABLE
