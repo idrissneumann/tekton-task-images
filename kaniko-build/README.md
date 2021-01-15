@@ -19,7 +19,8 @@ Build containers images with Kaniko.
 * `PROJECT_UNSTABLE`: path of stables images in the registry (before merge)
 * `FORCE_PROJECT_UNSTABLE`: force push in the `$PROJECT_UNSTABLE` path
 * `TEKTON_WORKSPACE_PATH`: the tekton workspace path which is bind to a pvc
-* `ENABLE_MULTI_ENV`: enabled mutli-env delivery (push the image in a subdir `/prod` or `/qa` if it's `enabled` and if `$GIT_BRANCH` match)
+* `MULTI_ENV`: enabled mutli-env delivery (push the image in a subdir `/prod` or `/qa` if it's `enabled` and if `$GIT_BRANCH` match)
+* `VERSIONING_FROM_TAG`: enable versioning from git tag
 
 ## Tekton example
 

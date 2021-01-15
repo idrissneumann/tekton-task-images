@@ -17,20 +17,21 @@ if [[ $LOG_LEVEL == "debug" || $LOG_LEVEL == "DEBUG" ]]; then
   ls -la
 fi
 
-[[ $ENABLE_MULTI_ENV ]] || export ENABLE_MULTI_ENV="disabled"
+[[ $VERSIONING_FROM_TAG ]] || export VERSIONING_FROM_TAG="disabled"
+[[ $MULTI_ENV ]] || export MULTI_ENV="disabled"
 
 DOCKER_REGISTRY_ORG=$PROJECT_STABLE
 if [[ $GIT_BRANCH != "develop" || $GIT_BRANCH != "main" || $GIT_BRANCH != "master" || $GIT_BRANCH != "tekton" || $GIT_BRANCH != "qa" || $GIT_BRANCH != "prod" ]] && [[ $GIT_BRANCH =~ ^[0-9]+.[0-9]+.x$ ]] || [[ $FORCE_PROJECT_UNSTABLE == "enabled" ]]; then
   DOCKER_REGISTRY_ORG=$PROJECT_UNSTABLE
-elif [[ $ENABLE_MULTI_ENV == "enabled" && $GIT_BRANCH == "qa" && ! $DELIVERY_VERSION_FROM_TAG ]]; then
+elif [[ $MULTI_ENV == "enabled" && $GIT_BRANCH == "qa" && ! $DELIVERY_VERSION_FROM_TAG ]]; then
   DOCKER_REGISTRY_ORG="${PROJECT_STABLE}/qa"
-elif [[ $ENABLE_MULTI_ENV == "enabled" && $GIT_BRANCH == "prod" && ! $DELIVERY_VERSION_FROM_TAG ]]; then
+elif [[ $MULTI_ENV == "enabled" && $GIT_BRANCH == "prod" && ! $DELIVERY_VERSION_FROM_TAG ]]; then
   DOCKER_REGISTRY_ORG="${PROJECT_STABLE}/prod"
 fi
 
 final_tag="latest"
 [[ $IMAGE_TAG ]] && final_tag="${IMAGE_TAG}"
-[[ $DELIVERY_VERSION_FROM_TAG ]] && final_tag="${DELIVERY_VERSION_FROM_TAG}"
+[[ $VERSIONING_FROM_TAG == "enabled" && $DELIVERY_VERSION_FROM_TAG ]] && final_tag="${DELIVERY_VERSION_FROM_TAG}"
 
 IMAGE="${DOCKER_REGISTRY}/${DOCKER_REGISTRY_ORG}/${IMAGE}:${final_tag}"
 echo "$IMAGE" > "$IMAGE_NAME_PERSISTENT_FILE"
