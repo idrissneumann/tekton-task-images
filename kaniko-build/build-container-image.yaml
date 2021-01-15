@@ -69,8 +69,14 @@ spec:
       env:
         - name: DOCKER_CONFIG
           value: /tekton/home/.docker
+        - name: DOCKERFILE
+          value: $(params.DOCKERFILE)
         - name: LOG_LEVEL
           value: $(params.LOG_LEVEL)
+        - name: IMAGE
+          value: $(params.IMAGE)
+        - name: IMAGE_TAG
+          value: $(params.IMAGE_TAG)
         - name: IMAGE_NAME_PERSISTENT_FILE
           value: $(params.IMAGE_NAME_PERSISTENT_FILE)
         - name: ENABLE_CACHE
