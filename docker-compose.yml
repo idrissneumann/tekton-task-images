@@ -84,6 +84,7 @@ services:
   kaniko-build:
     image: comworkio/tekton-utils-kaniko-build
     build:
+      target: image_builder
       context: kaniko-build
       dockerfile: Dockerfile
   php-checks-7-4:

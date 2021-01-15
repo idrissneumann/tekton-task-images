@@ -51,6 +51,8 @@ spec:
       default: ci
     - name: IMAGE_NAME_PERSISTENT_FILE
       default: image_result.name
+    - name: ENABLE_MULTI_ENV
+      default: enabled
   results:
     - name: IMAGE-DIGEST
       description: Digest of the image just built.
@@ -72,18 +74,20 @@ spec:
           value: $(params.ENABLE_CACHE)
         - name: DOCKER_REGISTRY
           value: $(params.REGISTRY)
-        - name: FORCE_PROJECT_UNSTABLE
-          value: $(params.FORCE_PROJECT_UNSTABLE)
+        - name: FORCE_PROJECT_CI
+          value: $(params.FORCE_PROJECT_CI)
         - name: PROJECT_STABLE
           value: $(params.PROJECT_STABLE)
-        - name: PROJECT_UNSTABLE
-          value: $(params.PROJECT_UNSTABLE)
-        - name: TEKTON_WORKSPACE_PATH
+        - name: PROJECT_CI
+          value: $(params.PROJECT_CI)
+        - name: WORKSPACE_PATH
           value: $(workspaces.git-environment.path)
         - name: GIT_BRANCH
           value: $(params.GIT_BRANCH)
         - name: CONTEXT
           value: $(params.CONTEXT)
+        - name: ENABLE_MULTI_ENV
+          value: $(params.ENABLE_MULTI_ENV)
       securityContext:
         runAsUser: 0
     - name: write-digest
