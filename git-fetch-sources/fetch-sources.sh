@@ -38,6 +38,10 @@ echo "git pull --rebase origin \$GIT_BRANCH" >> "${git_script}"
 /bin/sh "${log_script}"
 /bin/sh "${git_script}"
 
+version="$(git describe --long|sed "s/-/\./")"
+[ -z "${version}" ] || export DELIVERY_VERSION_FROM_TAG="${version}"
+[ -z "${version}" ] || echo "export DELIVERY_VERSION_FROM_TAG=\"${version}\"" >> "${pr_env_file}"
+
 target_path="${TEKTON_WORKSPACE_PATH}"
 ls -a . | while read REPLY; do 
   [ "${REPLY}" != "." ] && [ "${REPLY}" != ".." ] && cp -R $REPLY $target_path/; 
