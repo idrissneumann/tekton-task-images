@@ -7,6 +7,7 @@ Open a bump pull request to upgrade yaml manifests with a version number from a 
 * `LOG_LEVEL`: log level (`debug` or `info`)
 * `GITHUBTOKEN`: the token (from a secret)
 * `GIT_BRANCH`: git branch of the application repository
+* `AUTO_MERGE_GIT_BRANCH`: conditional auto-merging if `GIT_BRANCH` has the same value
 * `REPO_ORG`: github repo org
 * `REPO_NAME`: github repo name
 * `GIT_USER_EMAIL`: the git email you want to use for commit
