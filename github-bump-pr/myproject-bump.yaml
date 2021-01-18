@@ -10,6 +10,9 @@ spec:
     - name: gitBranchName
       type: string
       description: the branch name
+    - name: autoMergeGitBranchName
+      type: string
+      description: if match with gitBranchName => auto-merge the PR
     - name: repoOrg
       type: string
       description: the gitops organization name
@@ -52,6 +55,8 @@ spec:
           value: $(params.yamlFileInput)
         - name: YQ_EXPRESSION
           value: $(params.yqExpression)
+        - name: AUTO_MERGE_GIT_BRANCH
+          value: $(params.autoMergeGitBranchName)
         - name: GITHUBTOKEN
           valueFrom:
             secretKeyRef:
