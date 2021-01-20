@@ -241,7 +241,7 @@ github-search-pr:
 github-open-pr:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "github-open-pr" "1.5"
+    - setsid ./ci/docker-deliver.sh "github-open-pr" "1.6"
   only:
     refs:
       - /^(master.*)$/
@@ -253,7 +253,7 @@ github-open-pr:
 github-bump-pr:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "github-bump-pr" "1.27"
+    - setsid ./ci/docker-deliver.sh "github-bump-pr" "1.28"
   only:
     refs:
       - /^(master.*)$/
