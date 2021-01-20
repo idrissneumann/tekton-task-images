@@ -32,7 +32,7 @@ fi
 id="$(cat ${pr_json_file}|jq -cr .id)"
 echo "[github-open-pr] Auto-merge pr id=${id}"
 
-if [[ ! id =~ ^[0-9]+$ ]]; then
+if [[ ! $id =~ ^[0-9]+$ ]]; then
   echo "[github-open-pr] Id is not valid, searching the pull request..."
 
   state="open"
