@@ -1,6 +1,6 @@
 #!/bin/sh
 
-suffix=$(echo ${HOSTNAME}|sed 's/\(.*\)-.*/\1/')
+suffix=$(echo ${HOSTNAME}|sed 's/\(.*\)-.*/\1/;s/\-init//g')
 pr_env_file="${TEKTON_WORKSPACE_PATH}/pr_env-${suffix}.sh"
 git_script="${TEKTON_WORKSPACE_PATH}/git.sh"
 env_script="${TEKTON_WORKSPACE_PATH}/env.sh"
@@ -11,11 +11,11 @@ json_manifest="${TEKTON_WORKSPACE_PATH}/manifest.json"
 
 echo "export LOG_LEVEL=${LOG_LEVEL}" > "${env_script}"
 echo "export GIT_BRANCH=${GIT_BRANCH}" >> "${env_script}"
-[ -z "${REPO_ORG}"] || echo "export REPO_ORG=${REPO_ORG}" >> "${env_script}"
-[ -z "${REPO_NAME}"] || echo "export REPO_NAME=${REPO_NAME}" >> "${env_script}"
-[ -z "${REPO_URL}"] || echo "export REPO_URL=${REPO_URL}" >> "${env_script}"
+[ -z "${REPO_ORG}" ] || echo "export REPO_ORG=${REPO_ORG}" >> "${env_script}"
+[ -z "${REPO_NAME}" ] || echo "export REPO_NAME=${REPO_NAME}" >> "${env_script}"
+[ -z "${REPO_URL}" ] || echo "export REPO_URL=${REPO_URL}" >> "${env_script}"
 WORKING_DIR="/workspace/git-workspace"
-[ -z "${REPO_ORG}"] || [ -z "${REPO_NAME}"] || WORKING_DIR="/workspace/git-${REPO_ORG}-${REPO_NAME}"
+[ -z "${REPO_ORG}" ] || [ -z "${REPO_NAME}"] || WORKING_DIR="/workspace/git-${REPO_ORG}-${REPO_NAME}"
 echo "export WORKING_DIR=${WORKING_DIR}" >> "${env_script}"
 source "${env_script}"
 echo "source ${env_script}" > "${log_script}"
