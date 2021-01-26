@@ -1,7 +1,7 @@
 #!/bin/sh
 
 export SLACK_COLOR="#87CEEB"
-export SLACK_USERNAME="tekton"
+export SLACK_USERNAME="Tekton"
 export SLACK_EMOJI_AVATAR=":tekton:"
 export SLACK_MSG="Pipeline in progress, follow here: ${PIPELINE_URL}"
 export COMMENT="${SLACK_MSG}"
