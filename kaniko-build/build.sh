@@ -20,9 +20,9 @@ fi
 [[ $VERSIONING_FROM_TAG ]] || export VERSIONING_FROM_TAG="disabled"
 [[ $MULTI_ENV ]] || export MULTI_ENV="disabled"
 
-DOCKER_REGISTRY_ORG=$PROJECT_STABLE
-if [[ $GIT_BRANCH != "develop" || $GIT_BRANCH != "main" || $GIT_BRANCH != "master" || $GIT_BRANCH != "tekton" || $GIT_BRANCH != "qa" || $GIT_BRANCH != "prod" ]] && [[ $GIT_BRANCH =~ ^[0-9]+.[0-9]+.x$ ]] || [[ $FORCE_PROJECT_UNSTABLE == "enabled" ]]; then
-  DOCKER_REGISTRY_ORG=$PROJECT_UNSTABLE
+DOCKER_REGISTRY_ORG="${PROJECT_STABLE}"
+if [[ ! $GIT_BRANCH =~ ^([0-9]+.[0-9]+.x|master|develop|main|prod|qa)$ ]] || [[ $FORCE_PROJECT_UNSTABLE == "enabled" ]]; then
+  DOCKER_REGISTRY_ORG="${PROJECT_UNSTABLE}"
 elif [[ $MULTI_ENV == "enabled" && $GIT_BRANCH == "qa" && ! $DELIVERY_VERSION_FROM_TAG ]]; then
   DOCKER_REGISTRY_ORG="${PROJECT_STABLE}/qa"
 elif [[ $MULTI_ENV == "enabled" && $GIT_BRANCH == "prod" && ! $DELIVERY_VERSION_FROM_TAG ]]; then
