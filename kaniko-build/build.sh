@@ -23,9 +23,9 @@ fi
 DOCKER_REGISTRY_ORG="${PROJECT_STABLE}"
 if [[ ! $GIT_BRANCH =~ ^([0-9]+.[0-9]+.x|master|develop|main|prod|qa)$ ]] || [[ $FORCE_PROJECT_UNSTABLE == "enabled" ]]; then
   DOCKER_REGISTRY_ORG="${PROJECT_UNSTABLE}"
-elif [[ $MULTI_ENV == "enabled" && $GIT_BRANCH == "qa" && ! $DELIVERY_VERSION_FROM_TAG ]]; then
+elif [[ $MULTI_ENV == "enabled" && $GIT_BRANCH == "qa" && $VERSIONING_FROM_TAG != "enabled" ]]; then
   DOCKER_REGISTRY_ORG="${PROJECT_STABLE}/qa"
-elif [[ $MULTI_ENV == "enabled" && $GIT_BRANCH == "prod" && ! $DELIVERY_VERSION_FROM_TAG ]]; then
+elif [[ $MULTI_ENV == "enabled" && $GIT_BRANCH == "prod" && $VERSIONING_FROM_TAG != "enabled" ]]; then
   DOCKER_REGISTRY_ORG="${PROJECT_STABLE}/prod"
 fi
 
@@ -36,7 +36,7 @@ final_tag="latest"
 IMAGE="${DOCKER_REGISTRY}/${DOCKER_REGISTRY_ORG}/${IMAGE}:${final_tag}"
 echo "$IMAGE" > "$IMAGE_NAME_PERSISTENT_FILE"
 
-echo "[build-container-image] Image to build = ${IMAGE}, extra args = ${EXTRA_ARGS}"
+echo "[build-container-image] Image to build = ${IMAGE}, extra args = ${EXTRA_ARGS}, multi env = ${MULTI_ENV}, versioning from tag = ${VERSIONING_FROM_TAG}, version from tag = ${DELIVERY_VERSION_FROM_TAG}"
 if [[ $LOG_LEVEL == "debug" || $LOG_LEVEL == "DEBUG" ]]; then
   ls -la
 fi
