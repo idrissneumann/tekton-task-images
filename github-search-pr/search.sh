@@ -8,6 +8,9 @@ STATE="open"
 suffix=$(echo ${HOSTNAME}|sed 's/\(.*\)-.*/\1/;s/\-sear//g;s/\-init//g')
 pr_json_file="${TEKTON_WORKSPACE_PATH}/prs-${suffix}.json"
 pr_env_file="${TEKTON_WORKSPACE_PATH}/pr_env-${suffix}.sh"
+echo "" > "${pr_env_file}"
+echo "{}" > "${pr_json_file}"
+echo "[github-search-pr] pr_env_file=${pr_env_file}, pr_json_file=${pr_json_file}"
 
 export LAST_COMMIT=$(curl -H "Authorization: Bearer ${GITHUBTOKEN}" -H "Accept: application/vnd.github.${API_VERSION}+json" "https://${GITHUB_HOST_URL}/repos/${REPO_ORG}/${REPO_NAME}/commits?sha=${GIT_BRANCH}"|jq -cr ".[0].url"|awk -F "/" '{print $NF}')
 

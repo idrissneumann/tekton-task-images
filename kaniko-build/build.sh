@@ -36,8 +36,8 @@ final_tag="latest"
 IMAGE="${DOCKER_REGISTRY}/${DOCKER_REGISTRY_ORG}/${IMAGE}:${final_tag}"
 echo "$IMAGE" > "$IMAGE_NAME_PERSISTENT_FILE"
 
+echo "[build-container-image] Image to build = ${IMAGE}, extra args = ${EXTRA_ARGS}"
 if [[ $LOG_LEVEL == "debug" || $LOG_LEVEL == "DEBUG" ]]; then
-  echo "[build-container-image][debug] Image to build = ${IMAGE}, extra args = ${EXTRA_ARGS}"
   ls -la
 fi
 
