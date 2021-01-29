@@ -104,7 +104,7 @@ php-checks-7-4:
 yarn-checks-node14:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "yarn-checks-node14" "1.1"
+    - setsid ./ci/docker-deliver.sh "yarn-checks-node14" "1.2"
   only:
     refs:
       - /^(master.*)$/
@@ -116,7 +116,7 @@ yarn-checks-node14:
 yarn-checks-node12:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "yarn-checks-node12" "1.1"
+    - setsid ./ci/docker-deliver.sh "yarn-checks-node12" "1.2"
   only:
     refs:
       - /^(master.*)$/
