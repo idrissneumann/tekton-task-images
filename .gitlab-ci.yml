@@ -92,7 +92,7 @@ yaml-patch:
 php-checks-7-4:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "php-checks-7-4" "1.1"
+    - setsid ./ci/docker-deliver.sh "php-checks-7-4" "1.2"
   only:
     refs:
       - /^(master.*)$/
