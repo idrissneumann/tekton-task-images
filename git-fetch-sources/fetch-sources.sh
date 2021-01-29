@@ -54,7 +54,6 @@ fi
 
 echo "{\"sha\": \"$(git rev-parse HEAD)\", \"tag\": \"$(git describe --tags 2>/dev/null)\", \"branch\":\"${GIT_BRANCH}\", \"repo_org\":\"${REPO_ORG}\", \"repo_name\":\"${REPO_NAME}\"}" > "${json_manifest}" 2>/dev/null || :
 
-if [ "${LOG_LEVEL}" = "debug" ] || [ "${LOG_LEVEL}" = "DEBUG" ]; then
-  echo "[fetch-sources] Content of ${json_manifest}"
-  cat "${json_manifest}"
-fi
+echo "[fetch-sources] Content of ${json_manifest}"
+cat "${json_manifest}"
+
