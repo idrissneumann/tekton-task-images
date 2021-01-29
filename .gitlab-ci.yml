@@ -23,7 +23,7 @@ github-internal-mirror:
 init-pipeline:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "init-pipeline" "1.6"
+    - setsid ./ci/docker-deliver.sh "init-pipeline" "1.7"
   only:
     refs:
       - /^(master.*)$/
@@ -31,13 +31,14 @@ init-pipeline:
       - init-pipeline/*
       - git-fetch-sources/*
       - slack-sender/*
+      - slack-start-pipeline/*
   tags:
     - tekton-utils
 
 init-pipeline-github:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "init-pipeline-github" "1.19"
+    - setsid ./ci/docker-deliver.sh "init-pipeline-github" "1.20"
   only:
     refs:
       - /^(master.*)$/
@@ -48,6 +49,7 @@ init-pipeline-github:
       - github-set-status/*
       - github-search-pr/*
       - slack-sender/*
+      - slack-start-pipeline/*
   tags:
     - tekton-utils
 

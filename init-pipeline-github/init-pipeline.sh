@@ -13,12 +13,5 @@ export DEFAULT_PIPELINE_STATE="pending"
 python3 /set-status.py
 python3 /add-comment.py
 /bin/sh /fetch-sources.sh
+/slack-start.sh
 
-json_manifest="${TEKTON_WORKSPACE_PATH}/manifest.json"
-if [[ -f "${json_manifest}" ]]; then
-  manifest="$(cat "${json_manfest}")"
-  export SLACK_MSG="Pipeline in progress : ${manifest}, follow here: ${PIPELINE_URL}"
-else
-  export SLACK_MSG="Pipeline in progress, follow here: ${PIPELINE_URL}"
-fi
-python3 /slack-sender.py
