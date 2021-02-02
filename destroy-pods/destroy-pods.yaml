@@ -1,0 +1,88 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: destroy-pods
+  namespace: tekton-pipelines
+spec:
+  description: >-
+    This task will destroy the pods (in order to force argoCD to recreate them)
+  params:
+    - name: podPrefix
+      type: string
+      description: the pods prefix
+    - name: namespaceName
+      type: string
+      description: the namespace
+    - name: gitBranchName
+      type: string
+      description: the git branch
+    - name: devSecret
+      type: string
+      description: the dev k8s secret
+      default: kube-auth
+    - name: qaSecret
+      type: string
+      description: the qa k8s secret
+      default: kube-qa-auth
+    - name: prodSecret
+      type: string
+      description: the prod k8s secret
+      default: kube-prod-auth
+  steps:
+    - name: prepare-kube-auth
+      image: comworkio/tekton-utils-destroy-pods:latest
+      env:
+        - name: GIT_BRANCH
+          value: $(params.gitBranchName)
+        - name: KUBE_DEV_ENV
+          valueFrom:
+            secretKeyRef:
+              name: $(params.devSecret)
+              key: env
+        - name: KUBE_DEV_URL
+          valueFrom:
+            secretKeyRef:
+              name: $(params.devSecret)
+              key: url
+        - name: KUBE_DEV_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: $(params.devSecret)
+              key: token
+        - name: KUBE_QA_ENV
+          valueFrom:
+            secretKeyRef:
+              name: $(params.qaSecret)
+              key: env
+        - name: KUBE_QA_URL
+          valueFrom:
+            secretKeyRef:
+              name: $(params.qaSecret)
+              key: url
+        - name: KUBE_QA_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: $(params.qaSecret)
+              key: token
+        - name: KUBE_PROD_ENV
+          valueFrom:
+            secretKeyRef:
+              name: $(params.prodSecret)
+              key: env
+        - name: KUBE_PROD_URL
+          valueFrom:
+            secretKeyRef:
+              name: $(params.prodSecret)
+              key: url
+        - name: KUBE_PROD_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: $(params.prodSecret)
+              key: token
+        - name: POD_PREFIX
+          value: $(params.podPrefix)
+        - name: NAMESPACE
+          value: $(params.namespaceName)
+        - name: MULTI_ENV
+          value: "enabled"
+      command: ["/destroy-pods.sh"]
