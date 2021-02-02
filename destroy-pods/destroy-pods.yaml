@@ -29,7 +29,7 @@ spec:
       description: the prod k8s secret
       default: kube-prod-auth
   steps:
-    - name: prepare-kube-auth
+    - name: destroy-pods
       image: comworkio/tekton-utils-destroy-pods:latest
       env:
         - name: GIT_BRANCH
