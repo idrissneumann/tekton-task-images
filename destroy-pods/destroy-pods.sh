@@ -2,8 +2,8 @@
 
 /init-kube-config.sh
 
-if [ -z "$DESTROY_MODE" ]; then 
-  echo DESTROY_MODE="rollout"
+if [ -z "${DESTROY_MODE}" ]; then 
+  export DESTROY_MODE="rollout"
 fi
 
 if [ "${GIT_BRANCH}" != "develop" ] && [ "${GIT_BRANCH}" != "master" ] && [ "${GIT_BRANCH}" != "qa" ] && [ "${GIT_BRANCH}" != "prod" ] && ! echo "${GIT_BRANCH}"|grep -E "^[0-9]+.[0-9]+.x$" > /dev/null; then
