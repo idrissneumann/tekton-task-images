@@ -170,7 +170,7 @@ destroy-pvc:
 destroy-pods:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "destroy-pods" "1.13"
+    - setsid ./ci/docker-deliver.sh "destroy-pods" "1.14"
   only:
     refs:
       - /^(master.*)$/

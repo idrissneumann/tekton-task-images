@@ -13,6 +13,11 @@ fi
 
 echo "[destroy-pods] Destroy pods on namespace ${NAMESPACE} that begins with ${POD_PREFIX} with mode = ${DESTROY_MODE}, delete_jobs = ${DELETE_JOBS}"
 
-kubectl -n "$NAMESPACE" get pods|grep -E "^${POD_PREFIX}"|awk '{print $1}'|xargs kubectl -n "$NAMESPACE" "${DESTROY_MODE}" pod || :
+kind="deployments"
+if [ "${DESTROY_MODE}" = "delete" ]; then
+  kind="pods"
+fi
+
+kubectl -n "$NAMESPACE" get "${kind}"|grep -E "^${POD_PREFIX}"|awk '{print $1}'|xargs kubectl -n "$NAMESPACE" "${DESTROY_MODE}" "${kind}" || :
 [ "${DELETE_JOBS}" = "true" ] || [ "${DELETE_JOBS}" = "enabled" ] && kubectl -n "${NAMESPACE}" get jobs|grep -E "^${POD_PREFIX}"|awk '{print $1}'|xargs kubectl -n "${NAMESPACE}" delete job || :
 [ -f ~/.kube/config.old ] && cp -f ~/.kube/config.old ~/.kube/config
