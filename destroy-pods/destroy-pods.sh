@@ -29,3 +29,5 @@ if [[ $DELETE_JOBS = "true" || $DELETE_JOBS = "enabled" ]]; then
 fi
 
 [[ -f ~/.kube/config.old ]] && cp -f ~/.kube/config.old ~/.kube/config
+
+exit 0
