@@ -157,7 +157,7 @@ clean-old-pipelines:
 destroy-pvc:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "destroy-pvc" "1.8"
+    - setsid ./ci/docker-deliver.sh "destroy-pvc" "1.9"
   only:
     refs:
       - /^(master.*)$/

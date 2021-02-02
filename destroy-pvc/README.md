@@ -9,6 +9,7 @@ Task for destroy the binded pvc at the end of the pipeline.
 * `KUBE_ENV`: kubernetes env name
 * `KUBE_URL`: kubernetes cluster url
 * `KUBE_TOKEN`: kubernetes token
+* `MULTI_ENV`: multi env `enabled` or `disabled`. If it's enabled, you'll have to set `GIT_BRANCH` and `KUBE_{ENV}_ENV`, `KUBE_{ENV}_URL`, `KUBE_{ENV}_TOKEN` variables for each env.
 
 ## Tekton example
 
