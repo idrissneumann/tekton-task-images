@@ -27,4 +27,5 @@ if [[ $DELETE_JOBS = "true" || $DELETE_JOBS = "enabled" ]]; then
     kubectl -n "${NAMESPACE}" delete job "${res}" || :
   done
 fi
-[ -f ~/.kube/config.old ] && cp -f ~/.kube/config.old ~/.kube/config
+
+[[ -f ~/.kube/config.old ]] && cp -f ~/.kube/config.old ~/.kube/config
