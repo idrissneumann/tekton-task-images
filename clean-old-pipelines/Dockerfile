@@ -7,8 +7,7 @@ COPY init-kube-config/init-kube-config.sh /
 COPY slack-sender/slack-sender.py /
 COPY clean-old-pipelines/clean-old-pipelines.sh /
 
-RUN apk add --no-cache curl && \
-    apk add --no-cache bash && \
+RUN apk add --no-cache curl bash && \
     pip install requests && \
     curl -LO "https://github.com/tektoncd/cli/releases/download/v${TKN_VERSION}/tkn_${TKN_VERSION}_Linux_x86_64.tar.gz" && \
     tar xvzf "tkn_${TKN_VERSION}_Linux_x86_64.tar.gz" -C /usr/bin/ tkn && \

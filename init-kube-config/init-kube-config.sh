@@ -2,12 +2,9 @@
 
 [[ ! -d "~/.kube" ]] && mkdir ~/.kube
 [[ -f "~/.kube/config" ]] && cp -f ~/.kube/config ~/.kube/config.old
+[[ ! $MULTI_ENV ]] && export MULTI_ENV="disabled"
 
-if [[ $MULTI_ENV ]]; then
-  export MULTI_ENV="disabled"
-fi
-
-if [ $MULTI_ENV == "enabled" ]; then
+if [[ $MULTI_ENV == "enabled" ]]; then
   export KUBE_ENV="dev"
   export KUBE_CERTIFICATE=""
   if [ $GIT_BRANCH == "qa" ]]; then
