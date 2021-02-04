@@ -141,9 +141,10 @@ You need to:
 KUBE_URL="changeit"
 KUBE_ENV="changeit"
 KUBE_TOKEN="changeit"
+KUBE_CERTIFICATE="changeit"
 ```
 
-Replace the three `changeit` values with the K8S kubeconfig value that host tekton pipelines.
+Replace the three `changeit` values with the K8S kubeconfig value that host tekton pipelines (`KUBE_CERTIFICATE` is not mandatory if you're using rancher kubeconfig).
 
 2. Build and run the api
 

@@ -6,7 +6,8 @@ Task for destroy pods in order to let ArgoCD redeploy them with new images.
 
 * `NAMESPACE`: the namespace
 * `POD_PREFIX`: the pod prefix (begin of the name)
-* `KUBE_ENV`: kubernetes env name
+* `KUBE_ENV`: kubernetes env name (default `dev`)
+* `KUBE_DEV_CERTIFICATE`(optional): certificate (not mandatory for rancher kubeconfig) 
 * `KUBE_URL`: kubernetes cluster url
 * `KUBE_TOKEN`: kubernetes token
 * `DELETE_JOBS`: delete jobs (`enabled` or `disabled`)

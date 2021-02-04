@@ -12,7 +12,8 @@ It clean the pipelineruns and associated pvc that are older than a configurable 
 * `RETENTION_DAYS`: number of days to keep the pipelineruns (you can set `disabled` if you want to only keep `MAX_PIPELINES_KEEP` regardless of the age of the pipelines)
 * `ENABLE_DESTROY_PVC`: `enabled` if you need to also destroy the pvc (because you're not using `volumeClaimTemplate` directly), `disabled` otherwise
 * `WAIT_TIME`: sleep time in millis (you can set `disabled` if you doesn't want to use this apps as a daemon but as a cron job instead for example)
-* `KUBE_ENV`: kubernetes env name
+* `KUBE_ENV`: kubernetes env name (default `dev`)
+* `KUBE_DEV_CERTIFICATE`(optional): certificate (not mandatory for rancher kubeconfig) 
 * `KUBE_URL`: kubernetes cluster url
 * `KUBE_TOKEN`: kubernetes token
 * `SHOULD_SLACK`: should slack (`on` or `off`)

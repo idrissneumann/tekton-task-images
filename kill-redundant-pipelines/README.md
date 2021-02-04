@@ -10,6 +10,7 @@ Check if a pipeline is already running on the pull request.
 * `PROJECT_NAME`: project name (prefix of the pipelineruns name)
 * `BUILD_ID`: build id (suffix of the pipelineruns name) to filter
 * `KUBE_ENV`: kubernetes env name
+* `KUBE_DEV_CERTIFICATE`(optional): certificate (not mandatory for rancher kubeconfig) 
 * `KUBE_URL`: kubernetes cluster url
 * `KUBE_TOKEN`: kubernetes token
 
