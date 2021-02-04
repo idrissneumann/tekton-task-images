@@ -25,7 +25,7 @@ if [[ $MULTI_ENV == "enabled" ]]; then
   fi
 fi
 
-if [[ ! $KUBE_DEV_CERTIFICATE ]]; then
+if [[ ! $KUBE_CERTIFICATE ]]; then
   echo 'apiVersion: v1
   kind: Config
   clusters:
@@ -50,7 +50,7 @@ else
   clusters:
   - name: k8s-"'$KUBE_ENV'"
     cluster:
-      certificate-authority-data: "'$KUBE_DEV_CERTIFICATE'"
+      certificate-authority-data: "'$KUBE_CERTIFICATE'"
       server: "'$KUBE_URL'"
   contexts:
   - name: admin@k8s-"'$KUBE_ENV'"
