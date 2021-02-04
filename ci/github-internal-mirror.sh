@@ -21,7 +21,7 @@ commit_msg=$(git log -1 --pretty=%B|sed '$ d')
 [[ $commit_msg ]] || commit_msg="Automatic update"
 
 cd "${TARGET_PATH}" && git pull origin master || :
-sed -i "11,25d" README.md
+sed -i "11,26d" README.md
 
 git add .
 git commit -m "${commit_msg}"
