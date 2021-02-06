@@ -10,6 +10,7 @@ Open a bump pull request to upgrade yaml manifests with a version number from a 
 * `AUTO_MERGE_GIT_BRANCH`: conditional auto-merging if `GIT_BRANCH` has the same value
 * `REPO_ORG`: github repo org
 * `REPO_NAME`: github repo name
+* `PROJECT_NAME`: project name that will appear on the pull request title
 * `GIT_USER_EMAIL`: the git email you want to use for commit
 * `GIT_USER_NAME`: the git name you want to use for commit
 * `YAML_INPUT_FILE_PATH`: relative path to the input yaml file (in the `TEKTON_WORKSPACE_PATH`)

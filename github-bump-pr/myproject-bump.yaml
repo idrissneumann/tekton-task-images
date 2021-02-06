@@ -21,6 +21,10 @@ spec:
       type: string
       description: the gitops repo name
       default: "kubernetes-deployments"
+    - name: projectName
+      type: string
+      description: the project name that will appear on the pr title
+      default: "my-amazinga-app"
     - name: yamlFileInput
       type: string
       description: relative path to the input yaml file 
@@ -49,6 +53,8 @@ spec:
           value: $(params.repoOrg)
         - name: REPO_NAME
           value: $(params.repoName)
+        - name: PROJECT_NAME
+          value: $(params.projectName)
         - name: LOG_LEVEL
           value: $(params.logLevel)
         - name: YAML_INPUT_FILE_PATH

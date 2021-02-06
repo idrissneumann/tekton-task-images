@@ -47,8 +47,10 @@ set_version() {
 
 set_branches_and_pr() {
   [[ ! $GIT_TARGET_BRANCH ]] && export GIT_TARGET_BRANCH="master"
-  export GIT_SRC_BRANCH="bump_${VERSION}"
-  export PR_TITLE="Bump ${REPO_ORG}/${REPO_NAME} to ${VERSION}"
+  [[ ! $PROJECT_NAME ]] && export PROJECT_NAME="${REPO_ORG}_${REPO_NAME}"
+
+  export GIT_SRC_BRANCH="bump_${PROJECT_NAME}_${VERSION}"
+  export PR_TITLE="Bump ${PROJECT_NAME} to ${VERSION}"
   export GIT_COMMIT_MSG="${PR_TITLE}"
 
   if [[ $LOG_LEVEL == "debug" || $LOG_LEVEL == "DEBUG" ]]; then
@@ -81,6 +83,17 @@ open_pr() {
   /open.sh
 }
 
+delete_src_branch() {
+  cd "${GIT_WORKSPACE_PATH}"
+  
+  if [[ $GIT_SRC_BRANCH =~ ^bump_.*$ ]]; then
+    git push -d origin "${GIT_SRC_BRANCH}" || :
+  else
+    echo "[github-bump-pr] Error, bump branch is not named right: GIT_SRC_BRANCH=${GIT_SRC_BRANCH}"
+    exit 1
+  fi
+}
+
 if [[ $GIT_BRANCH != "master" && $GIT_BRANCH != "develop" ]] && [[ ! $GIT_BRANCH =~ ^[0-9]+.[0-9]+.x$ ]]; then
   echo "[github-bump-pr] No need to bump because GIT_BRANCH=${GIT_BRANCH}"
   exit 0
@@ -92,3 +105,4 @@ set_branches_and_pr
 yamls_patch
 git_push
 open_pr
+delete_src_branch
