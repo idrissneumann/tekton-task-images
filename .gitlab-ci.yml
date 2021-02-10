@@ -255,7 +255,7 @@ github-open-pr:
 github-bump-pr:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "github-bump-pr" "1.30"
+    - setsid ./ci/docker-deliver.sh "github-bump-pr" "1.31"
   only:
     refs:
       - /^(master.*)$/

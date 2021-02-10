@@ -3,9 +3,11 @@
 replace_version() {
   yq_expr_full_var="${1}"
   yq_expr_var="$(echo ${yq_expr_full_var}|cut -d= -f1)"
+  yq_expr_val_wt=$(eval "echo \$${yq_expr_var}")
 
-  if [[ "${yq_expr_var}" ]]; then
-    yq_expr_val=$(eval "echo \$${yq_expr_var}"|sed "s/VERSION_TO_REPLACE/${VERSION}/g")
+  echo "[github-bump-pr][replace_version] try to replace ${yq_expr_var} = ${yq_expr_val_wt} with VERSION_TO_REPLACE => ${VERSION}"
+  if [[ "${yq_expr_val_wt}" && "${yq_expr_var}" ]]; then
+    yq_expr_val=$(echo "${yq_expr_val_wt}"|sed "s/VERSION_TO_REPLACE/${VERSION}/g")
     [[ "${yq_expr_val}" ]] && export "${yq_expr_var}=${yq_expr_val}"
     if [[ $LOG_LEVEL == "debug" || $LOG_LEVEL == "DEBUG" ]]; then
       echo "[github-bump-pr][replace_version] ${yq_expr_var} = ${yq_expr_val}"
@@ -16,7 +18,7 @@ replace_version() {
 yamls_patch() {
   export TEKTON_WORKSPACE_PATH="${GITOPS_WORKSPACE_PATH}"
   if [[ ! $TEKTON_WORKSPACE_PATH ]] || [[ ! -d $TEKTON_WORKSPACE_PATH ]]; then
-    echo "[yamls_patch] TEKTON_WORKSPACE_PATH=${TEKTON_WORKSPACE_PATH} is not a valid directory"
+    echo "[github-bump-pr][yamls_patch] TEKTON_WORKSPACE_PATH=${TEKTON_WORKSPACE_PATH} is not a valid directory"
     exit 1
   fi
 
