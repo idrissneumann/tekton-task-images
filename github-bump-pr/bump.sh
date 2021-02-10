@@ -6,11 +6,11 @@ replace_version() {
   yq_expr_val_wt=$(eval "echo \$${yq_expr_var}")
 
   echo "[github-bump-pr][replace_version] try to replace ${yq_expr_var} = ${yq_expr_val_wt} with VERSION_TO_REPLACE => ${VERSION}"
-  if [[ "${yq_expr_val_wt}" && "${yq_expr_var}" ]]; then
+  if [[ $yq_expr_val_wt && $yq_expr_var ]]; then
     yq_expr_val=$(echo "${yq_expr_val_wt}"|sed "s/VERSION_TO_REPLACE/${VERSION}/g")
-    [[ "${yq_expr_val}" ]] && export "${yq_expr_var}=${yq_expr_val}"
-    if [[ $LOG_LEVEL == "debug" || $LOG_LEVEL == "DEBUG" ]]; then
+    if [[ $yq_expr_val ]]; then 
       echo "[github-bump-pr][replace_version] ${yq_expr_var} = ${yq_expr_val}"
+      export "${yq_expr_var}=${yq_expr_val}"
     fi
   fi
 }
@@ -23,9 +23,9 @@ yamls_patch() {
   fi
 
   replace_version "YQ_EXPRESSION=${YQ_EXPRESSION}"
-  env|grep -E "YQ_EXPRESSION_[0-9]+"|while read -r; do
+  while read -r; do
     replace_version "${REPLY}"
-  done
+  done < <(env|grep -E "YQ_EXPRESSION_[0-9]+")
 
   /yaml-patch.sh
 }
