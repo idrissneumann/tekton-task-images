@@ -96,8 +96,13 @@ delete_src_branch() {
   fi
 }
 
-if [[ $GIT_BRANCH != "master" && $GIT_BRANCH != "develop" ]] && [[ ! $GIT_BRANCH =~ ^[0-9]+.[0-9]+.x$ ]]; then
+if [[ ! $GIT_BRANCH =~ ^([0-9]+.[0-9]+.x|master|develop|main|prod|qa)$ ]]; then
   echo "[github-bump-pr] No need to bump because GIT_BRANCH=${GIT_BRANCH}"
+  exit 0
+fi
+
+if [[ $ONLY_ON_GIT_BRANCH && $GIT_BRANCH != $ONLY_ON_GIT_BRANCH ]]; then
+  echo "[github-bump-pr] No need to bump because GIT_BRANCH=${GIT_BRANCH} != ONLY_ON_GIT_BRANCH=${ONLY_ON_GIT_BRANCH}"
   exit 0
 fi
 

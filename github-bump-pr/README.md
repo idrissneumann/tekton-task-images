@@ -7,7 +7,8 @@ Open a bump pull request to upgrade yaml manifests with a version number from a 
 * `LOG_LEVEL`: log level (`debug` or `info`)
 * `GITHUBTOKEN`: the token (from a secret)
 * `GIT_BRANCH`: git branch of the application repository
-* `AUTO_MERGE_GIT_BRANCH`: conditional auto-merging if `GIT_BRANCH` has the same value
+* `ONLY_ON_GIT_BRANCH` (optional): if it's set, the task will apply only if `GIT_BRANCH` has the same value
+* `AUTO_MERGE_GIT_BRANCH` (optional): auto-merge only if `GIT_BRANCH` has the same value
 * `REPO_ORG`: github repo org
 * `REPO_NAME`: github repo name
 * `PROJECT_NAME`: project name that will appear on the pull request title
