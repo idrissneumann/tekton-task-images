@@ -42,7 +42,7 @@ if [[ $LOG_LEVEL == "debug" || $LOG_LEVEL == "DEBUG" ]]; then
 fi
 
 CACHE_OPTS=""
-if [[ "${ENABLE_CACHE}" == "enabled" || "${ENABLE_CACHE}" == "ok" || "${ENABLE_CACHE}" == "true" || "${ENABLE_CACHE}" == "enabled" ]]; then
+if [[ $ENABLE_CACHE == "enabled" || $ENABLE_CACHE == "ok" || $ENABLE_CACHE == "true" || $ENABLE_CACHE == "enabled" ]]; then
   CACHE_OPTS="--cache=true --cache-ttl=${CACHE_TTL} --cache-repo=${DOCKER_REGISTRY}/${PROJECT_UNSTABLE}/cache --cache-dir=$TEKTON_WORKSPACE_PATH"
 fi
 
