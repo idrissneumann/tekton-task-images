@@ -36,44 +36,44 @@ if [[ $MULTI_ENV == "enabled" ]]; then
 fi
 
 if [[ ! $KUBE_CERTIFICATE =~ [A-Za-z0-9]+ ]]; then
-  echo 'apiVersion: v1
-  kind: Config
-  clusters:
-  - name: "'$KUBE_ENV'"
-    cluster:
-      server: "'$KUBE_URL'"
+echo 'apiVersion: v1
+kind: Config
+clusters:
+- name: "'$KUBE_ENV'"
+  cluster:
+    server: "'$KUBE_URL'"
 
-  users:
-  - name: "'$KUBE_ENV'"
-    user:
-      token: "'$KUBE_TOKEN'"
+users:
+- name: "'$KUBE_ENV'"
+  user:
+    token: "'$KUBE_TOKEN'"
 
-  contexts:
-  - name: "'$KUBE_ENV'"
-    context:
-      user: "'$KUBE_ENV'"
-      cluster: "'$KUBE_ENV'"
+contexts:
+- name: "'$KUBE_ENV'"
+  context:
+    user: "'$KUBE_ENV'"
+    cluster: "'$KUBE_ENV'"
 
-  current-context: "'$KUBE_ENV'"' > "${kubeconf}"
+current-context: "'$KUBE_ENV'"' > "${kubeconf}"
 else
-  echo 'apiVersion: v1
-  clusters:
-  - name: k8s-"'$KUBE_ENV'"
-    cluster:
-      certificate-authority-data: "'$KUBE_CERTIFICATE'"
-      server: "'$KUBE_URL'"
-  contexts:
-  - name: admin@k8s-"'$KUBE_ENV'"
-    context:
-      cluster: k8s-"'$KUBE_ENV'"
-      user: k8s-"'$KUBE_ENV'"-admin
-  current-context: admin@k8s-"'$KUBE_ENV'"
-  kind: Config
-  preferences: {}
-  users:
-  - name: k8s-"'$KUBE_ENV'"-admin
-    user:
-      token: "'$KUBE_TOKEN'"'  > "${kubeconf}"
+echo 'apiVersion: v1
+clusters:
+- name: k8s-"'$KUBE_ENV'"
+  cluster:
+    certificate-authority-data: "'$KUBE_CERTIFICATE'"
+    server: "'$KUBE_URL'"
+contexts:
+- name: admin@k8s-"'$KUBE_ENV'"
+  context:
+    cluster: k8s-"'$KUBE_ENV'"
+    user: k8s-"'$KUBE_ENV'"-admin
+current-context: admin@k8s-"'$KUBE_ENV'"
+kind: Config
+preferences: {}
+users:
+- name: k8s-"'$KUBE_ENV'"-admin
+  user:
+    token: "'$KUBE_TOKEN'"'  > "${kubeconf}"
 fi
 
 if [[ $LOG_LEVEL == "debug" || $LOG_LEVEL == "DEBUG" ]]; then
