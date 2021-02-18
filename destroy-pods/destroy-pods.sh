@@ -4,7 +4,7 @@
 
 [[ $DESTROY_MODE ]] || export DESTROY_MODE="rollout"
 
-if [[ ! $GIT_BRANCH =~ ^([0-9]+.[0-9]+.x|master|develop|main|prod|qa)$ ]]; then
+if [[ ! $GIT_BRANCH =~ ^([0-9]+.[0-9]+.x|master|develop|main|prod|qa|ppd)$ ]]; then
   echo "[destroy-pods] No pod to remove because KUBE_ENV=${KUBE_ENV} and GIT_BRANCH=${GIT_BRANCH}"
   exit 0
 fi
