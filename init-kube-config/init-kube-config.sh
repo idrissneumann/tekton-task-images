@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -euo pipefail
-
 [[ ! -d "~/.kube" ]] && mkdir ~/.kube
 [[ -f "~/.kube/config" ]] && cp -f ~/.kube/config ~/.kube/config.old
 [[ ! $MULTI_ENV ]] && export MULTI_ENV="disabled"

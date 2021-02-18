@@ -14,4 +14,3 @@ python3 /set-status.py
 python3 /add-comment.py
 /bin/sh /fetch-sources.sh
 /slack-start.sh
-
