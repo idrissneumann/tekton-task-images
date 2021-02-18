@@ -21,14 +21,14 @@ fi
 [[ $MULTI_ENV ]] || export MULTI_ENV="disabled"
 
 DOCKER_REGISTRY_ORG="${PROJECT_STABLE}"
-if [[ ! $GIT_BRANCH =~ ^([0-9]+.[0-9]+.x|master|develop|main|prod|qa|ppd)$ ]] || [[ $FORCE_PROJECT_UNSTABLE == "enabled" ]]; then
+if [[ ! $GIT_BRANCH =~ ^([0-9]+.[0-9]+.x|master|develop|main|prod|qa|ppd|preprod)$ ]] || [[ $FORCE_PROJECT_UNSTABLE == "enabled" ]]; then
   DOCKER_REGISTRY_ORG="${PROJECT_UNSTABLE}"
 elif [[ $MULTI_ENV == "enabled" && $GIT_BRANCH == "qa" && $VERSIONING_FROM_TAG != "enabled" ]]; then
   DOCKER_REGISTRY_ORG="${PROJECT_STABLE}/qa"
 elif [[ $MULTI_ENV == "enabled" && $GIT_BRANCH == "prod" && $VERSIONING_FROM_TAG != "enabled" ]]; then
   DOCKER_REGISTRY_ORG="${PROJECT_STABLE}/prod"
 elif [[ $MULTI_ENV == "enabled" && $GIT_BRANCH == "ppd" && $VERSIONING_FROM_TAG != "enabled" ]]; then
-  DOCKER_REGISTRY_ORG="${PROJECT_STABLE}/ppd"
+  DOCKER_REGISTRY_ORG="${PROJECT_STABLE}/preprod"
 fi
 
 final_tag="latest"

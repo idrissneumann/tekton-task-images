@@ -130,7 +130,7 @@ yarn-checks-node12:
 kill-redundant-pipelines:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "kill-redundant-pipelines" "1.14"
+    - setsid ./ci/docker-deliver.sh "kill-redundant-pipelines" "1.16"
   only:
     refs:
       - /^(master.*)$/
@@ -143,7 +143,7 @@ kill-redundant-pipelines:
 clean-old-pipelines:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "clean-old-pipelines" "1.7"
+    - setsid ./ci/docker-deliver.sh "clean-old-pipelines" "1.9"
   only:
     refs:
       - /^(master.*)$/
@@ -157,7 +157,7 @@ clean-old-pipelines:
 destroy-pvc:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "destroy-pvc" "1.11"
+    - setsid ./ci/docker-deliver.sh "destroy-pvc" "1.12"
   only:
     refs:
       - /^(master.*)$/
@@ -170,7 +170,7 @@ destroy-pvc:
 destroy-pods:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "destroy-pods" "1.18"
+    - setsid ./ci/docker-deliver.sh "destroy-pods" "1.19"
   only:
     refs:
       - /^(master.*)$/
@@ -183,7 +183,7 @@ destroy-pods:
 kaniko-build:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "kaniko-build" "1.7"
+    - setsid ./ci/docker-deliver.sh "kaniko-build" "1.8"
   only:
     refs:
       - /^(master.*)$/
@@ -255,7 +255,7 @@ github-open-pr:
 github-bump-pr:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "github-bump-pr" "1.34"
+    - setsid ./ci/docker-deliver.sh "github-bump-pr" "1.35"
   only:
     refs:
       - /^(master.*)$/

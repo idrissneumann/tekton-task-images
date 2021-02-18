@@ -17,7 +17,7 @@ if [[ $MULTI_ENV == "enabled" ]]; then
     export KUBE_URL="${KUBE_PROD_URL}"
     [[ $KUBE_PROD_ENV ]] && export KUBE_ENV="${KUBE_PROD_ENV}"
     [[ $KUBE_PROD_CERTIFICATE ]] && export KUBE_CERTIFICATE="${KUBE_PROD_CERTIFICATE}"
-  elif [[ $GIT_BRANCH == "ppd" ]]; then
+  elif [[ $GIT_BRANCH == "ppd" || $GIT_BRANCH == "preprod" ]]; then
     export KUBE_TOKEN="${KUBE_PPD_TOKEN}"
     export KUBE_URL="${KUBE_PPD_URL}"
     [[ $KUBE_PROD_ENV ]] && export KUBE_ENV="${KUBE_PPD_ENV}"
