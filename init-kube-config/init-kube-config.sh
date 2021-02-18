@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euo pipefail
+
 [[ ! -d "~/.kube" ]] && mkdir ~/.kube
 [[ -f "~/.kube/config" ]] && cp -f ~/.kube/config ~/.kube/config.old
 [[ ! $MULTI_ENV ]] && export MULTI_ENV="disabled"
@@ -7,7 +9,7 @@
 if [[ $MULTI_ENV == "enabled" ]]; then
   export KUBE_ENV="dev"
   export KUBE_CERTIFICATE=""
-  if [ $GIT_BRANCH == "qa" ]]; then
+  if [[ $GIT_BRANCH == "qa" ]]; then
     export KUBE_TOKEN="${KUBE_QA_TOKEN}"
     export KUBE_URL="${KUBE_QA_URL}"
     [[ $KUBE_QA_ENV ]] && export KUBE_ENV="${KUBE_QA_ENV}"
@@ -20,8 +22,8 @@ if [[ $MULTI_ENV == "enabled" ]]; then
   elif [[ $GIT_BRANCH == "ppd" || $GIT_BRANCH == "preprod" ]]; then
     export KUBE_TOKEN="${KUBE_PPD_TOKEN}"
     export KUBE_URL="${KUBE_PPD_URL}"
-    [[ $KUBE_PROD_ENV ]] && export KUBE_ENV="${KUBE_PPD_ENV}"
-    [[ $KUBE_PROD_CERTIFICATE ]] && export KUBE_CERTIFICATE="${KUBE_PPD_CERTIFICATE}"
+    [[ $KUBE_PPD_ENV ]] && export KUBE_ENV="${KUBE_PPD_ENV}"
+    [[ $KUBE_PPD_CERTIFICATE ]] && export KUBE_CERTIFICATE="${KUBE_PPD_CERTIFICATE}"
   else
     export KUBE_TOKEN="${KUBE_DEV_TOKEN}"
     export KUBE_URL="${KUBE_DEV_URL}"
