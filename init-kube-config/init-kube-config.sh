@@ -1,12 +1,17 @@
 #!/bin/bash
 
-[[ ! -d "~/.kube" ]] && mkdir ~/.kube
-[[ -f "~/.kube/config" ]] && cp -f ~/.kube/config ~/.kube/config.old
+kubedir=~/.kube
+kubeconf="${kubedir}/config"
+
+[[ ! -d $kubedir ]] && mkdir $kubedir
+[[ -f $kubeconf ]] && cp -f "${kubeconf}" "${kubeconf}.old"
 [[ ! $MULTI_ENV ]] && export MULTI_ENV="disabled"
+[[ ! $LOG_LEVEL ]] && export LOG_LEVEL="info"
+
+export KUBE_ENV="dev"
+export KUBE_CERTIFICATE=""
 
 if [[ $MULTI_ENV == "enabled" ]]; then
-  export KUBE_ENV="dev"
-  export KUBE_CERTIFICATE=""
   if [[ $GIT_BRANCH == "qa" ]]; then
     export KUBE_TOKEN="${KUBE_QA_TOKEN}"
     export KUBE_URL="${KUBE_QA_URL}"
@@ -30,7 +35,7 @@ if [[ $MULTI_ENV == "enabled" ]]; then
   fi
 fi
 
-if [[ ! $KUBE_CERTIFICATE ]]; then
+if [[ ! $KUBE_CERTIFICATE =~ [A-Za-z0-9]+ ]]; then
   echo 'apiVersion: v1
   kind: Config
   clusters:
@@ -49,7 +54,7 @@ if [[ ! $KUBE_CERTIFICATE ]]; then
       user: "'$KUBE_ENV'"
       cluster: "'$KUBE_ENV'"
 
-  current-context: "'$KUBE_ENV'"' > ~/.kube/config
+  current-context: "'$KUBE_ENV'"' > "${kubeconf}"
 else
   echo 'apiVersion: v1
   clusters:
@@ -68,5 +73,11 @@ else
   users:
   - name: k8s-"'$KUBE_ENV'"-admin
     user:
-      token: "'$KUBE_TOKEN'"'  > ~/.kube/config
+      token: "'$KUBE_TOKEN'"'  > "${kubeconf}"
+fi
+
+if [[ $LOG_LEVEL == "debug" || $LOG_LEVEL == "DEBUG" ]]; then
+  echo "[init-kube-config][debug] KUBE_ENV=${KUBE_ENV}"
+  echo "[init-kube-config][debug] content of ${kubeconf}"
+  cat "${kubeconf}"
 fi
