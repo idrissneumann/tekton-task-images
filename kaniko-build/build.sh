@@ -27,7 +27,7 @@ elif [[ $MULTI_ENV == "enabled" && $GIT_BRANCH == "qa" && $VERSIONING_FROM_TAG !
   DOCKER_REGISTRY_ORG="${PROJECT_STABLE}/qa"
 elif [[ $MULTI_ENV == "enabled" && $GIT_BRANCH == "prod" && $VERSIONING_FROM_TAG != "enabled" ]]; then
   DOCKER_REGISTRY_ORG="${PROJECT_STABLE}/prod"
-elif [[ $MULTI_ENV == "enabled" && $GIT_BRANCH == "ppd" && $VERSIONING_FROM_TAG != "enabled" ]]; then
+elif [[ $MULTI_ENV == "enabled" && $GIT_BRANCH =~ ^(ppd|preprod)$ && $VERSIONING_FROM_TAG != "enabled" ]]; then
   DOCKER_REGISTRY_ORG="${PROJECT_STABLE}/preprod"
 fi
 
