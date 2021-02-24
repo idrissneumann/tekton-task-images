@@ -18,27 +18,27 @@ fi
 
 rtn=0
 if [ "${ENABLE_COMPOSER_INSTALL}" = "enabled" ]; then
-    echo "[php-checks] run composer install ${INSTALL_EXTRA_ARGS}"
-    composer install ${INSTALL_EXTRA_ARGS}
-    rtn=$?
+  echo "[php-checks] run composer install ${INSTALL_EXTRA_ARGS}"
+  composer install ${INSTALL_EXTRA_ARGS}
+  rtn=$?
 fi
 
 if [ $rtn -eq 0 ] && [ "${ENABLE_PHPCS}" = "enabled" ]; then
-    echo "[php-checks] run ./vendor/bin/phpcs ${SRC_DIR}"
-    ./vendor/bin/phpcs ${SRC_DIR}
-    rtn=$?
+  echo "[php-checks] run ./vendor/bin/phpcs ${SRC_DIR}"
+  ./vendor/bin/phpcs ${SRC_DIR}
+  rtn=$?
 fi
 
 if [ $rtn -eq 0 ] && [ "${ENABLE_PSALM}" = "enabled" ]; then
-    echo "[php-checks] run ./vendor/bin/psalm -c=${PSALM_FILE}"
-    ./vendor/bin/psalm -c=${PSALM_FILE}
-    rtn=$?
+  echo "[php-checks] run ./vendor/bin/psalm -c=${PSALM_FILE}"
+  ./vendor/bin/psalm -c=${PSALM_FILE}
+  rtn=$?
 fi
 
 if [ $rtn -eq 0 ] && [ "${ENABLE_PHPUNIT}" = "enabled" ]; then
-    echo "[php-checks] run ./vendor/bin/phpunit"
-    ./vendor/bin/phpunit
-    rtn=$?
+  echo "[php-checks] run ./vendor/bin/phpunit"
+  ./vendor/bin/phpunit
+  rtn=$?
 fi
 
 exit $rtn
