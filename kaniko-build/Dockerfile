@@ -1,4 +1,6 @@
-FROM gcr.io/kaniko-project/executor AS kaniko
+ARG KANIKO_TAG
+
+FROM gcr.io/kaniko-project/executor:KANIKO_TAG AS kaniko
 
 FROM alpine AS image_builder
 
