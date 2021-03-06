@@ -51,8 +51,8 @@ set_branches_and_pr() {
   [[ ! $GIT_TARGET_BRANCH ]] && export GIT_TARGET_BRANCH="master"
   [[ ! $PROJECT_NAME ]] && export PROJECT_NAME="${REPO_ORG}_${REPO_NAME}"
 
-  export GIT_SRC_BRANCH="bump_${PROJECT_NAME}_${VERSION}"
-  export PR_TITLE="Bump ${PROJECT_NAME} to ${VERSION}"
+  export GIT_SRC_BRANCH="bump_${PROJECT_NAME}_${VERSION}_${GIT_BRANCH}"
+  export PR_TITLE="Bump ${PROJECT_NAME} to ${VERSION} - ${GIT_BRANCH}"
   export GIT_COMMIT_MSG="${PR_TITLE}"
 
   if [[ $LOG_LEVEL == "debug" || $LOG_LEVEL == "DEBUG" ]]; then
