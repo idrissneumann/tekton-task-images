@@ -88,8 +88,10 @@ open_pr() {
 delete_src_branch() {
   cd "${GIT_WORKSPACE_PATH}"
   
-  if [[ $GIT_SRC_BRANCH =~ ^bump_.*$ ]]; then
+  if [[ $GIT_SRC_BRANCH =~ ^bump_.*$ && $AUTO_MERGE_GIT_BRANCH = $GIT_BRANCH ]]; then
     git push -d origin "${GIT_SRC_BRANCH}" || :
+  elif [[ $AUTO_MERGE_GIT_BRANCH != $GIT_BRANCH ]]; then
+    echo "[github-bump-pr] No delete of the ${GIT_SRC_BRANCH} branch because AUTO_MERGE_GIT_BRANCH = ${AUTO_MERGE_GIT_BRANCH} != ${GIT_BRANCH}"
   else
     echo "[github-bump-pr] Error, bump branch is not named right: GIT_SRC_BRANCH=${GIT_SRC_BRANCH}"
     exit 1
