@@ -1,6 +1,6 @@
 #!/bin/bash
 
-suffix=$(echo ${HOSTNAME}|sed 's/\(.*\)-.*/\1/;s/\-buil//g;s/\-kani//g')
+suffix=$(echo ${HOSTNAME}|sed 's/\(.*\)-.*/\1/;s/\-buil?//g;s/\-kani?//g')
 pr_env_file="${TEKTON_WORKSPACE_PATH}/pr_env-${suffix}.sh"
 if [[ $LOG_LEVEL == "debug" || $LOG_LEVEL == "DEBUG" ]]; then
   echo "[build-container-image][debug][pr_env_file] loading the file ${pr_env_file}"
