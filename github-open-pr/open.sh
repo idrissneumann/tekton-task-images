@@ -9,7 +9,7 @@ if [[ $LOG_LEVEL == "debug" || $LOG_LEVEL == "DEBUG" ]]; then
   VERBOSE_OPT="-v"
 fi
 
-suffix=$(echo ${HOSTNAME}|sed 's/\(.*\)-.*/\1/;s/\-open//g;s/\-bump//g;s/\-//g')
+suffix=$(echo ${HOSTNAME}|sed 's/\(.*\)-.*/\1/;s/\-open?//g;s/\-bump?//g;s/\-//g')
 pr_json_file="${TEKTON_WORKSPACE_PATH}/prs-open-${suffix}.json"
 endpoint="https://${GITHUB_HOST_URL}/repos/${REPO_ORG}/${REPO_NAME}/pulls"
 body='{"title":"'"${PR_TITLE}"'", "head":"'"${GIT_SRC_BRANCH}"'","base":"'"${GIT_TARGET_BRANCH}"'", "owner":"'"${REPO_ORG}"'", "repo":"'"${REPO_NAME}"'"}'

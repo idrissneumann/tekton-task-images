@@ -1,6 +1,6 @@
 #!/bin/sh
 
-suffix=$(echo ${HOSTNAME}|sed 's/\(.*\)-.*/\1/;s/\-init//g')
+suffix=$(echo ${HOSTNAME}|sed 's/\(.*\)-.*/\1/;s/\-init?//g')
 pr_env_file="${TEKTON_WORKSPACE_PATH}/pr_env-${suffix}.sh"
 git_script="${TEKTON_WORKSPACE_PATH}/git.sh"
 env_script="${TEKTON_WORKSPACE_PATH}/env.sh"
