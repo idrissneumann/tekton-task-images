@@ -39,6 +39,8 @@ echo "git pull --rebase origin \$GIT_BRANCH" >> "${git_script}"
 /bin/sh "${git_script}"
 
 version="$(git describe --long|sed "s/-/\./")"
+sha="$(git rev-parse --short HEAD)"
+[ -z "${version}" ]] || [ -z "${sha}" ] && version="${GIT_BRANCH}-${sha}"
 [ -z "${version}" ] || export DELIVERY_VERSION_FROM_TAG="${version}"
 [ -z "${version}" ] || echo "export DELIVERY_VERSION_FROM_TAG=\"${version}\"" >> "${pr_env_file}"
 

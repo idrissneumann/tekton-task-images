@@ -37,7 +37,10 @@ set_version() {
   fi
 
   cd "${GIT_WORKSPACE_PATH}"
-  export VERSION="$(git describe --long|sed "s/-/\./")"
+  vers="$(git describe --long|sed "s/-/\./")"
+  sha="$(git rev-parse --short HEAD)"
+  [[ $v ]] || [[ $sha ]] && vers="${GIT_BRANCH}-${sha}"
+  export VERSION="${vers}"
 
   if [[ ! $VERSION ]]; then
     echo "[github-bump-pr][set_version] There is no tag that fit a version number, pick VERSION=${VERSION}"
