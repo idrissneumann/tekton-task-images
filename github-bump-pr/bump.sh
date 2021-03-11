@@ -40,6 +40,7 @@ set_version() {
   vers="$(git describe --long|sed "s/-/\./")"
   sha="$(git rev-parse --short HEAD)"
   [[ $v ]] || [[ $sha ]] && vers="${GIT_BRANCH}-${sha}"
+  
   export VERSION="${vers}"
 
   if [[ ! $VERSION ]]; then
