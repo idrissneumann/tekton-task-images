@@ -23,7 +23,7 @@ github-internal-mirror:
 init-pipeline:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "init-pipeline" "1.10"
+    - setsid ./ci/docker-deliver.sh "init-pipeline" "1.11"
   only:
     refs:
       - /^(master.*)$/
@@ -39,7 +39,7 @@ init-pipeline:
 init-pipeline-github:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "init-pipeline-github" "1.24"
+    - setsid ./ci/docker-deliver.sh "init-pipeline-github" "1.25"
   only:
     refs:
       - /^(master.*)$/
@@ -247,7 +247,7 @@ github-search-pr:
 github-open-pr:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "github-open-pr" "1.8"
+    - setsid ./ci/docker-deliver.sh "github-open-pr" "1.9"
   only:
     refs:
       - /^(master.*)$/
