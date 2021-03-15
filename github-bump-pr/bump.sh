@@ -37,9 +37,8 @@ set_version() {
   fi
 
   cd "${GIT_WORKSPACE_PATH}"
-  vers="$(git describe --long|sed "s/-/\./")"
-  sha="$(git rev-parse --short HEAD)"
-  [[ $v ]] || [[ $sha ]] && vers="${GIT_BRANCH}-${sha}"
+  source /version_utils.sh
+  vers="$(version_from_tag)"
   
   export VERSION="${vers}"
 

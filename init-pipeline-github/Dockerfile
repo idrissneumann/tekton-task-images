@@ -8,8 +8,10 @@ COPY git-fetch-sources/fetch-sources.sh /
 COPY slack-sender/slack-sender.py /
 COPY slack-start-pipeline/slack-start.sh /
 COPY env-files-utils/env_files_utils.sh /
+COPY version-utils/version_utils.sh /
 
 RUN chmod +x /env_files_utils.sh && \
+    chmod +x /version_utils.sh && \
     chmod +x /search.sh && \
     chmod +x /fetch-sources.sh && \
     chmod +x /add-comment.py && \

@@ -23,13 +23,14 @@ github-internal-mirror:
 init-pipeline:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "init-pipeline" "1.12"
+    - setsid ./ci/docker-deliver.sh "init-pipeline" "1.13"
   only:
     refs:
       - /^(master.*)$/
     changes:
       - init-pipeline/*
       - env-file-utils/*
+      - version-utils/*
       - git-fetch-sources/*
       - slack-sender/*
       - slack-start-pipeline/*
@@ -39,13 +40,14 @@ init-pipeline:
 init-pipeline-github:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "init-pipeline-github" "1.26"
+    - setsid ./ci/docker-deliver.sh "init-pipeline-github" "1.27"
   only:
     refs:
       - /^(master.*)$/
     changes:
       - init-pipeline-github/*
       - env-file-utils/*
+      - version-utils/*
       - git-fetch-sources/*
       - github-add-comment/*
       - github-set-status/*
@@ -260,12 +262,12 @@ github-open-pr:
 github-bump-pr:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "github-bump-pr" "1.41"
+    - setsid ./ci/docker-deliver.sh "github-bump-pr" "1.42"
   only:
     refs:
       - /^(master.*)$/
     changes:
-      - env-file-utils/*
+      - version-utils/*
       - github-open-pr/*
       - github-bump-pr/*
       - git-push-changes/*
@@ -348,12 +350,13 @@ create-ingress:
 git-fetch-sources:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "git-fetch-sources" "1.12"
+    - setsid ./ci/docker-deliver.sh "git-fetch-sources" "1.13"
   only:
     refs:
       - /^(master.*)$/
     changes:
       - env-file-utils/*
+      - version-utils/*
       - git-fetch-sources/*
   tags:
     - tekton-utils

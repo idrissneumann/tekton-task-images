@@ -2,6 +2,9 @@
 
 source /env_files_utils.sh
 pr_env_file="$(get_pr_env_file)"
+
+echo "[git-fetch-sources] pr_env_file = ${pr_env_file}"
+
 git_script="${TEKTON_WORKSPACE_PATH}/git.sh"
 env_script="${TEKTON_WORKSPACE_PATH}/env.sh"
 log_script="${TEKTON_WORKSPACE_PATH}/log.sh"
@@ -38,11 +41,13 @@ echo "git pull --rebase origin \$GIT_BRANCH" >> "${git_script}"
 /bin/sh "${log_script}"
 /bin/sh "${git_script}"
 
-version="$(git describe --long|sed "s/-/\./")"
-sha="$(git rev-parse --short HEAD)"
-[[ $version && $sha ]] && version="${GIT_BRANCH}-${sha}"
-[[ $version ]] && export DELIVERY_VERSION_FROM_TAG="${version}"
-[[ $version ]] && echo "export DELIVERY_VERSION_FROM_TAG=\"${version}\"" >> "${pr_env_file}"
+source /versions_utils.sh
+version="$(version_from_tag)"
+
+if [[ $version ]]; then
+  export DELIVERY_VERSION_FROM_TAG="${version}"
+  echo "export DELIVERY_VERSION_FROM_TAG=\"${version}\"" >> "${pr_env_file}"
+fi
 
 target_path="${TEKTON_WORKSPACE_PATH}"
 ls -a . | while read REPLY; do 
@@ -50,11 +55,13 @@ ls -a . | while read REPLY; do
 done
 
 if [[ $LOG_LEVEL == "debug" || $LOG_LEVEL == "DEBUG" ]]; then
-  echo "[github-fetch-sources][debug] Content of workspaces.path = ${target_path}"
+  echo "[git-fetch-sources][debug] Content of workspaces.path = ${target_path}"
   ls -la "${target_path}"
+  echo "[git-fetch-sources][debug] Content of pr_env_file = ${pr_env_file}"
+  cat "${pr_env_file}"
 fi
 
-echo "{\"sha\": \"$(git rev-parse HEAD)\", \"tag\": \"$(git describe --tags 2>/dev/null)\", \"branch\":\"${GIT_BRANCH}\", \"repo_org\":\"${REPO_ORG}\", \"repo_name\":\"${REPO_NAME}\"}" > "${json_manifest}" 2>/dev/null || :
+echo "{\"sha\": \"$(git rev-parse HEAD)\", \"version\": \"${version}\", \"branch\":\"${GIT_BRANCH}\", \"repo_org\":\"${REPO_ORG}\", \"repo_name\":\"${REPO_NAME}\"}" > "${json_manifest}" 2>/dev/null || :
 
 echo "[fetch-sources] Content of ${json_manifest}"
 cat "${json_manifest}"
