@@ -10,3 +10,5 @@ version_from_tag() {
 
   echo "${version}"
 }
+
+echo "[version_utils] Version from tag is : $(version_from_tag)"

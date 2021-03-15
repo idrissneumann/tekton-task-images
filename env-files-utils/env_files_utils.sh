@@ -13,3 +13,5 @@ get_pr_env_file() {
   suffix="$(extract_pipeline_id)"
   echo "${TEKTON_WORKSPACE_PATH}/pr_env-${suffix}.sh"
 }
+
+echo "[env_files_utils] pr_env_file=$(get_pr_env_file), get_pr_json_file=$(get_pr_json_file)"

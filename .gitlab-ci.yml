@@ -23,7 +23,7 @@ github-internal-mirror:
 init-pipeline:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "init-pipeline" "1.14"
+    - setsid ./ci/docker-deliver.sh "init-pipeline" "1.15"
   only:
     refs:
       - /^(master.*)$/
@@ -40,7 +40,7 @@ init-pipeline:
 init-pipeline-github:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "init-pipeline-github" "1.29"
+    - setsid ./ci/docker-deliver.sh "init-pipeline-github" "1.31"
   only:
     refs:
       - /^(master.*)$/
@@ -187,7 +187,7 @@ destroy-pods:
 kaniko-build:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "kaniko-build" "1.14"
+    - setsid ./ci/docker-deliver.sh "kaniko-build" "1.16"
   only:
     refs:
       - /^(master.*)$/
@@ -262,7 +262,7 @@ github-open-pr:
 github-bump-pr:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "github-bump-pr" "1.44"
+    - setsid ./ci/docker-deliver.sh "github-bump-pr" "1.46"
   only:
     refs:
       - /^(master.*)$/
@@ -351,7 +351,7 @@ create-ingress:
 git-fetch-sources:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "git-fetch-sources" "1.14"
+    - setsid ./ci/docker-deliver.sh "git-fetch-sources" "1.15"
   only:
     refs:
       - /^(master.*)$/
@@ -377,7 +377,7 @@ git-push-changes:
 state-success:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "state-success" "1.6"
+    - setsid ./ci/docker-deliver.sh "state-success" "1.7"
   only:
     refs:
       - /^(master.*)$/
