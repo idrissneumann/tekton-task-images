@@ -40,7 +40,7 @@ init-pipeline:
 init-pipeline-github:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "init-pipeline-github" "1.27"
+    - setsid ./ci/docker-deliver.sh "init-pipeline-github" "1.28"
   only:
     refs:
       - /^(master.*)$/
@@ -262,12 +262,13 @@ github-open-pr:
 github-bump-pr:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "github-bump-pr" "1.42"
+    - setsid ./ci/docker-deliver.sh "github-bump-pr" "1.43"
   only:
     refs:
       - /^(master.*)$/
     changes:
       - version-utils/*
+      - env-files-utils/*
       - github-open-pr/*
       - github-bump-pr/*
       - git-push-changes/*
