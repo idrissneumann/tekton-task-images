@@ -7,10 +7,10 @@ if [[ $LOG_LEVEL == "debug" || $LOG_LEVEL == "DEBUG" ]]; then
   echo "[build-container-image][debug][pr_env_file] loading the file ${pr_env_file}"
 fi
 
-[[ -f $pr_env_file ]] && source "${pr_env_file}"
-
-if [[ -f $pr_env_file ]] || [[ $LOG_LEVEL == "debug" || $LOG_LEVEL == "DEBUG" ]]; then
-  echo "[build-container-image][debug][pr_env_file] the file ${pr_env_file} doesn't exists"
+if [[ -f $pr_env_file ]]; then
+  source "${pr_env_file}"
+else
+  echo "pr_env_file = ${pr_env_file} not exists"
 fi
 
 if [[ $LOG_LEVEL == "debug" || $LOG_LEVEL == "DEBUG" ]]; then
