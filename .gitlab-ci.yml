@@ -23,12 +23,13 @@ github-internal-mirror:
 init-pipeline:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "init-pipeline" "1.9"
+    - setsid ./ci/docker-deliver.sh "init-pipeline" "1.10"
   only:
     refs:
       - /^(master.*)$/
     changes:
       - init-pipeline/*
+      - env-file-utils/*
       - git-fetch-sources/*
       - slack-sender/*
       - slack-start-pipeline/*
@@ -38,12 +39,13 @@ init-pipeline:
 init-pipeline-github:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "init-pipeline-github" "1.23"
+    - setsid ./ci/docker-deliver.sh "init-pipeline-github" "1.24"
   only:
     refs:
       - /^(master.*)$/
     changes:
       - init-pipeline-github/*
+      - env-file-utils/*
       - git-fetch-sources/*
       - github-add-comment/*
       - github-set-status/*
@@ -183,11 +185,12 @@ destroy-pods:
 kaniko-build:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "kaniko-build" "1.12"
+    - setsid ./ci/docker-deliver.sh "kaniko-build" "1.13"
   only:
     refs:
       - /^(master.*)$/
     changes:
+      - env-file-utils/*
       - kaniko-build/*
   tags:
     - tekton-utils
@@ -231,11 +234,12 @@ slack-result-sender:
 github-search-pr:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "github-search-pr" "1.3"
+    - setsid ./ci/docker-deliver.sh "github-search-pr" "1.4"
   only:
     refs:
       - /^(master.*)$/
     changes:
+      - env-file-utils/*
       - github-search-pr/*
   tags:
     - tekton-utils
@@ -243,11 +247,12 @@ github-search-pr:
 github-open-pr:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "github-open-pr" "1.7"
+    - setsid ./ci/docker-deliver.sh "github-open-pr" "1.8"
   only:
     refs:
       - /^(master.*)$/
     changes:
+      - env-file-utils/*
       - github-open-pr/*
   tags:
     - tekton-utils
@@ -255,11 +260,12 @@ github-open-pr:
 github-bump-pr:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "github-bump-pr" "1.39"
+    - setsid ./ci/docker-deliver.sh "github-bump-pr" "1.40"
   only:
     refs:
       - /^(master.*)$/
     changes:
+      - env-file-utils/*
       - github-open-pr/*
       - github-bump-pr/*
       - git-push-changes/*
@@ -342,11 +348,12 @@ create-ingress:
 git-fetch-sources:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "git-fetch-sources" "1.10"
+    - setsid ./ci/docker-deliver.sh "git-fetch-sources" "1.11"
   only:
     refs:
       - /^(master.*)$/
     changes:
+      - env-file-utils/*
       - git-fetch-sources/*
   tags:
     - tekton-utils
@@ -366,11 +373,12 @@ git-push-changes:
 state-success:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "state-success" "1.4"
+    - setsid ./ci/docker-deliver.sh "state-success" "1.5"
   only:
     refs:
       - /^(master.*)$/
     changes:
+      - env-file-utils/*
       - state-success/*
   tags:
     - tekton-utils

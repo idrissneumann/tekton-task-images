@@ -1,10 +1,11 @@
-#!/bin/sh
+#!/bin/bash
 
-suffix=$(echo ${HOSTNAME}|sed 's/\(.*\)-.*/\1/;s/\-chec?//g;s/\-succ?//g')
-pr_env_file="${TEKTON_WORKSPACE_PATH}/pr_env-${suffix}.sh"
+source /env_file_utils.sh
+pr_env_file="$(get_pr_env_file)"
+
 sed -i "s/^\(export PIPELINE_STATE=\).*/\1\"success\"/g" $pr_env_file
 
-if [ "${LOG_LEVEL}" = "debug" ] || [ "${LOG_LEVEL}" = "DEBUG" ]; then
+if [[ $LOG_LEVEL == "debug" || $LOG_LEVEL == "DEBUG" ]]; then
   echo "[state-success][success] Content of $pr_env_file :"
   cat $pr_env_file
 fi

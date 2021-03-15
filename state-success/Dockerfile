@@ -1,7 +1,9 @@
 FROM alpine
 
-COPY state-success.sh /
+COPY git-fetch-sources/fetch-sources.sh /
+COPY state-success/state-success.sh /
 
-RUN chmod +x /state-success.sh
+RUN apk add --no-cache bash && \
+    chmod +x /state-success.sh /env_files_utils.sh
 
 CMD ["/state-success.sh"]

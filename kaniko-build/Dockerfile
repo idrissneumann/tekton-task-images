@@ -6,9 +6,10 @@ FROM alpine AS image_builder
 
 COPY --from=kaniko /kaniko /kaniko
 
-COPY build.sh /
+COPY git-fetch-sources/fetch-sources.sh /
+COPY kaniko-build/build.sh /
 
 RUN apk add --no-cache bash && \
-    chmod +x /build.sh
+    chmod +x /build.sh /env_files_utils.sh
 
 CMD [ "/build.sh" ]

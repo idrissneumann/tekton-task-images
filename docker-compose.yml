@@ -14,8 +14,8 @@ services:
   git-fetch-sources:
     image: comworkio/tekton-utils-git-fetch-sources
     build:
-      context: git-fetch-sources
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: git-fetch-sources/Dockerfile
   git-push-changes:
     image: comworkio/tekton-utils-git-push-changes
     build:
@@ -24,13 +24,13 @@ services:
   github-search-pr:
     image: comworkio/tekton-utils-github-search-pr
     build:
-      context: github-search-pr
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: github-search-pr/Dockerfile
   github-open-pr:
     image: comworkio/tekton-utils-github-open-pr
     build:
-      context: github-open-pr
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: github-open-pr/Dockerfile
   github-bump-pr:
     image: comworkio/tekton-utils-github-bump-pr
     build:
@@ -79,14 +79,14 @@ services:
   state-success:
     image: comworkio/tekton-utils-state-success
     build:
-      context: state-success
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: state-success/Dockerfile
   kaniko-build:
     image: comworkio/tekton-utils-kaniko-build
     build:
       target: image_builder
-      context: kaniko-build
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: kaniko-build/Dockerfile
       args: 
         - KANIKO_TAG=v1.5.1
   php-checks-7-4:
