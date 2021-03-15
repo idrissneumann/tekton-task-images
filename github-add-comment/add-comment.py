@@ -9,14 +9,15 @@ import shlex
 import re
 import sys
 
+from env_files_utils import *
+
 log_level = os.environ['LOG_LEVEL']
-tekton_workspace_path = os.environ['TEKTON_WORKSPACE_PATH']
 comment = os.environ['COMMENT']
 
 api_version = "v3"
 github_host_url = "api.github.com"
 
-env_file = tekton_workspace_path + "/pr_env-" + re.sub("-foll", "", re.sub(r"-[^-]*$", "", os.environ['HOSTNAME'])) + ".sh"
+env_file = get_pr_env_file()
 
 if log_level == "debug" or log_level == "DEBUG":
     print("[github-add-comment][debug] env_file = " + env_file);

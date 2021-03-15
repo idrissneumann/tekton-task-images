@@ -44,8 +44,8 @@ services:
   github-add-comment:
     image: comworkio/tekton-utils-github-add-comment
     build:
-      context: github-add-comment
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: github-add-comment/Dockerfile
   github-webhook:
     image: comworkio/tekton-utils-github-webhook
     build:

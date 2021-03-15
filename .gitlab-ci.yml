@@ -40,7 +40,7 @@ init-pipeline:
 init-pipeline-github:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "init-pipeline-github" "1.34"
+    - setsid ./ci/docker-deliver.sh "init-pipeline-github" "1.35"
   only:
     refs:
       - /^(master.*)$/
@@ -293,11 +293,12 @@ github-set-status:
 github-add-comment:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "github-add-comment" "1.0"
+    - setsid ./ci/docker-deliver.sh "github-add-comment" "1.1"
   only:
     refs:
       - /^(master.*)$/
     changes:
+      - env-files-utils/*
       - github-add-comment/*
   tags:
     - tekton-utils
