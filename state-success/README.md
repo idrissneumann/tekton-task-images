@@ -8,7 +8,3 @@ Use this image as an end task of your pipeline in order to set the final state t
 
 * `LOG_LEVEL`: log level (`debug` or `info`)
 * `TEKTON_WORKSPACE_PATH`: the tekton workspace path which is bind to a pvc
-
-## Tekton example
-
-See the [example](./success.yaml)

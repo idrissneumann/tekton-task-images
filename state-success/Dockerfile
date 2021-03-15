@@ -1,6 +1,6 @@
 FROM alpine
 
-COPY git-fetch-sources/fetch-sources.sh /
+COPY env-files-utils/env_files_utils.sh /
 COPY state-success/state-success.sh /
 
 RUN apk add --no-cache bash && \
