@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source /env_file_utils.sh
+source /env_files_utils.sh
 pr_env_file="$(get_pr_env_file)"
 git_script="${TEKTON_WORKSPACE_PATH}/git.sh"
 env_script="${TEKTON_WORKSPACE_PATH}/env.sh"

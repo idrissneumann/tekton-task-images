@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source /env_file_utils.sh
+source /env_files_utils.sh
 pr_env_file="$(get_pr_env_file)"
 
 if [[ $LOG_LEVEL == "debug" || $LOG_LEVEL == "DEBUG" ]]; then

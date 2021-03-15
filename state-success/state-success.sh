@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source /env_file_utils.sh
+source /env_files_utils.sh
 pr_env_file="$(get_pr_env_file)"
 
 sed -i "s/^\(export PIPELINE_STATE=\).*/\1\"success\"/g" $pr_env_file

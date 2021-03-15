@@ -9,7 +9,7 @@ if [[ $LOG_LEVEL == "debug" || $LOG_LEVEL == "DEBUG" ]]; then
   VERBOSE_OPT="-v"
 fi
 
-source /env_file_utils.sh
+source /env_files_utils.sh
 pr_json_file="$(get_pr_json_file)"
 
 endpoint="https://${GITHUB_HOST_URL}/repos/${REPO_ORG}/${REPO_NAME}/pulls"

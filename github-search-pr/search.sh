@@ -5,7 +5,7 @@ API_VERSION="v3"
 GITHUB_HOST_URL="api.github.com"
 STATE="open"
 
-source /env_file_utils.sh
+source /env_files_utils.sh
 pr_json_file="$(get_pr_json_file)"
 pr_env_file="$(get_pr_env_file)"
 echo "" > "${pr_env_file}"
