@@ -39,8 +39,8 @@ services:
   github-set-status:
     image: comworkio/tekton-utils-github-set-status
     build:
-      context: github-set-status
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: github-set-status/Dockerfile
   github-add-comment:
     image: comworkio/tekton-utils-github-add-comment
     build:
@@ -74,8 +74,8 @@ services:
   slack-result-sender:
     image: comworkio/tekton-utils-slack-result-sender
     build:
-      context: slack-result-sender
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: slack-result-sender/Dockerfile
   state-success:
     image: comworkio/tekton-utils-state-success
     build:

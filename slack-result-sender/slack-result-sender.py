@@ -7,13 +7,14 @@ import re
 import subprocess
 import sys
 
+from env_files_utils import *
+
 SLACK_TOKEN = os.environ['SLACK_TOKEN']
 SLACK_USERNAME = os.environ['SLACK_USERNAME']
 SLACK_AVATAR = os.environ['SLACK_EMOJI_AVATAR']
 SLACK_CHANNEL = os.environ['SLACK_CHANNEL']
 LOG_LEVEL = os.environ['LOG_LEVEL']
 GIT_REPO = "{}/{}".format(os.environ['REPO_ORG'], os.environ['REPO_NAME'])
-TEKTON_WORKSPACE_PATH = os.environ['TEKTON_WORKSPACE_PATH']
 GIT_BRANCH = os.environ['GIT_BRANCH']
 PIPELINE_URL = os.environ['PIPELINE_URL']
 STATE_FAIL_TPL = ", state = {}, "
@@ -33,7 +34,7 @@ def slack_message(emoji, channel, color, message, token, user):
 def str2bool(v):
     return v.lower() in ("yes", "true", "t", "1")
 
-env_file = TEKTON_WORKSPACE_PATH + "/pr_env-" + re.sub("-(pend|resu|init|succ|end)", "", re.sub(r"-[^-]*$", "", os.environ['HOSTNAME'])) + ".sh"
+env_file = get_pr_env_file()
 
 if LOG_LEVEL == "debug" or LOG_LEVEL == "DEBUG":
     print("[slack-result-sender][debug] env_file = {}, pre-state = {}".format(env_file, PIPELINE_STATE));

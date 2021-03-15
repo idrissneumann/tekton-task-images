@@ -8,9 +8,10 @@ import re
 import subprocess
 import sys
 
+from env_files_utils import *
+
 log_level = os.environ['LOG_LEVEL']
 state = os.environ['DEFAULT_PIPELINE_STATE']
-tekton_workspace_path = os.environ['TEKTON_WORKSPACE_PATH']
 repo_org = os.environ['REPO_ORG']
 repo_name = os.environ['REPO_NAME']
 target_url = os.environ['PIPELINE_TARGET_URL']
@@ -20,7 +21,7 @@ context = os.environ['STATUS_CONTEXT']
 api_version = "v3"
 github_host_url = "api.github.com"
 
-env_file = tekton_workspace_path + "/pr_env-" + re.sub("-(pend|resu|init|succ|end)", "", re.sub(r"-[^-]*$", "", os.environ['HOSTNAME'])) + ".sh"
+env_file = get_pr_env_file()
 
 if log_level == "debug" or log_level == "DEBUG":
     print("[github-set-status][debug] env_file = {}, pre-state = {}".format(env_file, state));
