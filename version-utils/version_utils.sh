@@ -5,7 +5,8 @@ version_from_tag() {
   sha="$(git rev-parse --short HEAD)"
 
   if [[ ! $version ]] && [[ $sha ]]; then
-    version="${GIT_BRANCH}-${sha}"
+    branch=$(echo "${GIT_BRANCH}"|sed "s/\///g")
+    version="${branch}-${sha}"
   fi
 
   echo "${version}"
