@@ -41,7 +41,7 @@ echo "git pull --rebase origin \$GIT_BRANCH" >> "${git_script}"
 /bin/sh "${log_script}"
 /bin/sh "${git_script}"
 
-source /versions_utils.sh
+source /version_utils.sh
 version="$(version_from_tag)"
 
 if [[ $version ]]; then
