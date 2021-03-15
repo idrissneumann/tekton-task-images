@@ -49,6 +49,12 @@ if [[ $version ]]; then
   echo "export DELIVERY_VERSION_FROM_TAG=\"${version}\"" >> "${pr_env_file}"
 fi
 
+if [[ ! $LAST_COMMIT ]]; then
+  export LAST_COMMIT="$(git rev-parse HEAD)"
+  echo "export LAST_COMMIT=$LAST_COMMIT" >> $pr_env_file
+  echo "[fetch-sources] LAST_COMMIT was not found, set with ${LAST_COMMIT}"
+fi
+
 target_path="${TEKTON_WORKSPACE_PATH}"
 ls -a . | while read REPLY; do 
   [[ $REPLY != "." && $REPLY != ".." ]] && cp -R $REPLY $target_path/; 

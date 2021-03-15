@@ -40,7 +40,7 @@ init-pipeline:
 init-pipeline-github:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "init-pipeline-github" "1.36"
+    - setsid ./ci/docker-deliver.sh "init-pipeline-github" "1.37"
   only:
     refs:
       - /^(master.*)$/
@@ -60,7 +60,7 @@ init-pipeline-github:
 end-pipeline-github:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "end-pipeline-github" "1.10"
+    - setsid ./ci/docker-deliver.sh "end-pipeline-github" "1.11"
   only:
     refs:
       - /^(master.*)$/
@@ -224,7 +224,7 @@ slack-sender:
 slack-result-sender:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "slack-result-sender" "1.5"
+    - setsid ./ci/docker-deliver.sh "slack-result-sender" "1.6"
   only:
     refs:
       - /^(master.*)$/
@@ -280,7 +280,7 @@ github-bump-pr:
 github-set-status:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "github-set-status" "1.3"
+    - setsid ./ci/docker-deliver.sh "github-set-status" "1.4"
   only:
     refs:
       - /^(master.*)$/
@@ -293,7 +293,7 @@ github-set-status:
 github-add-comment:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "github-add-comment" "1.1"
+    - setsid ./ci/docker-deliver.sh "github-add-comment" "1.2"
   only:
     refs:
       - /^(master.*)$/
@@ -354,7 +354,7 @@ create-ingress:
 git-fetch-sources:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "git-fetch-sources" "1.16"
+    - setsid ./ci/docker-deliver.sh "git-fetch-sources" "1.17"
   only:
     refs:
       - /^(master.*)$/

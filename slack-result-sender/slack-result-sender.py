@@ -17,7 +17,7 @@ LOG_LEVEL = os.environ['LOG_LEVEL']
 GIT_REPO = "{}/{}".format(os.environ['REPO_ORG'], os.environ['REPO_NAME'])
 GIT_BRANCH = os.environ['GIT_BRANCH']
 PIPELINE_URL = os.environ['PIPELINE_URL']
-STATE_FAIL_TPL = ", state = {}, "
+STATE_FAIL_TPL = " state = {}, "
 MSG_RESULT_TPL = "[{} - {}] {}{}pr_url = {}, pipeline_url = {}"
 PIPELINE_STATE = os.environ['DEFAULT_PIPELINE_STATE']
 ONLY_ON_FAILURE = os.environ['ONLY_ON_FAILURE']

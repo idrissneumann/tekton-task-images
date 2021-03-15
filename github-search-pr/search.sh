@@ -19,9 +19,9 @@ sed -i "s/${GITHUB_HOST_URL}\/repos\(\/${REPO_ORG}\/${REPO_NAME}\)\/issues/githu
 export LAST_PULL_REQUEST_URL="$(head -n1 $pr_json_file|jq -cr ".url")"
 
 echo "export PIPELINE_STATE=\"failure\"" > $pr_env_file
-[[ -z $LAST_COMMIT ]] || echo "export LAST_COMMIT=$LAST_COMMIT" >> $pr_env_file
+[[ $LAST_COMMIT ]] && echo "export LAST_COMMIT=$LAST_COMMIT" >> $pr_env_file
 
-if [[ -z $LAST_COMMIT ]] || [[ -z $LAST_PULL_REQUEST_URL ]]; then
+if [[ ! $LAST_COMMIT || ! $LAST_PULL_REQUEST_URL ]]; then
   if [[ $LOG_LEVEL == "debug" || $LOG_LEVEL == "DEBUG" ]]; then
     echo "[github-search-pr][debug] Content of $pr_json_file :"
     cat $pr_json_file
