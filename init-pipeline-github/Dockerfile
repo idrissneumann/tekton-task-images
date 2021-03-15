@@ -8,6 +8,7 @@ COPY slack-sender/slack-sender.py /
 COPY slack-start-pipeline/slack-start.sh /
 COPY git-fetch-sources/fetch-sources.sh /
 COPY env-files-utils/env_files_utils.sh /
+COPY env-files-utils/env_files_utils.py /
 COPY version-utils/version_utils.sh /
 
 RUN chmod +x /fetch-sources.sh && \
@@ -17,6 +18,7 @@ RUN chmod +x /fetch-sources.sh && \
     chmod +x /slack-start.sh && \
     chmod +x /set-status.py && \
     chmod +x /init-pipeline.sh && \
+    chmod +x /env_files_utils.py && \
     chmod +x /env_files_utils.sh && \
     chmod +x /version_utils.sh && \
     apk add --no-cache jq && \
