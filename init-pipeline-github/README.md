@@ -11,7 +11,6 @@ Composite task that will use:
 ## Environment variables to set
 
 * `LOG_LEVEL`: log level (`debug` or `info`)
-* `TEKTON_WORKSPACE_PATH`: the tekton workspace path which is bind to a pvc
 * `PIPELINE_URL`: pipeline url
 * `REPO_ORG`: github repo org
 * `REPO_NAME`: github repo name
@@ -19,6 +18,7 @@ Composite task that will use:
 * `GITHUBTOKEN`: github token (from a secret)
 * `SLACK_TOKEN`: slack token (from a secret)
 * `SLACK_CHANNEL`: slack channel
+* `TEKTON_WORKSPACE_PATH`: the tekton workspace path which is bind to a pvc
 
 ## Tekton example
 

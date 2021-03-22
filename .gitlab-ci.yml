@@ -29,7 +29,7 @@ init-pipeline:
       - /^(master.*)$/
     changes:
       - init-pipeline/*
-      - env-file-utils/*
+      - env-files-utils/*
       - version-utils/*
       - git-fetch-sources/*
       - slack-sender/*
@@ -46,7 +46,7 @@ init-pipeline-github:
       - /^(master.*)$/
     changes:
       - init-pipeline-github/*
-      - env-file-utils/*
+      - env-files-utils/*
       - version-utils/*
       - git-fetch-sources/*
       - github-add-comment/*
@@ -65,7 +65,7 @@ end-pipeline-github:
     refs:
       - /^(master.*)$/
     changes:
-      - env-file-utils/*
+      - env-files-utils/*
       - end-pipeline-github/*
       - slack-result-sender/*
       - github-set-status/*
@@ -193,7 +193,7 @@ kaniko-build:
     refs:
       - /^(master.*)$/
     changes:
-      - env-file-utils/*
+      - env-files-utils/*
       - kaniko-build/*
   tags:
     - tekton-utils
@@ -230,7 +230,7 @@ slack-result-sender:
     refs:
       - /^(master.*)$/
     changes:
-      - env-file-utils/*
+      - env-files-utils/*
       - slack-result-sender/*
   tags:
     - tekton-utils
@@ -243,7 +243,7 @@ github-search-pr:
     refs:
       - /^(master.*)$/
     changes:
-      - env-file-utils/*
+      - env-files-utils/*
       - github-search-pr/*
   tags:
     - tekton-utils
@@ -256,7 +256,7 @@ github-open-pr:
     refs:
       - /^(master.*)$/
     changes:
-      - env-file-utils/*
+      - env-files-utils/*
       - github-open-pr/*
   tags:
     - tekton-utils
@@ -360,7 +360,7 @@ git-fetch-sources:
     refs:
       - /^(master.*)$/
     changes:
-      - env-file-utils/*
+      - env-files-utils/*
       - version-utils/*
       - git-fetch-sources/*
   tags:
@@ -386,7 +386,7 @@ state-success:
     refs:
       - /^(master.*)$/
     changes:
-      - env-file-utils/*
+      - env-files-utils/*
       - state-success/*
   tags:
     - tekton-utils
