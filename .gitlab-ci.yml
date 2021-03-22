@@ -65,6 +65,7 @@ end-pipeline-github:
     refs:
       - /^(master.*)$/
     changes:
+      - env-file-utils/*
       - end-pipeline-github/*
       - slack-result-sender/*
       - github-set-status/*

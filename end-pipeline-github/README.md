@@ -13,8 +13,8 @@ Composite task for the esult of the pipeline (send slack, set github status, etc
 * `REPO_ORG`: github repo org
 * `REPO_NAME`: github repo name
 * `TEKTON_WORKSPACE_PATH`: the tekton workspace path which is bind to a pvc
-* `GIT_BRANCH`: git branch name
 * `PIPELINE_URL`: the pipeline url
+* `GIT_BRANCH`: git branch name
 * `DEFAULT_PIPELINE_STATE`: default state (`pending`, `toguess` or `success`)
 * `ONLY_ON_FAILURE`: slack only on failure (`yes` or `no`)
 * `SUCCESS_MESSAGE`: message displayed in case of success
