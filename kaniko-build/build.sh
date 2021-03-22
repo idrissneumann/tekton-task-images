@@ -22,8 +22,10 @@ fi
 [[ $MULTI_ENV ]] || export MULTI_ENV="disabled"
 
 DOCKER_REGISTRY_ORG="${PROJECT_STABLE}"
+is_unstable=""
 if [[ ! $GIT_BRANCH =~ ^([0-9]+.[0-9]+.x|master|develop|main|prod|qa|ppd|preprod)$ ]] || [[ $FORCE_PROJECT_UNSTABLE == "enabled" ]]; then
   DOCKER_REGISTRY_ORG="${PROJECT_UNSTABLE}"
+  is_unstable="true"
 elif [[ $MULTI_ENV == "enabled" && $GIT_BRANCH == "qa" && $VERSIONING_FROM_TAG != "enabled" ]]; then
   DOCKER_REGISTRY_ORG="${PROJECT_STABLE}/qa"
 elif [[ $MULTI_ENV == "enabled" && $GIT_BRANCH == "prod" && $VERSIONING_FROM_TAG != "enabled" ]]; then
@@ -34,7 +36,7 @@ fi
 
 final_tag="latest"
 [[ $IMAGE_TAG ]] && final_tag="${IMAGE_TAG}"
-[[ $VERSIONING_FROM_TAG == "enabled" && $DELIVERY_VERSION_FROM_TAG ]] && final_tag="${DELIVERY_VERSION_FROM_TAG}"
+[[ $VERSIONING_FROM_TAG == "enabled" && $DELIVERY_VERSION_FROM_TAG && ! $is_unstable ]] && final_tag="${DELIVERY_VERSION_FROM_TAG}"
 
 IMAGE="${DOCKER_REGISTRY}/${DOCKER_REGISTRY_ORG}/${IMAGE}:${final_tag}"
 echo "$IMAGE" > "$IMAGE_NAME_PERSISTENT_FILE"
