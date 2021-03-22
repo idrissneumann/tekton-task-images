@@ -40,7 +40,7 @@ init-pipeline:
 init-pipeline-github:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "init-pipeline-github" "1.37"
+    - setsid ./ci/docker-deliver.sh "init-pipeline-github" "1.38"
   only:
     refs:
       - /^(master.*)$/
@@ -60,7 +60,7 @@ init-pipeline-github:
 end-pipeline-github:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "end-pipeline-github" "1.11"
+    - setsid ./ci/docker-deliver.sh "end-pipeline-github" "1.12"
   only:
     refs:
       - /^(master.*)$/
