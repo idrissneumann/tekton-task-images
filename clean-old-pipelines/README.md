@@ -22,6 +22,7 @@ It clean the pipelineruns and associated pvc that are older than a configurable 
 * `SLACK_EMOJI_AVATAR`: an emoji code that will be used as an avatar
 * `SLACK_CHANNEL`: channel where the message will be posted
 * `SLACK_COLOR`: border color of the message
+* `EXLUDE_RESOURCE_NAME`: resource name to keep from deleting
 
 ## Kubernetes configuration examples
 
