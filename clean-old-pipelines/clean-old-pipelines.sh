@@ -39,7 +39,7 @@ log_msg() {
 }
 
 to_exclude_resource() {
-  if [[ ! $EXLUDE_RESOURCE_NAME ]] || [[ $EXLUDE_RESOURCE_NAME != $1 ]]; then
+  if [[ ! $EXLUDE_RESOURCE_NAME ]] || [[ $1 =~ ^${EXLUDE_RESOURCE_NAME}.*$ ]]; then
     return 0
   else
     return 1
