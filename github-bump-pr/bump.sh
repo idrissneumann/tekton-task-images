@@ -64,7 +64,7 @@ set_branches_and_pr() {
 }
 
 git_fetch() {
-  [[ ! $GIT_SRC_BRANCH ]] && export GIT_SRC_BRANCH="master"
+  [[ ! $GIT_TARGET_BRANCH ]] && export GIT_TARGET_BRANCH="master"
   source /fetch.sh
   [[ $? -ne 0 ]] && exit 1
 }
