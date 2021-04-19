@@ -352,6 +352,18 @@ create-ingress:
   tags:
     - tekton-utils
 
+git-sync-branches:
+  stage: publish
+  script:
+    - setsid ./ci/docker-deliver.sh "git-sync-branches" "1.0"
+  only:
+    refs:
+      - /^(master.*)$/
+    changes:
+      - git-sync-branches/*
+  tags:
+    - tekton-utils
+
 git-fetch-sources:
   stage: publish
   script:
