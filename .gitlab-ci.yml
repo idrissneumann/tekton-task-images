@@ -11,15 +11,6 @@ github-mirror:
   tags:
     - tekton-utils
 
-github-internal-mirror:
-  stage: mirror
-  script:
-    - setsid ./ci/github-internal-mirror.sh
-  only:
-    - /^(master.*)$/
-  tags:
-    - tekton-utils
-
 init-pipeline:
   stage: publish
   script:
