@@ -11,11 +11,6 @@ services:
     build:
       context: yaml-patch
       dockerfile: Dockerfile
-  git-sync-branches:
-    image: comworkio/tekton-utils-git-sync-branches
-    build:
-      context: git-sync-branches
-      dockerfile: Dockerfile
   git-fetch-sources:
     image: comworkio/tekton-utils-git-fetch-sources
     build:
