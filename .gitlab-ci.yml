@@ -139,7 +139,7 @@ kill-redundant-pipelines:
 clean-old-pipelines:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "clean-old-pipelines" "1.15"
+    - setsid ./ci/docker-deliver.sh "clean-old-pipelines" "1.16"
   only:
     refs:
       - /^(master.*)$/

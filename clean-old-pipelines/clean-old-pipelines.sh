@@ -39,7 +39,7 @@ log_msg() {
 }
 
 to_exclude_resource() {
-  if [[ ! $EXLUDE_RESOURCE_NAME ]] || [[ $1 =~ ^${EXLUDE_RESOURCE_NAME}.*$ ]]; then
+  if [[ $EXLUDE_RESOURCE_NAME ]] && [[ $1 =~ ^${EXLUDE_RESOURCE_NAME}.*$ ]]; then
     return 0
   else
     return 1
@@ -79,7 +79,7 @@ processing() {
   if [[ $enable_clean_resources == "enabled" && $retention_days =~ ^[0-9]+$ ]]; then
     kubectl -n "${kube_namespace}" get pipelineresources | while read resource_name resource_age trash; do
       age_in_days=$(echo $resource_age | grep -oE "[0-9]+d" | tr -d 'd')
-      if [[ $age_in_days && $age_in_days -ge $retention_days ]] && to_exclude_resource "${resource_name}"; then
+      if [[ $age_in_days && $age_in_days -ge $retention_days ]] && ! to_exclude_resource "${resource_name}"; then
         log_msg "Deleting resource ${resource_name} because ${age_in_days} >= ${retention_days}"
         tkn -n "${kube_namespace}" resource delete "${resource_name}" -f
       fi
