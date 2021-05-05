@@ -7,20 +7,21 @@ Build containers images with Kaniko.
 
 * `LOG_LEVEL`: log level (`debug` or `info`)
 * `GIT_BRANCH`: git branch name
-* `ENABLE_CACHE`: enable build with cache
+* `ENABLE_CACHE` (optional): enable build with cache
 * `CACHE_TTL`: cache time to live
 * `REGISTRY`: conatiners images registry
 * `IMAGE`: image name
-* `IMAGE_TAG`: image tag
-* `EXTRA_ARGS`: extra args (multistage targets for example)
+* `IMAGE_TAG` (optional): image tag
+* `EXTRA_ARGS` (optional): extra args (multistage targets for example)
 * `DOCKERFILE`: path to the Dockerfile
 * `CONTEXT`: the build context used by Kaniko
 * `PROJECT_STABLE`: path of stables images in the registry (after merge)
 * `PROJECT_UNSTABLE`: path of stables images in the registry (before merge)
 * `FORCE_PROJECT_UNSTABLE`: force push in the `$PROJECT_UNSTABLE` path
 * `TEKTON_WORKSPACE_PATH`: the tekton workspace path which is bind to a pvc
-* `MULTI_ENV`: enabled mutli-env delivery (push the image in a subdir `/prod` or `/qa` if it's `enabled` and if `$GIT_BRANCH` match)
-* `VERSIONING_FROM_TAG`: enable versioning from git tag
+* `MULTI_ENV` (optional): enabled mutli-env delivery (push the image in a subdir `/prod` or `/qa` if it's `enabled` and if `$GIT_BRANCH` match)
+* `VERSIONING_FROM_TAG` (optional): enable versioning from git tag
+* `RETRY_NUMBER` (optional): number of retry for pushing the images into the registry
 
 ## Tekton example
 
