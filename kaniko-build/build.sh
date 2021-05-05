@@ -51,4 +51,9 @@ if [[ $ENABLE_CACHE == "enabled" || $ENABLE_CACHE == "ok" || $ENABLE_CACHE == "t
   CACHE_OPTS="--cache=true --cache-ttl=${CACHE_TTL} --cache-repo=${DOCKER_REGISTRY}/${PROJECT_UNSTABLE}/cache --cache-dir=$TEKTON_WORKSPACE_PATH"
 fi
 
-/kaniko/executor ${EXTRA_ARGS} $CACHE_OPTS --dockerfile=$DOCKERFILE --context=$TEKTON_WORKSPACE_PATH/$CONTEXT --destination=$IMAGE --oci-layout-path=$TEKTON_WORKSPACE_PATH/$CONTEXT/image-digest
+[[ $RETRY_NUMBER =~ ^[0-9]+$ ]] || export RETRY_NUMBER="5"
+
+RETRY_OPT=""
+[[ $RETRY_NUMBER =~ ^[0-9]+$ && $RETRY_NUMBER -gt 0 ]] && RETRY_OPT="--push-retry ${RETRY_NUMBER}"
+
+/kaniko/executor $EXTRA_ARGS $CACHE_OPTS $RETRY_OPT --dockerfile=$DOCKERFILE --context=$TEKTON_WORKSPACE_PATH/$CONTEXT --destination=$IMAGE --oci-layout-path=$TEKTON_WORKSPACE_PATH/$CONTEXT/image-digest
