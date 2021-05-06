@@ -8,8 +8,8 @@ kubeconf="${kubedir}/config"
 [[ ! $MULTI_ENV ]] && export MULTI_ENV="disabled"
 [[ ! $LOG_LEVEL ]] && export LOG_LEVEL="info"
 
-export KUBE_ENV="dev"
-export KUBE_CERTIFICATE=""
+[[ $KUBE_ENV ]] || export KUBE_ENV="dev"
+[[ $KUBE_CERTIFICATE ]] || export KUBE_CERTIFICATE=""
 
 if [[ $MULTI_ENV == "enabled" ]]; then
   if [[ $GIT_BRANCH == "qa" ]]; then

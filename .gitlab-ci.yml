@@ -126,7 +126,7 @@ yarn-checks-node12:
 kill-redundant-pipelines:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "kill-redundant-pipelines" "1.20"
+    - setsid ./ci/docker-deliver.sh "kill-redundant-pipelines" "1.21"
   only:
     refs:
       - /^(master.*)$/
@@ -139,7 +139,7 @@ kill-redundant-pipelines:
 clean-old-pipelines:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "clean-old-pipelines" "1.16"
+    - setsid ./ci/docker-deliver.sh "clean-old-pipelines" "1.17"
   only:
     refs:
       - /^(master.*)$/
@@ -153,7 +153,7 @@ clean-old-pipelines:
 destroy-pvc:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "destroy-pvc" "1.16"
+    - setsid ./ci/docker-deliver.sh "destroy-pvc" "1.17"
   only:
     refs:
       - /^(master.*)$/
@@ -166,7 +166,7 @@ destroy-pvc:
 destroy-pods:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "destroy-pods" "1.23"
+    - setsid ./ci/docker-deliver.sh "destroy-pods" "1.24"
   only:
     refs:
       - /^(master.*)$/
