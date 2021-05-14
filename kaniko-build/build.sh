@@ -35,8 +35,12 @@ elif [[ $MULTI_ENV == "enabled" && $GIT_BRANCH =~ ^(ppd|preprod)$ && $VERSIONING
 fi
 
 final_tag="latest"
-[[ $IMAGE_TAG ]] && final_tag="${IMAGE_TAG}"
-[[ $VERSIONING_FROM_TAG == "enabled" && $DELIVERY_VERSION_FROM_TAG && ! $is_unstable ]] && final_tag="${DELIVERY_VERSION_FROM_TAG}"
+if [[ $VERSIONING_FROM_TAG == "enabled" && $DELIVERY_VERSION_FROM_TAG && ! $is_unstable ]]; then
+  final_tag="${DELIVERY_VERSION_FROM_TAG}"
+  [[ $IMAGE_TAG ]] && final_tag="${IMAGE_TAG}-${final_tag}"
+elif [[ $IMAGE_TAG ]]; then
+  final_tag="${IMAGE_TAG}"
+fi
 
 IMAGE="${DOCKER_REGISTRY}/${DOCKER_REGISTRY_ORG}/${IMAGE}:${final_tag}"
 echo "$IMAGE" > "$IMAGE_NAME_PERSISTENT_FILE"
