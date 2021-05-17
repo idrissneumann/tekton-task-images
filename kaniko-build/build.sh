@@ -37,7 +37,7 @@ fi
 final_tag="latest"
 if [[ $VERSIONING_FROM_TAG == "enabled" && $DELIVERY_VERSION_FROM_TAG && ! $is_unstable ]]; then
   final_tag="${DELIVERY_VERSION_FROM_TAG}"
-  [[ $IMAGE_TAG ]] && final_tag="${IMAGE_TAG}-${final_tag}"
+  [[ $IMAGE_TAG && $IMAGE_TAG != "latest" ]] && final_tag="${IMAGE_TAG}-${final_tag}"
 elif [[ $IMAGE_TAG ]]; then
   final_tag="${IMAGE_TAG}"
 fi
