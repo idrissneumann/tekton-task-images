@@ -14,7 +14,7 @@ github-mirror:
 init-pipeline:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "init-pipeline" "1.16"
+    - setsid ./ci/docker-deliver.sh "init-pipeline" "1.17"
   only:
     refs:
       - /^(master.*)$/
@@ -31,7 +31,7 @@ init-pipeline:
 init-pipeline-github:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "init-pipeline-github" "1.38"
+    - setsid ./ci/docker-deliver.sh "init-pipeline-github" "1.39"
   only:
     refs:
       - /^(master.*)$/
@@ -255,7 +255,7 @@ github-open-pr:
 github-bump-pr:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "github-bump-pr" "1.49"
+    - setsid ./ci/docker-deliver.sh "github-bump-pr" "1.50"
   only:
     refs:
       - /^(master.*)$/
@@ -346,7 +346,7 @@ create-ingress:
 git-fetch-sources:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "git-fetch-sources" "1.17"
+    - setsid ./ci/docker-deliver.sh "git-fetch-sources" "1.18"
   only:
     refs:
       - /^(master.*)$/
