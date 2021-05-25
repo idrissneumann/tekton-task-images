@@ -38,9 +38,7 @@ set_version() {
 
   cd "${GIT_WORKSPACE_PATH}"
   source /version_utils.sh
-  vers="$(version_from_tag)"
-  
-  export VERSION="${vers}"
+  export VERSION="$(version_from_tag)"
 
   if [[ ! $VERSION ]]; then
     echo "[github-bump-pr][set_version] There is no tag that fit a version number, pick VERSION=${VERSION}"
