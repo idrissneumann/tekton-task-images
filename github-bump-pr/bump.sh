@@ -3,11 +3,11 @@
 replace_version() {
   yq_expr_full_var="${1}"
   yq_expr_var="$(echo ${yq_expr_full_var}|cut -d= -f1)"
-  yq_expr_val_wt=$(eval "echo \$${yq_expr_var}")
+  yq_expr_val_wt="$(eval "echo \$${yq_expr_var}")"
 
   echo "[github-bump-pr][replace_version] try to replace ${yq_expr_var} = ${yq_expr_val_wt} with VERSION_TO_REPLACE => ${VERSION}"
   if [[ $yq_expr_val_wt && $yq_expr_var ]]; then
-    yq_expr_val=$(echo "${yq_expr_val_wt}"|sed "s/VERSION_TO_REPLACE/${VERSION}/g")
+    yq_expr_val="$(echo "${yq_expr_val_wt}"|sed "s/VERSION_TO_REPLACE/${VERSION}/g")"
     if [[ $yq_expr_val ]]; then 
       echo "[github-bump-pr][replace_version] ${yq_expr_var} = ${yq_expr_val}"
       export "${yq_expr_var}=${yq_expr_val}"
