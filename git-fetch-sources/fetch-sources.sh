@@ -67,7 +67,7 @@ if [[ $LOG_LEVEL == "debug" || $LOG_LEVEL == "DEBUG" ]]; then
   cat "${pr_env_file}"
 fi
 
-echo "{\"sha\": \"$(git rev-parse HEAD)\", \"version\": \"${version}\", \"branch\":\"${GIT_BRANCH}\", \"repo_org\":\"${REPO_ORG}\", \"repo_name\":\"${REPO_NAME}\"}" > "${json_manifest}" 2>/dev/null || :
+echo "{\"sha\": \"${LAST_COMMIT}\", \"version\": \"${version}\", \"branch\":\"${GIT_BRANCH}\", \"repo_org\":\"${REPO_ORG}\", \"repo_name\":\"${REPO_NAME}\"}" > "${json_manifest}" 2>/dev/null || :
 
 echo "[fetch-sources] Content of ${json_manifest}"
 cat "${json_manifest}"
