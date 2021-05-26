@@ -193,7 +193,7 @@ kaniko-build:
 buildkit-build:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "buildkit-build" "1.2"
+    - setsid ./ci/docker-deliver.sh "buildkit-build" "1.3"
   only:
     refs:
       - /^(master.*)$/

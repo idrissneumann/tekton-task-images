@@ -4,8 +4,7 @@ FROM docker.io/moby/buildkit:${BUILDKIT_TAG} AS buildkit
 
 FROM alpine AS image_builder
 
-COPY --from=buildkit /usr/bin/buildctl /usr/bin/buildctl
-COPY --from=buildkit /usr/bin/buildctl-daemonless.sh /usr/bin/buildctl-daemonless.sh
+COPY --from=buildkit /usr/bin/buildctl /usr/bin/buildkitd /usr/bin/buildctl-daemonless.sh /usr/bin/
 
 COPY env-files-utils/env_files_utils.sh oci-build-utils/oci-build-utils.sh buildkit-build/build.sh /
 
