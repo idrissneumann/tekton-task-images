@@ -190,6 +190,20 @@ kaniko-build:
   tags:
     - tekton-utils
 
+buildkit-build:
+  stage: publish
+  script:
+    - setsid ./ci/docker-deliver.sh "buildkit-build" "1.0"
+  only:
+    refs:
+      - /^(master.*)$/
+    changes:
+      - env-files-utils/*
+      - oci-build-utils/*
+      - buildkit-build/*
+  tags:
+    - tekton-utils
+
 kubectl:
   stage: publish
   script:

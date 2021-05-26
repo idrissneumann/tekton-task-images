@@ -1,0 +1,96 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: build-container-image
+  namespace: tekton-pipelines
+spec:
+  description: >-
+    This Task builds source into a container image using Google's kaniko tool.
+    Kaniko doesn't depend on a Docker daemon and executes each
+    command within a Dockerfile completely in userspace. This enables
+    building container images in environments that can't easily or
+    securely run a Docker daemon, such as a standard Kubernetes cluster.
+  workspaces:
+    - name: git-environment
+  params:
+    - name: GIT_BRANCH
+      description: Name of the git branch.
+    - name: IMAGE
+      description: Name (reference) of the image to build.
+    - name: DOCKERFILE
+      description: Path to the Dockerfile to build.
+      default: ./Dockerfile
+    - name: CONTEXT
+      description: The build context used by Kaniko.
+      default: ./
+    - name: EXTRA_ARGS
+      description: Buildkit extra args (for example --target for multistage build)
+      default: ""
+    - name: LOG_LEVEL
+      description: The level of logs
+      default: info
+    - name: ENABLE_CACHE
+      description: enable the cache (disabled or enabled)
+      default: "disabled"
+    - name: CACHE_TTL
+      description: cache ttl
+      default: 8h
+    - name: REGISTRY
+      description: conatiners images registry
+    - name: IMAGE_TAG
+      description: image tag
+      default: latest
+    - name: FORCE_PROJECT_UNSTABLE
+      description: "if enabled, always deliver the image on the unstable image path"
+      default: "disabled"
+    - name: PROJECT_STABLE
+      description: "path for stable images (that will be delivered in production)"
+      default: stable
+    - name: PROJECT_UNSTABLE
+      description: "path for unstable images (that will be delivered before the PR merge)"
+      default: ci
+    - name: MULTI_ENV
+      default: enabled
+    - name: VERSIONING_FROM_TAG
+      description: "enable or disable versioning from tag"
+      default: disabled
+  steps:
+    - name: build-and-push
+      workingDir: $(workspaces.git-environment.path)
+      image: comworkio/tekton-utils-buildkit-build:latest
+      command: ["/build.sh"]
+      env:
+        - name: DOCKERFILE
+          value: $(params.DOCKERFILE)
+        - name: LOG_LEVEL
+          value: $(params.LOG_LEVEL)
+        - name: IMAGE
+          value: $(params.IMAGE)
+        - name: IMAGE_TAG
+          value: $(params.IMAGE_TAG)
+        - name: ENABLE_CACHE
+          value: $(params.ENABLE_CACHE)
+        - name: EXTRA_ARGS
+          value: $(params.EXTRA_ARGS)
+        - name: DOCKER_REGISTRY
+          value: $(params.REGISTRY)
+        - name: FORCE_PROJECT_UNSTABLE
+          value: $(params.FORCE_PROJECT_UNSTABLE)
+        - name: PROJECT_STABLE
+          value: $(params.PROJECT_STABLE)
+        - name: PROJECT_UNSTABLE
+          value: $(params.PROJECT_UNSTABLE)
+        - name: TEKTON_WORKSPACE_PATH
+          value: $(workspaces.git-environment.path)
+        - name: CACHE_TTL
+          value: $(params.CACHE_TTL)
+        - name: GIT_BRANCH
+          value: $(params.GIT_BRANCH)
+        - name: CONTEXT
+          value: $(params.CONTEXT)
+        - name: MULTI_ENV
+          value: $(params.MULTI_ENV)
+        - name: VERSIONING_FROM_TAG
+          value: $(params.VERSIONING_FROM_TAG)
+      securityContext:
+        runAsUser: 0
