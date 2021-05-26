@@ -1,7 +1,7 @@
 ARG BUILDKIT_TAG
 ARG BUILDKIT_SHA
 
-FROM docker.io/moby/buildkit:@sha256:${BUILDKIT_SHA} AS buildkit
+FROM docker.io/moby/buildkit:${BUILDKIT_TAG}@sha256:${BUILDKIT_SHA} AS buildkit
 
 FROM alpine AS image_builder
 
