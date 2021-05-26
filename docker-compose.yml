@@ -88,8 +88,7 @@ services:
       context: .
       dockerfile: buildkit-build/Dockerfile
       args: 
-        - BUILDKIT_TAG=v0.6.2
-        - BUILDKIT_SHA=db234cf7362aef489e4273a6937794cb19c09ba15c7ee0ec6f85044086ea4f6a
+        - BUILDKIT_TAG=v0.8.3
   kaniko-build:
     image: comworkio/tekton-utils-kaniko-build
     build:
