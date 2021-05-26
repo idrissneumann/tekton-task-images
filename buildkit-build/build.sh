@@ -3,7 +3,6 @@
 source /oci-build-utils.sh
 
 export IMAGE="$(get_image_path)"
-echo "$IMAGE" > "$IMAGE_NAME_PERSISTENT_FILE"
 
 echo "[build-container-image] Image to build = ${IMAGE}, extra args = ${EXTRA_ARGS}, multi env = ${MULTI_ENV}, versioning from tag = ${VERSIONING_FROM_TAG}, version from tag = ${DELIVERY_VERSION_FROM_TAG}"
 DEBUG_OPT=""
@@ -27,4 +26,3 @@ fi
 export BUILDCTL_CONNECT_RETRIES_MAX="${RETRY_NUMBER}"
 
 /usr/bin/buildctl-daemonless.sh $DEBUG_OPT build $BASE_OPTS --opt filename=$DOCKERFILE --local context=$DOCKER_CONTEXT --local dockerfile=$DOCKER_CONTEXT $PUSH_OPTS $CACHE_OPTS $EXTRA_ARGS
-
