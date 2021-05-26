@@ -179,12 +179,13 @@ destroy-pods:
 kaniko-build:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "kaniko-build" "1.21"
+    - setsid ./ci/docker-deliver.sh "kaniko-build" "1.22"
   only:
     refs:
       - /^(master.*)$/
     changes:
       - env-files-utils/*
+      - oci-build-utils/*
       - kaniko-build/*
   tags:
     - tekton-utils
