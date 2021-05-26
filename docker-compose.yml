@@ -84,7 +84,6 @@ services:
   buildkit-build:
     image: comworkio/tekton-utils-buildkit-build
     build:
-      target: image_builder
       context: .
       dockerfile: buildkit-build/Dockerfile
       args: 
