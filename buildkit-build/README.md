@@ -21,8 +21,7 @@ Build containers images with Buildkit.
 * `TEKTON_WORKSPACE_PATH`: the tekton workspace path which is bind to a pvc
 * `MULTI_ENV` (optional): enabled mutli-env delivery (push the image in a subdir `/prod` or `/qa` if it's `enabled` and if `$GIT_BRANCH` match)
 * `VERSIONING_FROM_TAG` (optional): enable versioning from git tag
-* `RETRY_NUMBER` (optional): number of retry for pushing the images into the registry
-
+* `RETRY_NUMBER` (optional): number of retry (default: `20`)
 ## Tekton example
 
 See the [example](./build-container-image.yaml)
