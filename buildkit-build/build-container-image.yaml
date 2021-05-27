@@ -3,6 +3,8 @@ kind: Task
 metadata:
   name: build-container-image
   namespace: tekton-pipelines
+  annotations:
+      tekton.dev/tags: image-build
 spec:
   description: >-
     This Task builds source into a container image using Google's kaniko tool.
@@ -93,4 +95,4 @@ spec:
         - name: VERSIONING_FROM_TAG
           value: $(params.VERSIONING_FROM_TAG)
       securityContext:
-        runAsUser: 0
+        privileged: true

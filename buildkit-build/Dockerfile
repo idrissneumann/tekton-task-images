@@ -2,6 +2,8 @@ ARG BUILDKIT_TAG
 
 FROM docker.io/moby/buildkit:${BUILDKIT_TAG}
 
+ENV BUILDKITD_FLAGS="--oci-worker-no-process-sandbox"
+
 COPY env-files-utils/env_files_utils.sh oci-build-utils/oci-build-utils.sh buildkit-build/build.sh /
 
 RUN apk add --no-cache bash coreutils && \

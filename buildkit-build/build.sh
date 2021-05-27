@@ -21,7 +21,7 @@ if [[ $ENABLE_CACHE == "enabled" || $ENABLE_CACHE == "ok" || $ENABLE_CACHE == "t
   CACHE_OPTS="--export-cache type=inline --import-cache type=registry,ref=$IMAGE"
 fi
 
-[[ $RETRY_NUMBER =~ ^[0-9]+$ ]] || export RETRY_NUMBER="20"
+[[ $RETRY_NUMBER =~ ^[0-9]+$ ]] || export RETRY_NUMBER="100"
 export BUILDCTL_CONNECT_RETRIES_MAX="${RETRY_NUMBER}"
 
 /usr/bin/buildctl-daemonless.sh $DEBUG_OPT build $BASE_OPTS --opt filename=$DOCKERFILE --local context=$DOCKER_CONTEXT --local dockerfile=$DOCKER_CONTEXT $PUSH_OPTS $CACHE_OPTS $EXTRA_ARGS
