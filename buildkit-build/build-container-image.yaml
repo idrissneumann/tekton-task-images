@@ -22,7 +22,7 @@ spec:
       description: The build context used by Buildkit.
       default: ./
     - name: EXTRA_ARGS
-      description: Buildkit extra args (for example --target for multistage build)
+      description: Buildkit extra args (for example --opt target=XXXX for multistage build)
       default: ""
     - name: LOG_LEVEL
       description: The level of logs
