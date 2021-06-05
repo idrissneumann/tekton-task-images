@@ -9,7 +9,7 @@ Build containers images with Kaniko.
 * `GIT_BRANCH`: git branch name
 * `ENABLE_CACHE` (optional): enable build with cache
 * `CACHE_TTL`: cache time to live
-* `REGISTRY`: conatiners images registry
+* `DOCKER_REGISTRY`: containers images registry
 * `IMAGE`: image name
 * `IMAGE_TAG` (optional): image tag
 * `EXTRA_ARGS` (optional): extra args (multistage targets for example)
@@ -22,6 +22,8 @@ Build containers images with Kaniko.
 * `MULTI_ENV` (optional): enabled mutli-env delivery (push the image in a subdir `/prod` or `/qa` if it's `enabled` and if `$GIT_BRANCH` match)
 * `VERSIONING_FROM_TAG` (optional): enable versioning from git tag
 * `RETRY_NUMBER` (optional): number of retry for pushing the images into the registry
+* `DOCKER_USERNAME` (optional): oci registry username
+* `DOCKER_PASSWORD` (optional): oci registry password
 
 ## Tekton example
 

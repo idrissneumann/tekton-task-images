@@ -47,11 +47,11 @@ get_image_path() {
 }
 
 login_if_defined() {
-  [[ ! $OCI_REGISTRY_AUTH_DIR ]] && export OCI_REGISTRY_AUTH_DIR=".docker"
-  if [[ $OCI_REGISTRY && $OCI_REGISTRY_USERNAME && $OCI_REGISTRY_PASSWORD ]]; then
-    mkdir -p "${OCI_REGISTRY_AUTH_DIR}"
-    auth_file="${OCI_REGISTRY_AUTH_DIR}/config.json"
-    echo "{\"auths\":{\"${OCI_REGISTRY}\":{\"username\":\"${OCI_REGISTRY_USERNAME}\",\"password\":\"${OCI_REGISTRY_PASSWORD}\"}}}" > "${auth_file}"
+  [[ ! $DOCKER_AUTH_DIR ]] && export DOCKER_AUTH_DIR=".docker"
+  if [[ $DOCKER_REGISTRY && $DOCKER_USERNAME && $DOCKER_PASSWORD ]]; then
+    mkdir -p "${DOCKER_AUTH_DIR}"
+    auth_file="${DOCKER_AUTH_DIR}/config.json"
+    echo "{\"auths\":{\"${DOCKER_REGISTRY}\":{\"username\":\"${DOCKER_USERNAME}\",\"password\":\"${DOCKER_PASSWORD}\"}}}" > "${auth_file}"
 
     if [[ $LOG_LEVEL == "debug" || $LOG_LEVEL == "DEBUG" ]]; then
       echo "[oci-build-utils][debug] auth_file=${auth_file}, content :"
