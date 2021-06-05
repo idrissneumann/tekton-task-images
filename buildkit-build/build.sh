@@ -4,6 +4,12 @@ source /oci-build-utils.sh
 
 export IMAGE="$(get_image_path)"
 
+[[ ! $OCI_REGISTRY_AUTH_DIR ]] && export OCI_REGISTRY_AUTH_DIR=".docker"
+if [[ $OCI_REGISTRY && $OCI_REGISTRY_USERNAME && $OCI_REGISTRY_PASSWORD ]]; then
+  mkdir -p "${OCI_REGISTRY_AUTH_DIR}"
+  echo "{\"auths\":{\"${OCI_REGISTRY}\":{\"auth\":\"$(echo -n ${OCI_REGISTRY_USERNAME}:${OCI_REGISTRY_PASSWORD} | base64 | tr -d \\n)\"}}}" > "${OCI_REGISTRY_AUTH_DIR}/config.json"
+fi
+
 echo "[build-container-image] Image to build = ${IMAGE}, extra args = ${EXTRA_ARGS}, multi env = ${MULTI_ENV}, versioning from tag = ${VERSIONING_FROM_TAG}, version from tag = ${DELIVERY_VERSION_FROM_TAG}"
 DEBUG_OPT=""
 [[ ! $BASE_OPTS ]] && export BASE_OPTS="--progress=plain --frontend=dockerfile.v0"

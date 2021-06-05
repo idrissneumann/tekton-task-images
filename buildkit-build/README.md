@@ -22,6 +22,10 @@ Build containers images with Buildkit.
 * `MULTI_ENV` (optional): enabled mutli-env delivery (push the image in a subdir `/prod` or `/qa` if it's `enabled` and if `$GIT_BRANCH` match)
 * `VERSIONING_FROM_TAG` (optional): enable versioning from git tag
 * `RETRY_NUMBER` (optional): number of retry (default: `20`)
+* `OCI_REGISTRY` (optional): oci registry to log in
+* `OCI_REGISTRY_USERNAME` (optional): oci registry username
+* `OCI_REGISTRY_PASSWORD` (optional): oci registry password
+
 ## Tekton example
 
 See the [example](./build-container-image.yaml)
