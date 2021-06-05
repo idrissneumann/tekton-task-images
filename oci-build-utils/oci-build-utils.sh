@@ -7,7 +7,7 @@ source /env_files_utils.sh
 pr_env_file="$(get_pr_env_file)"
 
 if [[ $LOG_LEVEL == "debug" || $LOG_LEVEL == "DEBUG" ]]; then
-  echo "[build-container-image][debug][pr_env_file] loading the file ${pr_env_file}"
+  echo "[oci-build-utils][debug][pr_env_file] loading the file ${pr_env_file}"
 fi
 
 if [[ -f $pr_env_file ]]; then
@@ -17,7 +17,7 @@ else
 fi
 
 if [[ $LOG_LEVEL == "debug" || $LOG_LEVEL == "DEBUG" ]]; then
-  echo "[build-container-image][debug] Content of the current directory"
+  echo "[oci-build-utils][debug] Content of the current directory"
   ls -la
 fi
 
@@ -44,4 +44,18 @@ get_image_path() {
   fi
 
   echo "${DOCKER_REGISTRY}/${DOCKER_REGISTRY_ORG}/${IMAGE}:${final_tag}"
+}
+
+login_if_defined() {
+  [[ ! $OCI_REGISTRY_AUTH_DIR ]] && export OCI_REGISTRY_AUTH_DIR=".docker"
+  if [[ $OCI_REGISTRY && $OCI_REGISTRY_USERNAME && $OCI_REGISTRY_PASSWORD ]]; then
+    mkdir -p "${OCI_REGISTRY_AUTH_DIR}"
+    auth_file="${OCI_REGISTRY_AUTH_DIR}/config.json"
+    echo "{\"auths\":{\"${OCI_REGISTRY}\":{\"username\":\"${OCI_REGISTRY_USERNAME}\",\"password\":\"${OCI_REGISTRY_PASSWORD}\"}}}" > "${auth_file}"
+
+    if [[ $LOG_LEVEL == "debug" || $LOG_LEVEL == "DEBUG" ]]; then
+      echo "[oci-build-utils][debug] auth_file=${auth_file}, content :"
+      cat "${auth_file}"
+    fi
+  fi
 }
