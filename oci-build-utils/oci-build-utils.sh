@@ -47,15 +47,24 @@ get_image_path() {
 }
 
 login_if_defined() {
-  [[ ! $DOCKER_AUTH_DIR ]] && export DOCKER_AUTH_DIR=".docker"
+  if [[ ! $DOCKER_AUTH_DIR ]]; then
+    if [[ $HOME ]]; then
+      export DOCKER_AUTH_DIR="${HOME}/.docker"
+    else
+      export DOCKER_AUTH_DIR=".docker"
+    fi
+  fi
+
   if [[ $DOCKER_REGISTRY && $DOCKER_USERNAME && $DOCKER_PASSWORD ]]; then
     mkdir -p "${DOCKER_AUTH_DIR}"
     auth_file="${DOCKER_AUTH_DIR}/config.json"
     echo "{\"auths\":{\"${DOCKER_REGISTRY}\":{\"username\":\"${DOCKER_USERNAME}\",\"password\":\"${DOCKER_PASSWORD}\"}}}" > "${auth_file}"
 
     if [[ $LOG_LEVEL == "debug" || $LOG_LEVEL == "DEBUG" ]]; then
-      echo "[oci-build-utils][debug] auth_file=${auth_file}, content :"
+      echo "[oci-build-utils][login_if_defined][debug] auth_file=${auth_file}, content :"
       cat "${auth_file}"
+    else
+      echo "[oci-build-utils][login_if_defined] auth_file=${auth_file}"
     fi
   fi
 }

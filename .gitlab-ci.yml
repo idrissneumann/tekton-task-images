@@ -179,7 +179,7 @@ destroy-pods:
 kaniko-build:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "kaniko-build" "1.24"
+    - setsid ./ci/docker-deliver.sh "kaniko-build" "1.25"
   only:
     refs:
       - /^(master.*)$/
@@ -193,7 +193,7 @@ kaniko-build:
 buildkit-build:
   stage: publish
   script:
-    - setsid ./ci/docker-deliver.sh "buildkit-build" "1.10"
+    - setsid ./ci/docker-deliver.sh "buildkit-build" "1.11"
   only:
     refs:
       - /^(master.*)$/
