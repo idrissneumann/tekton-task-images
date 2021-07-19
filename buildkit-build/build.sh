@@ -2,7 +2,7 @@
 
 source /oci-build-utils.sh
 
-[[ ! $CACHED_IMG ]] && export CACHED_IMG="$(get_image_path true)"
+export IMAGE_WITHOUT_TAG="$(get_image_path true)"
 export IMAGE="$(get_image_path)"
 
 login_if_defined
@@ -10,8 +10,9 @@ login_if_defined
 echo "[build-container-image] Image to build = ${IMAGE}, extra args = ${EXTRA_ARGS}, multi env = ${MULTI_ENV}, versioning from tag = ${VERSIONING_FROM_TAG}, version from tag = ${DELIVERY_VERSION_FROM_TAG}"
 DEBUG_OPT=""
 [[ ! $BASE_OPTS ]] && export BASE_OPTS="--progress=plain --frontend=dockerfile.v0"
-[[ ! $PUSH_OPTS ]] && export PUSH_OPTS="--output type=image,name=$IMAGE,push=true"
+[[ ! $PUSH_OPTS ]] && export PUSH_OPTS="--output type=image,\"name=${IMAGE},${IMAGE_WITHOUT_TAG}:latest\",push=true"
 [[ ! $EXTRA_ARGS ]] && export EXTRA_ARGS=""
+[[ ! $CACHED_IMG ]] && export CACHED_IMG="${IMAGE_WITHOUT_TAG}"
 DOCKER_CONTEXT="${TEKTON_WORKSPACE_PATH}/${CONTEXT}"
 
 if [[ $LOG_LEVEL == "debug" || $LOG_LEVEL == "DEBUG" ]]; then
