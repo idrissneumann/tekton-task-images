@@ -4,7 +4,6 @@ source /oci-build-utils.sh
 
 export DEFAULT_CACHED_IMAGE="$(get_default_cached_img)"
 export IMAGE="$(get_image_path)"
-export CACHED_TAG="$(get_cached_tag)"
 
 login_if_defined
 
