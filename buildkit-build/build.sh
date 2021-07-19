@@ -10,6 +10,7 @@ echo "[build-container-image] Image to build = ${IMAGE}, extra args = ${EXTRA_AR
 DEBUG_OPT=""
 [[ ! $BASE_OPTS ]] && export BASE_OPTS="--progress=plain --frontend=dockerfile.v0"
 [[ ! $PUSH_OPTS ]] && export PUSH_OPTS="--output type=image,name=$IMAGE,push=true"
+[[ ! $CACHED_IMG ]] && export CACHED_IMG="$(get_image_path true)"
 [[ ! $EXTRA_ARGS ]] && export EXTRA_ARGS=""
 DOCKER_CONTEXT="${TEKTON_WORKSPACE_PATH}/${CONTEXT}"
 
@@ -20,7 +21,7 @@ fi
 
 CACHE_OPTS=""
 if [[ $ENABLE_CACHE == "enabled" || $ENABLE_CACHE == "ok" || $ENABLE_CACHE == "true" || $ENABLE_CACHE == "enabled" ]]; then
-  CACHE_OPTS="--export-cache type=inline --import-cache type=registry,ref=$IMAGE"
+  CACHE_OPTS="--export-cache type=inline --import-cache type=registry,ref=$CACHED_IMG"
 fi
 
 [[ $RETRY_NUMBER =~ ^[0-9]+$ ]] || export RETRY_NUMBER="100"

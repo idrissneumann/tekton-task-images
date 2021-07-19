@@ -8,6 +8,7 @@ Build containers images with Buildkit.
 * `LOG_LEVEL`: log level (`debug` or `info`)
 * `GIT_BRANCH`: git branch name
 * `ENABLE_CACHE` (optional): enable build with cache
+* `CACHED_IMG` (optional): use a particular image as imported cache
 * `CACHE_TTL`: cache time to live
 * `DOCKER_REGISTRY`: conatiners images registry
 * `IMAGE`: image name

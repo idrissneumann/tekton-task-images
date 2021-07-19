@@ -22,6 +22,7 @@ if [[ $LOG_LEVEL == "debug" || $LOG_LEVEL == "DEBUG" ]]; then
 fi
 
 get_image_path() {
+  without_tag="${1}"
   DOCKER_REGISTRY_ORG="${PROJECT_STABLE}"
   is_unstable=""
   if [[ ! $GIT_BRANCH =~ ^([0-9]+.[0-9]+.x|master|develop|main|prod|qa|ppd|preprod)$ ]] || [[ $FORCE_PROJECT_UNSTABLE == "enabled" ]]; then
@@ -43,7 +44,11 @@ get_image_path() {
     final_tag="${IMAGE_TAG}"
   fi
 
-  echo "${DOCKER_REGISTRY}/${DOCKER_REGISTRY_ORG}/${IMAGE}:${final_tag}"
+  if [[ $without_tag ]]; then
+    echo "${DOCKER_REGISTRY}/${DOCKER_REGISTRY_ORG}/${IMAGE}"
+  else
+    echo "${DOCKER_REGISTRY}/${DOCKER_REGISTRY_ORG}/${IMAGE}:${final_tag}"
+  fi
 }
 
 login_if_defined() {
