@@ -73,3 +73,13 @@ login_if_defined() {
     fi
   fi
 }
+
+get_default_cached_tag() {
+  echo "${GIT_BRANCH}"|sed "s/[^a-zA-Z0-9\.]*//g"
+}
+
+get_default_cached_img() {
+  img_without_tag="$(get_image_path true)"
+  default_cached_tag="$(get_default_cached_tag)"
+  echo "${img_without_tag}:${default_cached_tag}"
+}
