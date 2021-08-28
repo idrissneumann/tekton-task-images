@@ -2,10 +2,11 @@
 
 Some cloud native images that will handle for you some common tekton tasks like:
 
-* Slack publishing
-* Github comment on pull requests
+* Slack messages
+* Github comments on pull requests
 * Build OCI container images with kaniko or buildkit
-* Patch yaml files
+* Patch yaml files (with yq)
+* Npm or yarn commands (lint, unit tests, etc)
 * Etc
 
 It's like the [tekton catalog](https://github.com/tektoncd/catalog) but with images that are built in order to be ready to be used and directly available from the docker hub.
