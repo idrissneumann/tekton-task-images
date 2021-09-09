@@ -70,7 +70,7 @@ processing() {
         age_in_days=$(echo $pvc_age | grep -oE "[0-9]+d" | tr -d 'd')
         if [[ $age_in_days && $age_in_days -ge $retention_days ]]; then
           log_msg "Deleting pvc ${pvc_name} because ${age_in_days} >= ${retention_days}"
-          kubectl -n "${kube_namespace}" delete pvc "${pvc_name}"
+          kubectl -n "${kube_namespace}" delete pvc "${pvc_name}" &
         fi
       fi
     done
