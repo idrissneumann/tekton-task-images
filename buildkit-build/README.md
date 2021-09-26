@@ -1,5 +1,4 @@
-
-# Build Kaniko
+# Build Buildkit
 
 Build containers images with Buildkit.
 
