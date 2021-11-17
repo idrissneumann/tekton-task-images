@@ -159,3 +159,8 @@ services:
     build:
       context: .
       dockerfile: end-pipeline-github/Dockerfile
+  helm-packager:
+    image: comworkio/tekton-utils-helm-packager
+    build:
+      context: helm-packager/.
+      dockerfile: Dockerfile

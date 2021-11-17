@@ -1,0 +1,52 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: init-pipeline
+  namespace: tekton-pipelines
+spec:
+  description: >-
+    This task tags, packages, and pushes Helm charts to a ChartMuseum
+  workspaces:
+    - name: git-environment
+  params:
+    - name: chartFolder
+      type: string
+      description: The folder of the Helm Chart
+    - name: helmRegistry
+      type: string
+      description: the Helm Registry URL
+    - name: helmUser
+      type: string
+      description: The Helm Registry user
+    - name: helmPassword
+      type: string
+      description: The Helm Registry password
+    - name: conserveCurrentTag
+      type: string
+      description: Whther to concerve the current tag or perform a bump.
+      default: 'true'
+    - name: tagSuffix
+      type: string
+      description: The suffix to use with the tag
+      default: ""
+  resources:
+    inputs:
+      - name: git-input
+        type: git
+  steps:
+    - name: publish-helm-chart
+      env:
+        - name: CHART_MOUNT_ROOT
+          value: $(workspaces.git-environment.path)
+        - name: CHART_ROOT
+          value: $(params.chartFolder)
+        - name: HELM_REGISTRY
+          value: $(params.helmRegistry)
+        - name: HELM_USER
+          value: $(params.helmUser)
+        - name: HELM_PASSWORD
+          value: $(params.helmPassword)
+        - name: CONSERVE_CURRENT_TAG
+          value: $(params.conserveCurrentTag)
+      image: comworkio/tekton-utils-helm-packager:layest
+      workingDir: $(workspaces.git-environment.path)
