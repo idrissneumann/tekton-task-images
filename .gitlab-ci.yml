@@ -396,3 +396,16 @@ state-success:
       - state-success/*
   tags:
     - tekton-utils
+
+helm-packager:
+  stage: publish
+  script:
+    - setsid ./ci/docker-deliver.sh "helm-packager" "1.7"
+  only:
+    refs:
+      - /^(master.*)$/
+    changes:
+      - env-files-utils/*
+      - helm-packager/*
+  tags:
+    - tekton-utils
