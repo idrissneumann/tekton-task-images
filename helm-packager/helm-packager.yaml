@@ -48,5 +48,7 @@ spec:
           value: $(params.helmPassword)
         - name: CONSERVE_CURRENT_TAG
           value: $(params.conserveCurrentTag)
+        - name: TAG_SUFFIX
+          value: $(params.tagSuffix)
       image: comworkio/tekton-utils-helm-packager:layest
       workingDir: $(workspaces.git-environment.path)
