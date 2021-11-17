@@ -17,7 +17,7 @@ RUN apk update \
     && rm -rf /var/cache/apk/*
 
 WORKDIR ${CHART_MOUNT_ROOT}
-COPY entrypoint.sh /entrypoint.sh
+COPY script.sh /entrypoint.sh
 
 VOLUME "${CHART_MOUNT_ROOT}"
 ENTRYPOINT /entrypoint.sh
