@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [[ $VERBOSE == "true" ]]; then
+  set -x
+fi
+
 ALLOWED_BUMP_TYPES=("major minor patch")
 
 exit_with_error_message() {
@@ -80,13 +84,24 @@ fi
 echo "Bumping tag from $(yq eval "${VERSION_PATH}" "${CHART_MOUNT_ROOT}/${CHART_ROOT}/Chart.yaml") to ${target_tag}"
 yq e "${VERSION_PATH} = \"${target_tag}\"" -i "${CHART_MOUNT_ROOT}/${CHART_ROOT}/Chart.yaml"
 
-echo "Adding repo."
+echo "Adding repo '${HELM_REGISTRY}' as library."
 echo "${HELM_PASSWORD}" | helm repo add library "${HELM_REGISTRY}" --username="${HELM_USER}" --password-stdin
+[ $? -eq 0 ] || exit_with_error_message "Unable to login to Chart Museum. Aborting" 4
+
 echo "Installing chart dependencies."
 helm dependency update "${CHART_MOUNT_ROOT}/${CHART_ROOT}/."
+[ $? -eq 0 ] || exit_with_error_message "Unable to download dependencies. Aborting." 5
+
 echo "Linting chart."
 helm lint "${CHART_MOUNT_ROOT}/${CHART_ROOT}/."
+[ $? -eq 0 ] || exit_with_error_message "Chart linting failed. Aborting." 6
+
 echo "Adding packaging chart."
 helm package "${CHART_MOUNT_ROOT}/${CHART_ROOT}"
+[ $? -eq 0 ] || exit_with_error_message "Chart packaging failed. Aborting." 7
+
 echo "Adding pushing chart."
 helm cm-push "${CHART_MOUNT_ROOT}/${CHART_ROOT}" library
+[ $? -eq 0 ] || exit_with_error_message "Failed to push chart. Aborting." 8
+
+exit 0

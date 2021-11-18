@@ -51,3 +51,19 @@ The following environment variables are used to configure the application:
   - _Type:_ String
   - _Description:_ A suffix to the SemVer tag
   - _Required:_ No
+- `VERBOSE`:
+  - _Type:_ String
+  - _Description:_ Verbosity level
+  - _Required:_ No
+  - _Default:_ false
+
+## Exit Codes
+
+* `1` : Bad environment variable configurations.
+* `2` : The target is not a valid Helm Chart.
+* `3` : Bad configuration on Bump Type.
+* `4` : The script was unable to login to Chart Museum. 
+* `5` : The script was unable to download dependencies.
+* `6` : The script was unable to lint chart.
+* `7` : The script was unable to packaging chart.
+* `8` : The script was unable to push chart.
