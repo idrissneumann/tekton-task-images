@@ -9,7 +9,7 @@ github-mirror:
   only:
     - /^(master.*)$/
   tags:
-    - tekton-utils
+    - mirror
 
 init-pipeline:
   stage: publish
