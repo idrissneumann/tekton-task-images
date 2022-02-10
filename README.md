@@ -16,6 +16,7 @@ It's like the [tekton catalog](https://github.com/tektoncd/catalog) but with ima
 * Main repo: https://gitlab.comwork.io/oss/tekton-task-images
 * Github backup mirror: https://github.com/idrissneumann/tekton-task-images
 * Gitlab backup mirror: https://gitlab.com/ineumann/tekton-task-images
+* Bitbucket backup mirror: https://bitbucket.org/idrissneumann/tekton-task-images
 
 ## Docker registry
 
