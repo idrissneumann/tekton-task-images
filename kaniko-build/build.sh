@@ -8,6 +8,7 @@ echo "$IMAGE" > "$IMAGE_NAME_PERSISTENT_FILE"
 login_if_defined
 
 echo "[build-container-image] Image to build = ${IMAGE}, extra args = ${EXTRA_ARGS}, multi env = ${MULTI_ENV}, versioning from tag = ${VERSIONING_FROM_TAG}, version from tag = ${DELIVERY_VERSION_FROM_TAG}"
+
 if [[ $LOG_LEVEL == "debug" || $LOG_LEVEL == "DEBUG" ]]; then
   ls -la
 fi
