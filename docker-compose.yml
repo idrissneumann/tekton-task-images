@@ -95,7 +95,7 @@ services:
       context: .
       dockerfile: kaniko-build/Dockerfile
       args: 
-        - KANIKO_TAG=v1.5.1
+        - KANIKO_TAG=v1.9.0
   php-checks-7-4:
     image: comworkio/tekton-utils-php-checks-7-4
     build: 
